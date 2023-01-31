@@ -22,7 +22,6 @@ class Net {
 		this.raycaster = new THREE.Raycaster(); // obiekt Raycastera symulujący "rzucanie" promieni
 		this.mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie, a potem przeliczenia na pozycje 3D
 
-
 	}
 
 	fetchPost() {
@@ -47,12 +46,12 @@ class Net {
 						let kolorGracza
 						if (data.kolor == "biale") {
 							kolorGracza = "bialymi"
-							zrobBialePionki()
+							pionki.zrobBialePionki()
 						}
 						else if (data.kolor == "czarne") {
 							kolorGracza = "czarnymi"
 
-							zrobCzarnePionki()
+							pionki.zrobCzarnePionki()
 
 							game.camera.position.x = 0
 							game.camera.position.z = -300

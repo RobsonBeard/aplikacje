@@ -38,8 +38,10 @@ class Game {
 			[1, 0, 1, 0, 1, 0, 1, 0],
 		]
 
+		// pola.zrobPlansze()
+		// console.log(pola);
+		// console.log(pionki);
 
-		this.zrobPlansze()
 
 		this.render() // wywołanie metody render
 	}
@@ -56,95 +58,36 @@ class Game {
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 
-	zrobPlansze = () => {
+	// zrobPlansze = () => {
 
-		this.materialCzarnePola = new THREE.MeshBasicMaterial({
-			side: THREE.DoubleSide, // dwustronny
-			transparent: false,
-			map: new THREE.TextureLoader().load('mats/czarne.jpg'),
-		})
-		this.materialBialePola = new THREE.MeshBasicMaterial({
-			side: THREE.DoubleSide, // dwustronny
-			transparent: false,
-			map: new THREE.TextureLoader().load('mats/biale.jpg'),
-		})
-		this.geometriaPola = new THREE.BoxGeometry(30, 15, 30)
-
-		for (let i = 0; i < this.szachownica.length; i++) {
-			for (let j = 0; j < this.szachownica[0].length; j++) {
-				if (this.szachownica[i][j] == 0) {
-					this.figura = new THREE.Mesh(this.geometriaPola, this.materialCzarnePola)
-					this.figura.info = `czarnePole`
-				}
-				else {
-					this.figura = new THREE.Mesh(this.geometriaPola, this.materialBialePola)
-					this.figura.info = `bialePole`
-				}
-
-				this.figura.position.x = -105 + i * 30
-				this.figura.position.z = -105 + j * 30
-				this.scene.add(this.figura)
-			}
-		}
-	}
-
-
-
-
-
-
-
-
-
-
-	// zrobBialePionki = () => {
-	// 	this.materialBialePionki = new THREE.MeshBasicMaterial({
-	// 		side: THREE.DoubleSide,
-	// 		transparent: false,
-	// 		map: new THREE.TextureLoader().load('mats/biale.jpg'),
-	// 		color: 0xFFFF00,
-	// 	})
-
-	// 	this.geomertiaPionka = new THREE.CylinderGeometry(10, 10, 10, 32)
-
-	// 	for (let i = 0; i < this.pionki.length; i++) {
-	// 		for (let j = 0; j < this.pionki[0].length; j++) {
-	// 			if (this.pionki[i][j] == 1) {
-	// 				this.figura2 = new THREE.Mesh(this.geomertiaPionka, this.materialBialePionki)
-	// 				this.figura2.position.y = 15
-	// 				this.figura2.position.x = -105 + j * 30
-	// 				this.figura2.position.z = -105 + i * 30 // tutaj zmienne "i" i "j" są w odwrotnych miejscach niz w planszy
-	// 				this.figura2.info = `bialyPionek`
-	// 				this.scene.add(this.figura2)
-	// 			} // pomyslec czy da sie to jakos lepiej napisac
-	// 		}
-	// 	}
-
-	// }
-
-	// zrobCzarnePionki = () => {
-	// 	this.materialCzarnePionki = new THREE.MeshBasicMaterial({
-	// 		side: THREE.DoubleSide,
+	// 	this.materialCzarnePola = new THREE.MeshBasicMaterial({
+	// 		side: THREE.DoubleSide, // dwustronny
 	// 		transparent: false,
 	// 		map: new THREE.TextureLoader().load('mats/czarne.jpg'),
-	// 		color: 0xFF0000,
 	// 	})
+	// 	this.materialBialePola = new THREE.MeshBasicMaterial({
+	// 		side: THREE.DoubleSide, // dwustronny
+	// 		transparent: false,
+	// 		map: new THREE.TextureLoader().load('mats/biale.jpg'),
+	// 	})
+	// 	this.geometriaPola = new THREE.BoxGeometry(30, 15, 30)
 
-	// 	this.geomertiaPionka = new THREE.CylinderGeometry(10, 10, 10, 32)
-
-	// 	for (let i = 0; i < this.pionki.length; i++) {
-	// 		for (let j = 0; j < this.pionki[0].length; j++) {
-	// 			if (this.pionki[i][j] == 2) {
-	// 				this.figura2 = new THREE.Mesh(this.geomertiaPionka, this.materialCzarnePionki)
-	// 				this.figura2.position.y = 15
-	// 				this.figura2.position.x = -105 + j * 30
-	// 				this.figura2.position.z = -105 + i * 30
-	// 				this.figura2.info = `czarnyPionek`
-	// 				this.scene.add(this.figura2)
+	// 	for (let i = 0; i < this.szachownica.length; i++) {
+	// 		for (let j = 0; j < this.szachownica[0].length; j++) {
+	// 			if (this.szachownica[i][j] == 0) {
+	// 				this.figura = new THREE.Mesh(this.geometriaPola, this.materialCzarnePola)
+	// 				this.figura.info = `czarnePole`
 	// 			}
+	// 			else {
+	// 				this.figura = new THREE.Mesh(this.geometriaPola, this.materialBialePola)
+	// 				this.figura.info = `bialePole`
+	// 			}
+
+	// 			this.figura.position.x = -105 + i * 30
+	// 			this.figura.position.z = -105 + j * 30
+	// 			this.scene.add(this.figura)
 	// 		}
 	// 	}
-
 	// }
 
 }
