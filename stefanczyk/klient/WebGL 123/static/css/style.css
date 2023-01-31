@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+.naglowek {
+    color: blue;
+    text-decoration: underline;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.naglowek {
+    color: blue;
+    text-decoration: underline;
+}
+
+.linki {
+    color: grey;
+    font-size: x-large;
+    margin-left: 10px;
+}
+
+.paragraf {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.range {
+    width: 150px;
+}
+
+.label {
+    color: red;
+    font-size: larger;
+}
+
+.container {
+    border-radius: 10px;
+    border: 1px solid red;
+    width: 350px;
+    padding: 10px;
+    color: red;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.container2 {
+    border-radius: 10px;
+    border: 2px solid red;
+    width: 350px;
+    padding: 10px;
+    color: red;
+    font-weight: bold;
+    font-size: larger;
+    overflow-y: auto;
+    height: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    color: blue;
+    border: 2px solid blue;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 5px;
+    margin: 0 5px;
+    font-size: larger;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.input1 {
+    width: 100px;
+    height: 30px;
+    border: 2px solid red;
+    color: red;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.rowno {
+    display: flex;
+}
+
+.rowno input {
+    margin: 0 10px;
+}
+
+.label1 {
+    color: red;
+    font-size: 20px;
+}
+
+.range1 {
+    width: 120px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex div {
+    margin: 0 20px;
+}
+
+.podglowek {
+    color: red;
+    font-weight: bold;
+}

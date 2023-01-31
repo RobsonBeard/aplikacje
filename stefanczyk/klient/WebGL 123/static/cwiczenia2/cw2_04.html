@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div style="position: fixed;">
+        <h1 class="naglowek">04: Sześcian - ruch kamery góra / dół - sinus</h1>
+        <br>
+
+        <button class="button" id="butonik">start / stop</button>
+        <br><br>
+
+        <div class="container2" style="width: 220px; height: 150px; display: flex; align-items: center;">
+            <pre id="daneSrodek"></pre>
+        </div>
+    </div>
+    <!-- bardzo wazne, position fixed i pre w divie -->
+
+    <div id="root"></div>
+
+    <script>
+
+        let klikniete;
+        // let daneWysyl = []
+
+        function fetchPost(klikniete) {
+
+            const body = JSON.stringify({ camposx: klikniete.camposx, camposy: klikniete.camposy, camposz: klikniete.camposz }); // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
+
+            fetch("/fcw2_04", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        // console.log(data);
+                        let pom = data
+                        // daneWysyl.push(pom)
+                        document.getElementById("daneSrodek").innerText = `${JSON.stringify(pom, null, 3)}`
+
+                    } // dane odpowiedzi z serwera
+                )
+        }
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            45,    // fov
+            this.window.innerWidth / this.window.innerHeight,    // proporcje widoku // 16 / 9
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xffffff);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        camera.position.set(100, 0, 100)
+        camera.lookAt(scene.position);
+
+        const axes = new THREE.AxesHelper(1000)
+        scene.add(axes)
+
+        const material = new THREE.MeshBasicMaterial({
+
+            side: THREE.DoubleSide, // dwustronny
+            map: new THREE.TextureLoader().load('mats/dirt.jpg'), // plik tekstury
+            transparent: true, // przezroczysty / nie
+            opacity: 0.8, // stopień przezroczystości
+
+        })
+        let geometria = new THREE.BoxGeometry(30, 30, 30)
+        let figura = new THREE.Mesh(geometria, material)
+        scene.add(figura)
+
+        let bul = false
+
+        document.getElementById("butonik").addEventListener("click", function () {
+            if (bul) {
+                bul = false
+            }
+            else {
+                bul = true
+            }
+            // console.log(bul);
+        })
+
+        let angle = 0
+
+        function render() {
+            if (bul) {
+                camera.position.y = parseFloat((Math.sin(angle) * 15).toFixed(2))
+                angle += 0.1
+                camera.lookAt(scene.position);
+                klikniete = {
+                    camposx: camera.position.x,
+                    camposy: camera.position.y,
+                    camposz: camera.position.z
+                }
+                fetchPost(klikniete)
+            }
+
+            requestAnimationFrame(render);
+            console.log("render leci")
+            renderer.render(scene, camera);
+            camera.updateProjectionMatrix();
+        }
+        render();
+        console.log(scene);
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        } // jak będę zmieniał rozmiar konsoli to się będzie zmieniać szerokosc i dlugosc sceny
+
+        window.addEventListener("load", function () {
+            console.log("załadowano");
+            klikniete = {
+                camposx: camera.position.x,
+                camposy: camera.position.y,
+                camposz: camera.position.z
+            }
+            fetchPost(klikniete)
+        })
+
+    </script>
+
+</body>
+
+</html>

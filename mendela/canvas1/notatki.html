@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    body {
+        background-color: pink;
+        height: 100vh;
+    }
+
+    canvas {
+        background-color: yellow;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="test.js"></script>
+    <script>
+        function jazda() {
+
+            let img = new Image();
+            img.src = "https://static.oferteo.pl/images/portfolio/5164742/256px_s/130633983-crop-193348438-323260612737881-8571969993814564293-n.jpg";
+            img.onload = function () {
+                console.log(img);
+                let canvas = document.getElementById("canvas");
+                let ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.moveTo(10, 10);
+                ctx.lineTo(190, 190);
+                ctx.lineTo(10, 190);
+                ctx.closePath();
+                ctx.lineWidth = 10;
+                ctx.strokeStyle = "blue"
+                ctx.stroke();
+                let pat = ctx.createPattern(this, "repeat");
+                //ctx.fillStyle = "rgba(255,0,0,0.5)";
+                ctx.fillStyle = pat;
+                ctx.fill();
+            }
+        }
+    </script>
+</head>
+
+<body onload="jazda();" onclick="console.log(event.clientY, event.pageY, event.screenY)">
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <pre>
+    dfdf
+    dfdf
+    df
+    d
+    aaa
+    dfdf
+    dfdf
+    df
+    d
+    aaa
+    dfdf
+    dfdf
+    df
+    d
+    aaa
+    dfdf
+    dfdf
+    df
+    d
+    aaa
+    dfdf
+    dfdf
+    df
+    d
+    aaa
+    dfdf
+    dfdf
+    df
+    d
+    aaa
+    dfdf
+    dfdf
+    df
+    d
+    aaa    dfdf
+    dfdf
+    df
+    d
+    aaa
+    dfdf
+    dfdf
+    df
+    d
+    aaa    dfdf
+    dfdf
+    df
+    d
+    aaa
+    dfdf
+    dfdf
+    df
+    d
+    aaa
+</pre>
+</body>
+
+</html>
+<!-- 
+-------------test.js-----------------
+let ob = {
+    wiek: 20,
+    wzrost: 176,
+    tworz: function () {
+        let el = document.createElement("button");
+        console.log(this);
+        el.innerText = this.wiek;
+
+        /*
+        let dys = this;
+        el.onclick = function () {
+            console.log(this, dys);
+            this.innerText = dys.wzrost;
+        }*/
+
+        /*
+        el.onclick = (e) => {
+            console.log(this, e.target);
+            e.target.innerText = this.wzrost;
+        }*/
+
+        el.onclick = function (e) {
+            console.log(this);
+            e.target.innerText = this.wzrost;
+        }.bind(this)
+
+        document.body.appendChild(el);
+    }
+    
+}
+
+ob.tworz(); -->

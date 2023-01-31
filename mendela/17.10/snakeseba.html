@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Sebastian Bartosik">
+    <title>Bartosik Sebastian - Projekt Snake</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        table {
+            border-spacing: 0;
+        }
+
+        td {
+            width: 25px;
+            height: 25px;
+            border: 1px solid rgb(56, 56, 56);
+            text-align: center;
+        }
+
+        .snake {
+            background: green;
+        }
+
+        .food {
+            background: red;
+        }
+
+        .wall {
+            background: cornflowerblue;
+        }
+    </style>
+</head>
+
+<body onkeydown="keyDown(event)">
+    <script>
+        let map = { width: 12, height: 12 };    // wymiary mapy, obiektem bo czemu nie
+        let snake;
+        let snakeDirection = { x: 1, y: 0 };
+        let snakeCoords = [     // tablica obiektów zawierająca współrzędne ciała węża
+            { x: map.width / 2, y: map.height / 2 }
+        ];
+        let food;
+        let foodCoords;
+        let interval;
+
+        let mapTable = document.createElement("table");
+
+        for (let i = 0; i < map.height; i++) {
+            let mapTr = document.createElement("tr");
+            for (let j = 0; j < map.width; j++) {
+                let mapTd = document.createElement("td");
+                if (i == 0 || i == map.height - 1 || j == 0 || j == map.width - 1) {
+                    mapTd.classList.add("wall");
+                }
+                mapTd.setAttribute("id", `${j}_${i}`);
+                mapTr.appendChild(mapTd);
+            }
+            mapTable.appendChild(mapTr);
+        }
+
+        document.body.appendChild(mapTable);
+
+        drawFood();
+
+        interval = setInterval(function () {
+            let headCoords = { x: snakeCoords[0].x, y: snakeCoords[0].y };
+            let tailCoords = snakeCoords[snakeCoords.length - 1];
+            headCoords.x += snakeDirection.x;
+            headCoords.y += snakeDirection.y;
+
+            console.log(headCoords);
+
+            snake = document.getElementById(`${headCoords.x}_${headCoords.y}`);
+
+            if (headCoords.x == 0 || headCoords.y == 0 || headCoords.x == map.width - 1 || headCoords.y == map.height - 1 || snake.classList.contains("snake")) {
+                clearInterval(interval);
+                alert("przegrales");
+            }
+            snake.classList.add("snake");
+
+            snakeCoords.unshift(headCoords);
+
+            if (headCoords.x == foodCoords.x && headCoords.y == foodCoords.y) {
+                food.classList.replace("food", "snake");
+                drawFood();
+            }
+            else {
+                snake = document.getElementById(`${tailCoords.x}_${tailCoords.y}`);
+                snake.classList.remove("snake");
+                snakeCoords.pop();
+            }
+        }, 200)
+
+        function drawFood() {
+            do {
+                foodCoords = { x: Math.floor(Math.random() * (map.width - 2)) + 1, y: Math.floor(Math.random() * (map.width - 2)) + 1 };
+                food = document.getElementById(`${foodCoords.x}_${foodCoords.y}`);
+            } while (food.classList.contains("snake"))
+            food.classList.add("food");
+            console.log("guwnoooooo:" + foodCoords.x + " " + foodCoords.y);
+        }
+
+        function keyDown(e) {
+            if (e.which == 87) {
+                console.log("W");
+                if (snakeDirection.y != 1) {
+                    snakeDirection = { x: 0, y: -1 };
+                }
+            }
+            else if (e.which == 65) {
+                console.log("A");
+                if (snakeDirection.x != 1) {
+                    snakeDirection = { x: -1, y: 0 };
+                }
+            }
+            else if (e.which == 83) {
+                console.log("S");
+                if (snakeDirection.y != -1) {
+                    snakeDirection = { x: 0, y: 1 };
+                }
+            }
+            else if (e.which == 68) {
+                console.log("D");
+                if (snakeDirection.x != -1) {
+                    snakeDirection = { x: 1, y: 0 };
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

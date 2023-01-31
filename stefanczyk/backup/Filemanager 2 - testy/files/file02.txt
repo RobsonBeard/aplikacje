@@ -1,0 +1,5 @@
+To jest tekst który pojawi się w pliku zamiast poprzedniego
+
+To jest tekst, który zostanie dopisany do pliku
+
+To jest tekst, który zostanie dopisany do pliku

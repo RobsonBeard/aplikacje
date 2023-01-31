@@ -1,0 +1,14 @@
+<h1 class="naglowek">{{subject}}</h1> <br>
+
+<div class="content3">
+    <form action="/czekboks" method="GET">
+        {{#each fields}}
+        <input type="checkbox" name="checkboxy" value={{name}}>
+        <label class="checkboksy">{{name}}</label>
+        <br> <br>
+        {{/each}}
+        <br>
+        <button class="button" type="submit">Wyslij</button>
+
+    </form>
+</div>

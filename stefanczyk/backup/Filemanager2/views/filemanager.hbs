@@ -1,0 +1,25 @@
+{{> uklad}}
+<div class="leftbar">
+	<div class="flex1">
+		<p class="szarynapis">filemanager</p>
+		<a href="/reset">USUŃ DANE O PLIKACH Z TABLICY</a>
+	</div>
+</div>
+<div class="content2">
+	<table class="tabela1">
+		<tr>
+			<th>id</th>
+			<th>obraz</th>
+			<th>name</th>
+			<th>size</th>
+			<th>type</th>
+			<th>-</th>
+			<th>-</th>
+			<th>-</th>
+			<th>-</th>
+		</tr>
+		{{#each przechowane}}
+		{{> listaplikow}}
+		{{/each}}
+	</table>
+</div>

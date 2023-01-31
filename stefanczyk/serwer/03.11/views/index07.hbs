@@ -1,0 +1,50 @@
+<h1 class="naglowek">{{subject}}</h1>
+<br>
+<h2 class="naglowek3">Wyświetlanie całej tablicy jedno lub dwuwymiarowej:</h2>
+<br>
+<div class="content">
+    <div class="content3">{{langs}}</div>
+    <br>
+    <div class="content3">{{digits}}</div>
+</div>
+<br>
+<h2 class="naglowek3">Pobranie elementu tablicy jedno lub dwuwymiarowej:</h2>
+<br>
+<div class="content">
+    <div class="content3">{{langs.[0]}}</div>
+    <br>
+    <div class="content3">{{digits.[0].[1]}}</div>
+</div>
+<br>
+<h2 class="naglowek3">Iteracja poprzez tablicę:</h2>
+<br>
+<div class="content">
+    {{#each countries}}
+    <div class="content3">
+        {{@index}} - {{this}}
+    </div>
+    <br>
+    {{/each}}
+</div>
+<br>
+<h2 class="naglowek3">Iteracja poprzez obiekt:</h2>
+<br>
+<div class="content">
+    {{#each user}}
+    <div class="content3">
+        {{@index}} - {{@key}} - {{this}}
+    </div>
+    <br>
+    {{/each}}
+</div>
+<br>
+<h2 class="naglowek3">Iteracja poprzez tablicę obiektów:</h2>
+<br>
+<div class="content">
+    {{#each books}}
+    <div class="content3">
+        {{@index}} - {{title}}
+    </div>
+    <br>
+    {{/each}}
+</div>

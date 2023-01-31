@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <script src="js/libs/jq.js"></script>
+
+</head>
+
+<body>
+    <h1>Zadanie: newsletter</h1> <br>
+    <div id="main">
+        <form action="/handleForm" method="POST">
+            <label for="nick">nick: </label>
+            <input type="text" name="nick" id="nick" required> <br> <br>
+            <label for="email">email: </label>
+            <input type="email" name="email" id="email" required> <br> <br>
+            <button type="submit" id="b1">Wyślij</button>
+        </form>
+    </div>
+
+    <a href="removeUserBySelect">Usuń email z użyciem selecta</a> <br>
+    <a href="removeUserByRadio">Usuń email z użyciem radio</a> <br>
+    <a href="removeUserByCheckbox">Usuń email z użyciem checkboxów</a> <br>
+
+
+    <script>
+        $(document).ready(function () {
+            $("form").on("submit", function(){
+                // e.preventDefault()
+                // console.log("klik");
+                // $("#nick")
+                //     .val("")
+                // $("#email")
+                //     .val("")
+                location.reload()
+            })
+
+        })
+    </script> 
+</body>
+
+</html>

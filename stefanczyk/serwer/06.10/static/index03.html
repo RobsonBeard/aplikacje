@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+        }
+
+        .naglowek {
+            color: blue;
+        }
+
+        .main {
+            border-radius: 50px;
+            width: 50%;
+            height: 200px;
+            margin-left: 5px;
+            padding: 30px;
+        }
+
+        .trzecie {
+            background-color: rgb(42, 255, 106);
+        }
+
+        #button {
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="naglowek">Formularz - upload wielu plików na serwer - bez zachowania rozszerzenia</h1> <br>
+    <div class="main trzecie">
+        <form enctype="multipart/form-data" action="/handleUpload" method="POST">
+            <label for="data">Data: </label>
+            <input type="date" name="data" id="data">
+            <br> <br>
+            <label for="nazwa">Nazwa: </label>
+            <input type="text" name="nazwa" id="nazwa">
+            <br> <br>
+            <label for="zdjecie">Zdjęcie: </label>
+            <input type="file" name="zdjecie" id="zdjecie" multiple required accept="image/*">
+            <br> <br>
+            <button type="submit" id="button">Submit</button>
+        </form>
+
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+.tlo {
+    background-color: rgb(211, 211, 211);
+    width: 500px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.content {
+    background-color: rgb(211, 211, 211);
+    width: 600px;
+    height: 250px;
+    border-radius: 10px;
+    font-size: 18px;
+    color: blue;
+    font-weight: bold;
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content3 {
+    background-color: rgb(230, 228, 228);
+    border-radius: 10px;
+    width: 500px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+}
+
+.content4 {
+    background-color: rgb(230, 228, 228);
+    border-radius: 10px;
+    width: 500px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 18px;
+    color: blue;
+    font-weight: bold;
+}
+
+.szerszy {
+    width: 1100px;
+}
+
+/* .content2 {
+    background-color: rgb(211, 211, 211);
+    border-radius: 10px;
+    color: blue;
+    font-weight: bold;
+    padding: 5px;
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-top: 20px;
+    height: 40px;
+    width: 350px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+
+} */
+
+.naglowek {
+    text-decoration: underline;
+    margin: 5px;
+}
+
+.naglowek2 {
+    color: grey;
+}
+
+.naglowek3 {
+    color: grey;
+    text-decoration: underline;
+    margin-left: 20px;
+}
+
+.naglowek4 {
+    color: grey;
+    text-decoration: underline;
+}
+
+.button {
+    width: 100px;
+    height: 30px;
+    color: blue;
+    border: 2px solid blue;
+    font-size: x-large;
+}
+
+.content5 {
+    width: 300px;
+    height: 150px;
+    background-color: rgb(236, 236, 236);
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

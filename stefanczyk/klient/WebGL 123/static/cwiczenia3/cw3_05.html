@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <script src="../js/PointLight.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div style="position: fixed;">
+        <h1 class="naglowek">05: Światło typu point z zastosowaniem klasy</h1>
+        <br><br>
+
+        <input type="range" name="intensity" id="intensity" class="range1" min="1" max="400" value="100">
+        <label for="intensity" class="label1">instensity</label>
+        <br><br>
+        <input type="range" name="ypos" id="ypos" class="range1" min="-100" max="400" value="0">
+        <label for="ypos" class="label1">y pos</label>
+        <br><br>
+
+        <!-- nie chcialem kolejnej klasy tworzyc -->
+        <div class="container2" style="width: 210px; height: 140px;">
+            <pre id="daneSrodek"></pre>
+        </div>
+    </div>
+    <!-- bardzo wazne, position fixed i pre w divie -->
+
+    <div id="root"></div>
+
+    <script>
+
+        let klikniete;
+
+        // let daneWysyl = [] // tu wazne
+
+        function fetchPost(klikniete) {
+
+            const body = JSON.stringify({ intensity: klikniete.intensity, ypos: klikniete.ypos }); // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
+
+            fetch("/fcw3_03", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        // console.log(data);
+                        // let pom = data
+                        // daneWysyl.push(pom)
+                        document.getElementById("daneSrodek").innerText = `${JSON.stringify(data, null, 3)}`
+
+                    } // dane odpowiedzi z serwera
+                )
+        }
+
+        // scena 3D
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            45,    // kąt patrzenia kamery (FOV - field of view)
+            this.window.innerWidth / this.window.innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika    16 / 9
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColor(0xffffff);
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        camera.position.set(400, 200, 400)
+
+        camera.lookAt(scene.position);
+
+        const axes = new THREE.AxesHelper(1000)
+
+        scene.add(axes)
+
+        console.log(scene);
+
+        let rangeIntensity = document.getElementById("intensity")
+        let rangeYpos = document.getElementById("ypos")
+        rangeIntensity.addEventListener("input", zmiana1)
+        rangeYpos.addEventListener("input", zmiana2)
+
+        let material = new THREE.MeshPhongMaterial({
+            // color: 0xff0000,
+            specular: 0xffffff,
+            shininess: 50,
+            side: THREE.DoubleSide,
+            map: new THREE.TextureLoader().load("mats/dirt.jpg"),
+        })
+        let geometria = new THREE.BoxGeometry(100, 100, 100)
+        let figura = new THREE.Mesh(geometria, material)
+        scene.add(figura)
+
+        let tekstura = new THREE.TextureLoader().load("mats/grass4.jpg")
+        tekstura.wrapS = THREE.RepeatWrapping;
+        tekstura.wrapT = THREE.RepeatWrapping;
+        tekstura.repeat.set(8, 8);
+
+        let material2 = new THREE.MeshPhongMaterial({
+            // color: 0xffff00,
+            side: THREE.DoubleSide,
+            map: tekstura,
+            specular: 0xffffff,
+            shininess: 50,
+        });
+        let geometria2 = new THREE.PlaneGeometry(1000, 1000);
+        let plane = new THREE.Mesh(geometria2, material2);
+
+        plane.rotation.x = Math.PI / 2
+        plane.position.y = -50
+        scene.add(plane);
+        // console.log(plane);
+
+        const light = new Light()
+        console.log(light)
+        scene.add(light.getLight())
+
+        // let valIntensity = rangeIntensity.value / 100
+
+        function zmiana1() {
+
+            light.light.intensity = rangeIntensity.value / 100
+
+            klikniete = {
+                intensity: rangeIntensity.value / 100,
+                ypos: light.light.position.y,
+            }
+
+            fetchPost(klikniete)
+        }
+
+        // let valYpos = light.position.y
+
+        function zmiana2() {
+
+            light.light.position.y = rangeYpos.value
+
+            klikniete = {
+                intensity: rangeIntensity.value / 100,
+                ypos: light.light.position.y,
+            }
+
+            fetchPost(klikniete)
+
+        }
+
+        function render() {
+            light.kulka.position.y = light.light.position.y
+            requestAnimationFrame(render);
+
+            console.log("render leci")
+
+            renderer.render(scene, camera);
+
+            camera.updateProjectionMatrix();
+
+        }
+
+
+        render();
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        } // jak będę zmieniał rozmiar konsoli to się będzie zmieniać szerokosc i dlugosc sceny
+
+        window.addEventListener("load", function () {
+            console.log("załadowano");
+            klikniete = {
+                intensity: light.light.intensity,
+                ypos: light.light.position.y,
+            }
+
+            fetchPost(klikniete)
+
+            light.kulka.position.y = light.light.position.y
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #he1 {
+            color: blue;
+
+        }
+
+        #bt1 {
+            width: 120px;
+            height: 50px;
+            margin: 50px;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+
+        .bt1 {
+            background-color: grey;
+        }
+
+        .bt1mod {
+            background-color: red;
+        }
+
+        button {
+            font-weight: bold;
+            border: none;
+        }
+
+        #d1 {
+            width: 500px;
+            height: 500px;
+            background-color: grey;
+            padding: 50px;
+        }
+
+        .text1 {
+            text-align: center;
+            color: white;
+            font-size: 50px;
+        }
+    </style>
+    <script src="libs/jq.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // let x = false; - mozna tak po prostu to robic (boole)
+            let x = true
+
+            $("#bt1").on("click", function () {
+                console.log("guzik klikniety")
+                // !x
+                console.log(x)
+                if (x == true) {
+                    //modyfikacja guzika
+                    $("#bt1")
+                        .removeClass("bt1")
+                        .addClass("bt1mod")
+                    // .css("background", "red")
+                    // .css("border", "1px solid black")
+                    // .css("border-radius", "10px")
+                    //napis
+                    $("#he1")
+                        .html("<h1>Obsługa zdarzeń dodana</h1>")
+                        .css("font-size", "20px")
+                    //modyfikacja diva pod guzikiem
+                    $("#d1").on("mouseover", function () {
+                        $("#d1")
+                            .css("background", "red")
+                            .html("<b class='text1 center'>text bold</b> <br> <i class='text1 center'>text italic</i>")
+                    })
+                    $("#d1").on("mouseleave", function () {
+                        $("#d1")
+                            .css("background", "grey")
+                            .html("")
+                        // .addClass() - jest funkcja addClass i removeClass, uzywac w przyszlosci
+                    })
+                    x = false
+                }
+                else {
+                    //modyfikacja guzika
+                    $("#bt1")
+                        .removeClass("bt1mod")
+                        .addClass("bt1")
+                    //napis
+                    $("#he1")
+                        .html("<h1>Obsługa zdarzeń usunięta</h1>")
+                    //div pod guzikiem
+                    $("#d1").on("mouseover", function () {
+                        $("#d1")
+                            .css("background", "grey")
+                            .html("")
+                    })
+                    $("#d1").on("mouseleave", function () {
+                        $("#d1")
+                            .css("background", "grey")
+                            .html("")
+                        // .addClass() - jest funkcja addClass i removeClass, uzywac w przyszlosci
+                    })
+                    x = true
+                }
+
+            })
+            // -------------------------------------
+        })
+
+    </script>
+</head>
+
+<body>
+    <div class="center">
+        <h1 id="he1">T: jQuery - zdarzenia</h1>
+        <button id="bt1" class="bt1">DODAJ / USUŃ</button>
+        <div id="d1"></div>
+    </div>
+
+</body>
+
+</html>

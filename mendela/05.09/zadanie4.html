@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            font-size: larger;
+        }
+    </style>
+    <script>
+
+        let regon= prompt("Wpisz numer REGON")
+        let sumawag= 0
+
+        const waga9 = [8, 9, 2, 3, 4, 5, 6, 7]
+        const waga14 = [2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8]
+
+        if(regon.length!=9 && regon.length!=14)
+            alert("Podany numer REGON jest złej długości")
+        else if(regon.length==9)
+            {
+                for(i=0; i<=7; i++)
+                    sumawag += parseInt(regon[i])  * waga9[i]
+            }
+        else if(regon.length==14)
+            {
+                for(i=0; i<=12; i++)
+                    sumawag += parseInt(regon[i])  * waga14[i]
+            }
+        if(sumawag%11 == regon[regon.length - 1])
+            alert("Podany numer REGON jest poprawny")
+        else
+            alert("Podany numer REGON jest niepoprawny")
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

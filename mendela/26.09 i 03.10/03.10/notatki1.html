@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ 
+<body oncontextmenu="console.log('plum');event.preventDefault();">
+    <span id="aaa">KLIK ME!!!</span>
+    <script>
+        let el = document.getElementById("aaa");
+        el.onclick = function (e) {
+            console.log(this, e);
+            this.innerHTML = " :)"
+            e.target.style.color = "pink";
+        }
+ 
+        /*
+        el.onclick = (e) => {
+            console.log(this, e);
+            e.target.innerHTML = " :)"
+        }*/
+
+        // addlistener i removelistener  
+        // $0 w konsoli i zaznaczanie sobie jakiegos elementu 
+        // $0.click 
+        // zeby elementy sie odslanialy mozna je dosłownie klikać (chyba nawet thisem)
+
+
+    </script>
+</body>
+ 
+</html>

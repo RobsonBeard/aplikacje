@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+        }
+
+        .naglowek {
+            color: red;
+            text-decoration: underline;
+        }
+
+        .button {
+            background-color: blue;
+            color: white;
+            border: 1px solid black;
+            width: 100px;
+            height: 40px;
+            padding: 5px;
+            font-size: larger;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+        }
+
+        #main {
+            display: flex;
+        }
+
+        #pole {
+            position: relative;
+            margin-left: 5px;
+        }
+
+        .malydiv {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background-color: grey;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1 class="naglowek">Post data to server by fetch</h1> <br>
+    <div id="main">
+        <button class="button" id="postfetch">post fetch</button>
+        <button class="button" id="maketable">make table</button>
+    </div>
+    <br>
+    <div id="pole"></div>
+
+    <script>
+        function fetchPost(leftDiva, topDiva, i, j) {
+
+            const body = JSON.stringify({ left: leftDiva, top: topDiva, c: "fetch", indeks1: i, indeks2: j }) // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" } // nagłowek czyli typ danych
+
+            fetch("/api", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        console.log(data)
+                        document.getElementById(`${data.indeks1}_${data.indeks2}`).style.backgroundColor = `red`
+                    } // dane odpowiedzi z serwera
+                )
+
+        }
+
+        let bul = true
+
+        document.getElementById("maketable").onclick = function () {
+
+            for (let i = 0; i < 3; i++) {
+                let pole = document.getElementById("pole")
+                for (let j = 0; j < 3; j++) {
+                    let nowydiv = document.createElement("div")
+                    nowydiv.classList.add("malydiv")
+                    nowydiv.setAttribute("id", `${i}_${j}`)
+                    nowydiv.style.top = `${i * 55}px`
+                    nowydiv.style.left = `${j * 55}px`
+                    nowydiv.onclick = function () {
+                        if (bul == false) {
+                            // nowydiv.style.backgroundColor = `red`
+                            let leftDiva = nowydiv.style.left
+                            let topDiva = nowydiv.style.top
+                            fetchPost(leftDiva, topDiva, i, j);
+                        }
+                    }
+                    pole.appendChild(nowydiv)
+                }
+
+            }
+            document.getElementById("maketable").setAttribute("disabled", "disabled")
+        }
+
+
+        document.getElementById("postfetch").onclick = function () {
+            // for (let i = 0; i < 3; i++) {
+
+            //     for (let j = 0; j < 3; j++) {
+
+
+            //     }
+            // }
+            console.log("Włączono fetch");
+            bul = false
+        }
+
+
+    </script>
+</body>
+
+</html>

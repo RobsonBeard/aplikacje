@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #d1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+    <script src="libs/jq.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            console.log("xxx")
+
+            $("#bt1").on("click", function () {
+                alert("ok")
+            }
+            )
+
+            // $("#bt1").on("mouseover", function () {
+            //     console.log("over")
+            // })
+
+            // $("#bt1").on("mouseout", function () {
+            //     console.log("out")
+            // })
+
+            // $("#bt1").on("mousemove", function () {
+            //     console.log("move")
+            // })
+
+            // $("#bt1").on("mousedown", function () {
+            //     console.log("down")
+            // })
+
+            $("#bt2").on("click", function () {
+                let co = confirm("ok?")
+                console.log(co)
+                if (co) {
+                    console.log("OKKKKKK")
+                }
+                else {
+                    console.log("EEEEEEEEEE")
+                }
+
+            }
+            )
+
+            $("#bt3").on("click", function () {
+                $("#d1")
+                    .css("background", "blue")
+                    .css("background", "blue")
+                    .css("background", "blue")
+                    .css("background", "green")
+                    .width(1000)
+                    .html("<b>bold</b>")
+
+            }
+            )
+            $("#bt4").on("click", function () {
+                $("#bt3").off("click")
+            }
+            )
+
+
+
+
+
+            // ------------------
+        })
+
+    </script>
+
+
+</head>
+
+<body>
+    <button id="bt1">alert</button>
+    <button id="bt2">confirm</button>
+    <div id="d1"></div>
+    <button id="bt3">zmien CSS diva</button>
+    <button id="bt4">anuluj działanie bt3</button>
+</body>
+
+</html>

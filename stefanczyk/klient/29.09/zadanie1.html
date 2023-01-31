@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+        }
+
+        #kolko1,
+        #kolko2 {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        #kolko1 {
+            background-color: blue;
+            position: absolute;
+        }
+
+        #kolko2 {
+            background-color: green;
+            position: absolute;
+            left: 50px;
+        }
+
+        #main {
+            position: relative;
+            width: 250px;
+            height: 250px;
+        }
+
+        .poddiv {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+        }
+
+        /* 
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } */
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            function generujPlansze(){
+                for (let i = 0; i < 5; i++) {
+                for (let j = 0; j < 5; j++) {
+                    let divcreate = $("<div>")
+                        .addClass("poddiv")
+                        .css("left", j * 50 + "px")
+                        .css("top", i * 50 + "px")
+                        .attr("id", `i${i + 1}j${j + 1}`)
+                    $("#main").append(divcreate)
+
+                    $(`#i${i + 1}j${j + 1}`).on("click", function () {
+                        $(`#i${i + 1}j${j + 1}`).css("background", "yellow")
+                        let koordynaty = { x: 50 * j, y: 50 * i };
+                        tab1.push(koordynaty)
+                        // może posortować te tablice tak żeby drugie kółko faktycznie pojawiało się przy ścianie, gdy nie po kolei ponaciskamy kwadraty i ostatni będzie w środku
+                        console.table(tab1)
+                        $(`#i${i + 1}j${j + 1}`).off("click")
+                    })
+                }
+            }
+            }
+
+            generujPlansze();
+            let tab1 = [];
+            
+
+            $("#start").on("click", function () {
+                if (tab1.length >= 5) {
+                    console.log(tab1[0])
+                    console.log(tab1[tab1.length - 1])
+                    $("#main").append($("#kolko1"))
+                    $("#kolko1")
+                        .css(`left`, `${tab1[0].x}px`)
+                        .css(`top`, `${tab1[0].y}px`)
+
+                    $("#main").append($("#kolko2"))
+                    $("#kolko2")
+                        .css(`left`, `${tab1[tab1.length - 1].x}px`)
+                        .css(`top`, `${tab1[tab1.length - 1].y}px`)
+
+                    $(".poddiv").off("click");
+                    $("#start").attr("disabled", "true")
+                }
+                else {
+                    alert("za mało naklikałeś pól") // trzeba dopracować ten warunek
+                }
+
+            })
+
+            let k = true;
+            let n = 0;
+            let m = 1;
+            $("#next").on("click", function () {
+
+                parametr1 = $("#kolko1").css("left")
+                parametr2 = $("#kolko2").css("left")
+                parametr3 = $("#kolko1").css("top")
+                parametr4 = $("#kolko2").css("top")
+
+                if(parametr1 == parametr2 && parametr3 == parametr4)
+                {
+                    alert("koniec gry :)")
+                    $("#next").attr("disabled", "true")
+                    k = true;
+                    n = 0;
+                    m = 1;
+                }
+                else
+                {
+                        if(k)
+                    {
+                        n++;
+                        $("#kolko1")
+                            .css(`left`, `${tab1[n].x}px`)
+                            .css(`top`, `${tab1[n].y}px`)
+                        k=false;
+                    }
+                    else
+                    {
+                        m++;
+                        $("#kolko2")
+                            .css(`left`, `${tab1[tab1.length - m].x}px`)
+                            .css(`top`, `${tab1[tab1.length - m].y}px`)
+                        k=true;
+                    }
+                }
+            })
+
+            $("#reset").on("click", function () {
+
+                tab1 = [];
+                console.table(tab1);
+
+                $("body")
+                    .append($("#kolko1"))
+                    .append($("#kolko2"))
+
+                $("#kolko1")
+                    .removeAttr("style")
+                $("#kolko2")
+                    .removeAttr("style")
+                    .css("left", "50px")
+
+                $("#main").empty();
+                generujPlansze();
+
+                $("#start").removeAttr("disabled")
+                $("#next").removeAttr("disabled")
+
+            })
+
+
+        })
+
+    </script>
+</head>
+
+<body>
+    <h1>T: Labirynt - tablice obiektów</h1>
+    <br>
+    <button id="start">START GAME</button>
+    <button id="next">NEXT MOVE</button>
+    <button id="reset">RESET GAME</button>
+    <br><br>
+    <div id="main"></div>
+    <div id="kolko1"></div>
+    <div id="kolko2"></div>
+</body>
+
+</html>

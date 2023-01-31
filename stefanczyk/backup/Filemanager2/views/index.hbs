@@ -1,0 +1,12 @@
+{{!-- {{> uklad}} --}}
+<div class="leftbar">
+	<p class="szarynapis">multiupload</p>
+</div>
+<div class="content1">
+	<form enctype="multipart/form-data" method="POST" action="/handleUpload">
+		<label for="plik">Wybierz pliki: </label>
+		<input type="file" name="plik" multiple required id="plik">
+		<br><br>
+		<button type="submit" class="button">Upload</button>
+	</form>
+</div>

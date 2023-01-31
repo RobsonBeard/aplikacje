@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div style="position: fixed;">
+        <h1 class="naglowek">07: Button - ustawianie kamery w różnych miejscach układu współrzędnych</h1>
+        <br>
+
+        <button class="button" id="ustaw">Ustaw kamerę</button>
+
+        <br><br>
+
+        <!-- nie chcialem kolejnej klasy tworzyc -->
+        <div class="container2" style="width: 150px; height: 120px;">
+            <pre id="daneSrodek"></pre>
+        </div>
+    </div>
+    <!-- bardzo wazne, position fixed i pre w divie -->
+
+    <div id="root"></div>
+
+    <script>
+
+        let klikniete;
+
+        // let daneWysyl = [] // tu wazne
+
+        function fetchPost(klikniete) {
+
+            const body = JSON.stringify({ x: klikniete.x, y: klikniete.y, z: klikniete.z }); // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
+
+            fetch("/fcw7", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        // console.log(data);
+                        let pom = data
+                        // daneWysyl.push(pom)
+                        document.getElementById("daneSrodek").innerText = `${JSON.stringify(pom, null, 3)}`
+
+                    } // dane odpowiedzi z serwera
+                )
+        }
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            45,    // kąt patrzenia kamery (FOV - field of view)
+            this.window.innerWidth / this.window.innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika    16 / 9
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColor(0xffffff);
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        camera.position.set(100, 100, 100)
+
+        camera.lookAt(scene.position);
+
+        const axes = new THREE.AxesHelper(1000)
+
+        scene.add(axes)
+
+        function render() {
+
+
+            //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
+            //np zmieniająca się wartość rotacji obiektu
+
+            // cube.rotation.y += 0.01;
+
+            requestAnimationFrame(render);
+
+            console.log("render leci")
+
+            //ciągłe renderowanie / wyświetlanie widoku sceny naszą kamerą
+
+            renderer.render(scene, camera);
+
+            camera.updateProjectionMatrix();
+        }
+
+        render();
+
+        console.log(scene);
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        } // jak będę zmieniał rozmiar konsoli to się będzie zmieniać szerokosc i dlugosc sceny
+
+
+        ustaw.addEventListener("click", klikaj1)
+
+        let material = new THREE.MeshNormalMaterial({
+            side: THREE.DoubleSide,
+            wireframe: false,
+            transparent: false,
+            // opacity: 0.7
+        });
+
+        let geometria = new THREE.BoxGeometry(30, 30, 30)
+        let figura = new THREE.Mesh(geometria, material)
+
+        scene.add(figura)
+
+        let licznik = 1
+
+        function klikaj1() {
+            if (licznik == 1) {
+                camera.position.set(100, 0, 0)
+                licznik = 2
+            }
+            else if (licznik == 2) {
+                camera.position.set(0, 100, 0)
+                licznik = 3
+            }
+            else if (licznik == 3) {
+                camera.position.set(0, 0, 100)
+                licznik = 4
+            }
+            else if (licznik == 4) {
+                camera.position.set(0, 0, 0)
+                licznik = 5
+            }
+            else if (licznik == 5) {
+                camera.position.set(100, 100, 0)
+                licznik = 6
+            }
+            else if (licznik == 6) {
+                camera.position.set(100, 0, 100)
+                licznik = 7
+            }
+            else if (licznik == 7) {
+                camera.position.set(0, 100, 100)
+                licznik = 8
+            }
+            else if (licznik == 8) {
+                camera.position.set(100, 100, 100)
+                licznik = 1
+            }
+
+            klikniete = {
+                x: camera.position.x,
+                y: camera.position.y,
+                z: camera.position.z
+            }
+
+            fetchPost(klikniete)
+        }
+
+        window.addEventListener("load", function () {
+            console.log("załadowano");
+            klikniete = {
+                x: camera.position.x,
+                y: camera.position.y,
+                z: camera.position.z
+            }
+            fetchPost(klikniete);
+        })
+
+
+    </script>
+
+</body>
+
+</html>

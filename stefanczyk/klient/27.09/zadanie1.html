@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #tabela {
+            border: 1px solid black;
+        }
+
+        td {
+            border: darkgray solid 1px;
+        }
+
+        .naglowek {
+            color: blue;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            let lps = ["lp", "cena", "produkt"]
+            let ceny = ["5,60", "3,23", "7,45", "10,00", "3,20"]
+            let produkty = ["chleb", "mąka", "masło", "kefir", "dżem"]
+            let tab = []
+            // let td = $("<td>") // komórka tabeli
+            // let tr = $("<tr>") // wiersz tabeli
+
+            $("#bt1").on("click", function () {
+                console.log("klik")
+
+                $("#tabela").empty()
+
+                let tr = $("<tr>")
+                for (i = 0; i < lps.length; i++) {
+                    let td = $("<td>")
+                    td.append(lps[i])
+
+                    tr.append(td)
+                }
+                $("#tabela").append(tr)
+
+
+
+                // for (i = 0; i < lps.length; i++) {
+                //     document.write(lps[i])
+                // }
+            })
+
+
+
+
+
+        })
+    </script>
+
+</head>
+
+<body>
+    <h1>T: tablice</h1>
+    <br>
+    <button id="bt1">Utwórz tabelę</button>
+    <br>
+    <table id="tabela"></table>
+
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div style="position: fixed;">
+        <h1 class="naglowek">08: Raycaster - mysz, klawiatura</h1>
+    </div>
+
+    <div id="root"></div>
+
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+            45,
+            this.window.innerWidth / this.window.innerHeight,
+            0.1,
+            10000
+        );
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xffffff);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        camera.position.set(parseFloat((300 * Math.cos(-18.05)).toFixed(2)), 200, parseFloat((300 * Math.sin(-18.05)).toFixed(2)))
+
+        camera.lookAt(scene.position);
+
+        const axes = new THREE.AxesHelper(1000)
+        scene.add(axes)
+        const axes2 = new THREE.AxesHelper(1000)
+        axes2.rotation.set(Math.PI, Math.PI * 1.5, 0) // trzeba dać takie rotation, żeby było jak na screenie
+        scene.add(axes2) // tu już mam całość osi
+
+        let materialy = []
+
+        materialy.push(new THREE.MeshBasicMaterial({
+            side: THREE.DoubleSide,
+            map: new THREE.TextureLoader().load('mats/grass3.jpg')
+        }));
+        materialy.push(new THREE.MeshBasicMaterial({
+            side: THREE.DoubleSide,
+            map: new THREE.TextureLoader().load('mats/grass3.jpg')
+        }));
+        materialy.push(new THREE.MeshBasicMaterial({
+            side: THREE.DoubleSide,
+            map: new THREE.TextureLoader().load('mats/grass4.jpg') // góra
+        }));
+        materialy.push(new THREE.MeshBasicMaterial({
+            side: THREE.DoubleSide,
+            map: new THREE.TextureLoader().load('mats/grass1.jpg') // dół
+        }));
+        materialy.push(new THREE.MeshBasicMaterial({
+            side: THREE.DoubleSide,
+            map: new THREE.TextureLoader().load('mats/grass3.jpg')
+        }));
+        materialy.push(new THREE.MeshBasicMaterial({
+            side: THREE.DoubleSide,
+            map: new THREE.TextureLoader().load('mats/grass3.jpg')
+        }));
+
+        let geometria = new THREE.BoxGeometry(30, 30, 30)
+
+        let koordynaty = []
+
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                let figura = new THREE.Mesh(geometria, materialy)
+                if (i != 1 && i != 2 || j != 1 && j != 2) {
+                    figura.position.set(30 * i - 45, 15, 30 * j - 45)
+                    koordynaty.push({
+                        x: figura.position.x,
+                        y: figura.position.y,
+                        z: figura.position.z
+                    })
+                    scene.add(figura)
+                }
+            }
+        }
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                let figura = new THREE.Mesh(geometria, materialy)
+                if (i != 3 && j != 3 && (i != 1 && i != 2 || j != 1 && j != 2)) {
+                    figura.position.set(30 * i - 45, 45, 30 * j - 45)
+                    koordynaty.push({
+                        x: figura.position.x,
+                        y: figura.position.y,
+                        z: figura.position.z
+                    })
+                    scene.add(figura)
+                }
+            }
+        }
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                let figura = new THREE.Mesh(geometria, materialy)
+                if ((i != 3 && j != 3) && (i != 2 && j != 2) && (i != 1 || j != 1)) {
+                    figura.position.set(30 * i - 45, 75, 30 * j - 45)
+                    koordynaty.push({
+                        x: figura.position.x,
+                        y: figura.position.y,
+                        z: figura.position.z
+                    })
+                    scene.add(figura)
+                }
+            }
+        }
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                let figura = new THREE.Mesh(geometria, materialy)
+                if (i == 0 && j == 0) {
+                    figura.position.set(30 * i - 45, 105, 30 * j - 45)
+                    koordynaty.push({
+                        x: figura.position.x,
+                        y: figura.position.y,
+                        z: figura.position.z
+                    })
+                    scene.add(figura)
+                }
+            }
+        }
+        console.log("koordynaty: ");
+        console.log(koordynaty);
+
+        let angle = -18.05
+
+        let trybKamery = true // domyślnie tryb kamery jest ustawiony na ruch kamery
+        let siatka
+        let ktoraOs = 0  // 1 to oś X, 2 to oś Y, 3 to oś Z
+        let speed = {
+            y: 0,
+            angleSpeed: 0
+        }
+
+        window.addEventListener("keydown", ruszaj)
+        function ruszaj(e) {
+            if (trybKamery) {
+                switch (e.keyCode) {
+                    case 37:
+                        console.log("naciśnięto strzałkę w lewo");
+                        if (speed.angleSpeed > -0.05) {
+                            speed.angleSpeed -= 0.015
+                        }
+                        break;
+                    case 39:
+                        console.log("naciśnięto strzałkę w prawo");
+                        if (speed.angleSpeed < 0.05) {
+                            speed.angleSpeed += 0.015
+                        }
+                        break;
+                    case 38:
+                        console.log("naciśnięto strzałkę w górę");
+                        if (speed.y < 5) { // tutaj prędkość maksymalna
+                            speed.y += 3 // tu przyspieszenie
+                        }
+                        break;
+                    case 40:
+                        console.log("naciśnięto strzałkę w dół");
+                        if (speed.y > -5) {
+                            speed.y -= 3
+                        }
+                        break;
+                }
+                console.log(e.keyCode);
+            }
+            else {
+                switch (e.keyCode) {
+                    case 27:
+                        console.log("naciśnięto escape - tryb kamery: kamera");
+                        trybKamery = true
+                        break;
+                    case 88:
+                        console.log("naciśnięto klawisz x - ruszanie w osi X");
+                        ktoraOs = 1
+                        break;
+                    case 89:
+                        console.log("naciśnięto klawisz y - ruszanie w osi Y");
+                        ktoraOs = 2
+                        break;
+                    case 90:
+                        console.log("naciśnięto klawisz z - ruszanie w osi Z");
+                        ktoraOs = 3
+                        break;
+                }
+                switch (ktoraOs) {
+                    case 1:
+                        switch (e.keyCode) {
+                            case 38:
+                                console.log("naciśnięto strzałkę w górę");
+                                siatka.position.x += 2
+                                break;
+                            case 40:
+                                console.log("naciśnięto strzałkę w dół");
+                                siatka.position.x -= 2
+                                break;
+                        }
+                        break;
+                    case 2:
+                        switch (e.keyCode) {
+                            case 38:
+                                console.log("naciśnięto strzałkę w górę");
+                                siatka.position.y += 2
+                                break;
+                            case 40:
+                                console.log("naciśnięto strzałkę w dół");
+                                siatka.position.y -= 2
+                                break;
+                        }
+                        break;
+                    case 3:
+                        switch (e.keyCode) {
+                            case 38:
+                                console.log("naciśnięto strzałkę w górę");
+                                siatka.position.z += 2
+                                break;
+                            case 40:
+                                console.log("naciśnięto strzałkę w dół");
+                                siatka.position.z -= 2
+                                break;
+                        }
+                        break;
+                }
+            }
+        }
+
+        // window.addEventListener("keyup", zwalniaj)
+        // function zwalniaj(e) {
+        //     // console.log(e.keyCode);
+        //     switch (e.keyCode) {
+        //         case 37:
+        //             console.log("podniesiono strzałkę w lewo");
+        //             break;
+        //         case 39:
+        //             console.log("podniesiono strzałkę w prawo");
+        //             break;
+        //         case 38:
+        //             console.log("podniesiono strzałkę w górę");
+        //             break;
+        //         case 40:
+        //             console.log("podniesiono strzałkę w dół");
+        //             break;
+        //     }
+        // } // niby powinno być, ale nie potrzebuję, więc nie ma
+
+        const raycaster = new THREE.Raycaster(); // obiekt Raycastera symulujący "rzucanie" promieni
+        const mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie, a potem przeliczenia na pozycje 3D
+
+        window.addEventListener("mousedown", (e) => {
+            mouseVector.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1; // pozycja myszy zostaje przeliczona na wartości -1 do 1, wymagane przez raycaster
+            // console.log(mouseVector);
+            // console.log(e);
+            raycaster.setFromCamera(mouseVector, camera); // szukamy punktów wspólnych "promienia" i obiektu 3D
+            const intersects = raycaster.intersectObjects(scene.children); // intersects - tablica obiektów w które "trafia" nasz "promień" wysyłany z kamery
+            // console.log(intersects.length) // scene.children oznacza, że szukamy meshów bezpośrednio dodanych do sceny3D
+            if (intersects.length > 0) {
+                // zerowy w tablicy czyli najbliższy kamery obiekt to ten, którego potrzebujemy:
+                console.log(intersects[0].object); // jeśli długość tablicy > 0 oznacza to że "trafiliśmy" w obiekt 3D czyli "kliknęliśmy" go
+                siatka = intersects[0].object
+                if (siatka.type != "AxesHelper") {
+                    console.log("naciśnięto na bryłę - tryb kamery: ruch brył");
+                    trybKamery = false // przełączam tryb na ruszanie bloku
+                }
+            }
+        });
+
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        } // jak będę zmieniał rozmiar konsoli to się będzie zmieniać szerokosc i dlugosc sceny
+
+        window.addEventListener("load", function () {
+            console.log("załadowano");
+        })
+
+
+        function render() {
+
+            requestAnimationFrame(render);
+            // console.log("render leci")
+            camera.lookAt(scene.position);
+            renderer.render(scene, camera);
+            camera.updateProjectionMatrix();
+            camera.position.z = parseFloat((300 * Math.cos(angle)).toFixed(2));
+            camera.position.x = parseFloat((300 * Math.sin(angle)).toFixed(2));
+            angle += speed.angleSpeed
+            camera.position.y += speed.y
+            if (speed.y > 0.5) { // to jest tak jakby cały czas zwalnianie, opór, też takie zabezpieczenie, żeby przy zatrzymaniu się nie pójść do tyłu
+                speed.y -= 0.5
+            }
+            else if (speed.y < -0.5) {
+                speed.y += 0.5
+            }
+            else {
+                speed.y = 0
+            }
+            if (speed.angleSpeed > 0.005) {
+                speed.angleSpeed -= 0.005
+            }
+            else if (speed.angleSpeed < -0.005) {
+                speed.angleSpeed += 0.005
+            }
+            else {
+                speed.angleSpeed = 0
+            }
+        }
+        render();
+    </script>
+
+</body>
+
+</html>

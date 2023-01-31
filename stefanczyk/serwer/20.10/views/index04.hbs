@@ -1,0 +1,15 @@
+<h1 class="naglowek">{{subject}}</h1> <br>
+
+<div class="content3">
+    <form action="/selektos" method="GET">
+        <select name="selekt" id="selekt" size="3">
+            {{#each fields}}
+            <option value={{name}}>{{name}}</option>
+            {{/each}}
+
+        </select>
+        <br> <br> <br>
+        <button class="button" type="submit">Wyslij</button>
+
+    </form>
+</div>

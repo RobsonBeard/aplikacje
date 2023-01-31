@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1 class="naglowek">Lekcje WebGL</h1>
+    <br>
+    <div class="flex">
+        <div class="" id="pierwsza">
+            <h2 class="podglowek">Lekcja 1 - start</h2>
+            <br>
+        </div>
+        <div class="" id="druga">
+            <h2 class="podglowek">Lekcja 2 - raycaster</h2>
+            <br>
+        </div>
+        <div class="" id="trzecia">
+            <h2 class="podglowek">Lekcja 3 - oświetlenie sceny, obiektowość</h2>
+            <br>
+        </div>
+    </div>
+
+    <script>
+        let DivPierwsza = document.getElementById("pierwsza")
+        let DivDruga = document.getElementById("druga")
+        let DivTrzecia = document.getElementById("trzecia")
+
+        function fetchPost() {
+
+            const body = JSON.stringify({}); // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
+
+            fetch("/api", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        // console.log(data);
+                        for (let i = 0; i < data.length; i++) {
+                            let nowylink = document.createElement("a")
+                            nowylink.id = `${i}`
+                            nowylink.classList.add("linki")
+                            nowylink.setAttribute("href", `${data[i]}`)
+                            nowylink.innerText = `${data[i]}`
+                            let br = document.createElement("br")
+                            DivPierwsza.appendChild(nowylink)
+                            DivPierwsza.appendChild(br)
+                        }
+
+                    } // dane odpowiedzi z serwera
+                )
+
+            fetch("/api2", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        // console.log(data);
+                        for (let i = 0; i < data.length; i++) {
+                            let nowylink = document.createElement("a")
+                            nowylink.id = `${i}`
+                            nowylink.classList.add("linki")
+                            nowylink.setAttribute("href", `${data[i]}`)
+                            nowylink.innerText = `${data[i]}`
+                            let br = document.createElement("br")
+                            DivDruga.appendChild(nowylink)
+                            DivDruga.appendChild(br)
+                        }
+
+                    } // dane odpowiedzi z serwera
+                )
+            fetch("/api3", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        // console.log(data);
+                        for (let i = 0; i < data.length; i++) {
+                            let nowylink = document.createElement("a")
+                            nowylink.id = `${i}`
+                            nowylink.classList.add("linki")
+                            nowylink.setAttribute("href", `${data[i]}`)
+                            nowylink.innerText = `${data[i]}`
+                            let br = document.createElement("br")
+                            DivTrzecia.appendChild(nowylink)
+                            DivTrzecia.appendChild(br)
+                        }
+
+                    } // dane odpowiedzi z serwera
+                )
+        }
+
+        window.addEventListener("load", function () {
+            console.log("załadowano");
+            fetchPost();
+        })
+
+    </script>
+</body>
+
+</html>

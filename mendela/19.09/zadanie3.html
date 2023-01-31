@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #textarea {
+            resize: none;
+            text-align: center;
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            width: 250px;
+            height: 250px;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <p>Punkty lecą z nieba?</p>
+        <textarea name="" id="textarea" cols="30" rows="10" readonly></textarea>
+    </div>
+
+
+    <script>
+
+        function duzyTekst() {
+            let punkty = [
+                '.... szósty punkt .....',
+                '.... piąty punkt ......',
+                '.... czwarty punkt ....',
+                '.... trzeci punkt .....',
+                '.... drugi punkt ......',
+                '.... pierwszy punkt ...'
+            ]
+            for (let i = 0; i < 15; i++) {
+                punkty.push("")
+            }
+            // console.log(punkty);
+            return punkty // trzeba return, żeby do zmiennej przekazać tablicę
+        }
+        let pom1 = duzyTekst()
+        console.log(pom1);
+
+        setInterval(function () {
+            pom1.unshift(pom1.pop()) // dodajemy na początek to, co usuniemy z końca
+            document.getElementById("textarea").innerHTML = pom1.join("\n")
+
+        }, 200)
+
+    </script>
+</body>
+
+</html>

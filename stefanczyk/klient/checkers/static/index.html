@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/Net.js"></script>
+    <script src="js/Ui.js"></script>
+    <script src="js/Pionek.js"></script>
+    <script src="js/Item.js"></script>
+    <script src="js/Main.js"></script>
+    <!-- jesli main pobiera dane z tych innych skryptow to musi byc na koncu -->
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="kontener1">
+        <div class="gornyPasek">
+            <p id="tekstNaPasku">STATUS</p>
+        </div>
+
+    </div>
+
+    <div id="overlay"></div>
+
+    <div id="logowanie">
+        <p>LOGOWANIE</p>
+        <input type="text" name="nick" id="nick">
+        <button type="text" class="button1" id="buttonLoguj">LOGUJ</button>
+        <button type="text" class="button1" id="buttonReset">RESET</button>
+        <h4 id="error"></h4>
+    </div>
+
+    <h1 class="duzyNapis" id="oczekiwanieNapis" hidden>Czekaj na drugiego gracza...</h1>
+    <img src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" alt="ladowanie" class="gifLadowania"
+        id="gifLadowania" hidden>
+
+    <div id="root"></div>
+
+
+</body>
+
+</html>

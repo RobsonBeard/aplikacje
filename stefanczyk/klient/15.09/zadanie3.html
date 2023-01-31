@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: monospace;
+            font-size: 200px;
+        }
+        #main{
+            width: 100%;
+            height: 1000px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #szary{
+            background-color: darkgray;
+            width: 49%;
+            height: 1000px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #zolty{
+            background-color: yellow;
+            width: 49%;
+            height: 1000px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #niebieski{
+            background-color: lightskyblue;
+            width: 2%;
+            height: 100%;
+        }
+
+
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            // $(window).on("mousedown", function (e) { 
+            //     console.log("x: "+ e.clientX + ", y: "+ e.clientY) 
+            // })
+                //pobranie informacji o pozycji myszy na oknie przeglądarki
+                //przyciśnięcie klawisza myszy
+
+            // $(window).on("mouseup", function (e) {
+            //     console.log("x: "+ e.clientX + ", y: "+ e.clientY)
+            // })
+                //pobranie informacji o pozycji myszy na oknie przeglądarki
+                // zwolnienie klawisza myszy
+
+            // $(window).on("mousemove", function (e) {
+            //     console.log("x: "+ e.clientX + ", y: "+ e.clientY)
+            // })
+                //pobranie informacji o pozycji myszy na oknie przeglądarki
+                // poruszanie wskaźnikiem myszy
+
+                // gdzie:
+                // e.clientX i e.pageX wskazują pozycję kursora myszy liczoną od lewego brzegu ekranu
+                // e.clientY wskazuje pozycję myszy od górnej krawędzi ekranu, nie zważając na skrolowanie strony
+                // e.pageY wskazuje pozycje myszy od górnej krawędzi ekranu, dodając skrolowanie strony
+
+            // function ruszaniecos(e){
+            //     let x = e.clientX - $("#szary").offset().left
+            //     let y = e.clientY - $("#szary").offset().top
+            //     console.log(x,y)
+            // }
+            let x
+            let pom1
+            let SzerokoscDrugiegoDiva
+            let SzerokoscMain
+            let pom2;
+
+            $("#niebieski").on("mousedown", function(){
+
+                $("#niebieski").on("mousemove", function(e){ // mozna tez $("#window")
+            
+                    x = e.clientX        
+                    pom1 = $("#main").css("width")
+                    pom2 = pom1.slice(0, (pom1.length -2))
+                    SzerokoscMain = parseFloat(pom2)
+                    console.log(SzerokoscMain)
+                    // SzerokoscDrugiegoDiva = SzerokoscMain - PozycjaMyszy
+                    // console.log(SzerokoscDrugiegoDiva)
+                   
+
+                }) 
+
+            })
+  
+            $("#main").on("mouseup", function(){
+                
+                $("#niebieski").off("mousemove")
+
+            })
+
+
+
+        })
+    </script>
+</head>
+<body>
+    <div id="main">
+        <div id="szary">A</div>
+        <div id="niebieski"></div>
+        <div id="zolty">B</div>
+    </div>
+
+
+</body>
+</html>

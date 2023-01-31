@@ -1,0 +1,13 @@
+<h1 class="naglowek">{{subject}}</h1>
+<br>
+<div class="content">
+    {{#each books}}
+    {{#if author }}
+    <div class="content3">{{author}}, {{title}}</div>
+    <br>
+    {{else}}
+    <div class="content3">--- brak autora ---</div>
+    <br>
+    {{/if}}
+    {{/each}}
+</div>

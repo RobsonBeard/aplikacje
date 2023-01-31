@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #d1, #d2, #d4, #d6, #d7
+        {
+            height: 90px;
+            width: 90px;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        #d5
+        {
+            width: 500px;
+            height: 500px;
+        }
+
+        .flex-container
+        {
+            display: flex;
+            justify-content: left;
+        }
+ 
+        #d5{
+            position: relative;
+        }  
+        
+        #d4
+        {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#bt1").on("click", function() {
+                let pytanie = confirm("confirm?")
+                if(pytanie)
+                {
+                    $("#d1")
+                        .css("width", "180px")
+                        .css("height", "180px")
+                }
+                else
+                {
+                    $("#d1")
+                        .css("width", "30px")
+                        .css("height", "30px")
+                }
+            })
+
+            let x=true;
+            $("#d2").on("click", function() {
+                if(x)
+                {
+                    $("#d3")
+                        .css("justify-content", "right")
+
+                    x= false;
+                }
+                else
+                {
+                    $("#d3")
+                        .css("justify-content", "left")
+
+                    x= true;
+                }
+                console.log(x)
+            })
+
+            let y=true;  
+            let przesun = 0;
+            $("#d4").on("click", function() {
+                if(y)
+                {
+                    przesun += 50;
+                    $("#d4")
+                        .css("top", `${przesun}px`)
+
+                    y=false;
+                }
+                else
+                {
+                    $("#d4")
+                        .css("left", `${przesun}px`)
+                    y=true;
+                }
+                console.log(przesun, y)
+            })
+
+            let zwieksz = 0;
+            $("#d6").on("mouseover", function(){
+                zwieksz += 1
+                if(zwieksz>=5)
+                {
+                    $("#d6")
+                        .html(`${zwieksz}`)
+                        .css("width", "180px")
+                        .css("height", "180px")
+                }
+                else
+                {
+                    $("#d6")
+                        .html(`${zwieksz}`)
+                }
+            })
+            
+            let zwieksz2 = 0;
+            $("#d7").on("click", function(){
+                zwieksz2 += 1;
+                if(zwieksz2 %2 ==0)
+                {
+                    $("#d7")
+                        .html(`${zwieksz2}`)
+                        .css("background-color", "green")
+                }
+                else
+                {
+                    $("#d7")
+                        .html(`${zwieksz2}`)
+                        .css("background-color", "red")
+                }
+            })
+
+
+        })
+
+    </script>
+
+</head>
+<body>
+    <div id="d1">cw1</div>
+    <br>
+    <button id="bt1">confirm</button>
+    <br><br>
+
+    <div class="flex-container" id="d3">
+        <div id="d2">cw2</div>
+    </div>
+
+    <br><br>
+    <div id="d5">
+        <div id="d4">cw3</div>
+    </div> 
+    <br><br>
+
+<div id="d6">cw4</div>
+<br><br>
+
+<div id="d7">cw5</div>
+
+</body>
+</html>

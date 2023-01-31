@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+        }
+
+        #main {
+            display: flex;
+        }
+
+        #niebieski {
+            width: 1200px;
+            height: 1000px;
+            background-color: rgb(0, 0, 194);
+            position: relative;
+        }
+
+        #bialy {
+            width: 200px;
+            height: 950px;
+            background-color: white;
+        }
+
+        .planeta {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-image: url(img/ksiezyc.png);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .rakieta {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-image: url(img/rakieta1.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            let asteroidy = []
+            n = 0;
+
+            $("#niebieski").on("click", function (e) {
+                // console.log("x: " + e.clientX + ", y: " + e.clientY)
+                let obj = { x: e.clientX, y: e.clientY }
+                let nowydiv = $(`<div>`)
+                    .addClass("planeta")
+                    .css("top", obj.y - 50)
+                    .css("left", obj.x - 50)
+                    .html(n + 1)
+                n++;
+                $("#niebieski").append(nowydiv)
+                asteroidy.push(obj)
+                console.log(asteroidy)
+            })
+
+            let m = 0
+            let divrakieta = $("<div>");
+
+            function skakanie() {
+                if (m == asteroidy.length) {
+                    m = 0
+                }
+                divrakieta
+                    .addClass("rakieta")
+                    .css("top", asteroidy[m].y - 75)
+                    .css("left", asteroidy[m].x - 75)
+                m++
+
+                $("#niebieski").append(divrakieta)
+            }
+
+
+            $("#steps").on("click", function () {
+
+                if (asteroidy.length == 0) {
+                    alert("Naklikaj tych asteroid/ksiezycow/czegos")
+                }
+                else
+                    skakanie();
+
+            })
+            let klikniety = true;
+            let interval;
+
+            $("#jumping").on("click", function () {
+
+                divrakieta.remove()
+
+                if (klikniety) {
+                    interval = setInterval(skakanie, 1000)
+
+
+                    klikniety = false;
+                }
+                else {
+                    clearInterval(interval)
+                    klikniety = true
+                }
+            })
+
+            // zrobic ten fly i jak sie uda to kierunek lotu, ale trzeba spytac o funkcje matematyczną
+
+            let start = false;
+            let zmienna1 = 0 // zmienna 1 i 2 będą oznaczać koordynaty dwóch kolejnych asteroid
+            let zmienna2 = 1
+            let klikniety2 = true;
+            let vect;
+            let odgory;
+            let odlewej;
+
+            function latanie() {
+                if (zmienna2 == asteroidy.length) {
+                    // zmienna1 = 0
+                    zmienna1 = asteroidy.length - 1
+                    zmienna2 = 0
+                }
+                else if (zmienna1 == asteroidy.length) {
+                    zmienna1 = 0
+                    zmienna2 = 1
+                }
+                if (start) {
+                    if (asteroidy.length >= 2) {
+
+                        vect = {
+                            x: (asteroidy[zmienna2].x - asteroidy[zmienna1].x) / 100,
+                            y: (asteroidy[zmienna2].y - asteroidy[zmienna1].y) / 100
+                        } // wektor o który będzie się przesuwać rakieta
+
+                        // console.log(vect); // to dziala
+
+                        divrakieta.addClass("rakieta")
+                            .css("top", asteroidy[zmienna1].y - 75)
+                            .css("left", asteroidy[zmienna1].x - 75) // ustawiam rakietę na pierwszej asteroidzie
+
+                        odgory = divrakieta.css("top")
+                        odlewej = divrakieta.css("left") // pobieram wartości top i left rakiety, żeby potem dodawać do nich tego vect
+
+                        // console.log(odgory);
+                        // console.log(odlewej);
+
+                        // do {
+                        //     divrakieta
+                        //         .css("top", (odgory + vect.y))
+                        //         .css("left", (odlewej + vect.x))
+                        // }
+                        // while (divrakieta.css("top") == (asteroidy[zmienna2].y - 75) && divrakieta.css("left") == (asteroidy[zmienna2].x - 75)) // no i dopóki rakieta nie dotrze na miejsce tej drugiej asteroidy, to funkcja ma sie wykonywac
+
+                        // do while zdecydowanie za szybko skacze
+
+                        interval = setInterval(function () {
+                            divrakieta
+                                .css("top", (odgory + vect.y))
+                                .css("left", (odlewej + vect.x))
+
+                        }, 1000)
+
+                        // if (divrakieta.css("top") == (asteroidy[zmienna2].y - 75) && divrakieta.css("left") == (asteroidy[zmienna2].x - 75)) {
+                        //     clearInterval(interval)
+                        // }
+
+                        $("#niebieski").append(divrakieta)
+                        zmienna1++
+                        zmienna2++
+                    }
+                }
+                else {
+
+                }
+
+            }
+
+            let interval2
+
+            $("#fly").on("click", function () {
+                divrakieta.remove()
+                start = !start
+                // console.log(start);
+                // console.log(klikniety2);
+                if (klikniety2) {
+                    interval2 = setInterval(latanie, 1000)
+
+                    klikniety2 = false;
+                }
+                else {
+                    clearInterval(interval2)
+                    klikniety2 = true
+                }
+                // robi to samo co jumping XD 
+
+            })
+
+
+        })
+
+    </script>
+</head>
+
+<body>
+    <div id="main">
+        <div id="niebieski">
+            <h1 style="color: white;">T: Wektory, setInterval, requestAnimationFrame</h1>
+        </div>
+        <div id="bialy">
+            <button id="steps">STEPS</button> <br><br>
+            <button id="jumping">JUMPING</button>
+            <label for="jumping"> <br> Pierwszy klik - start <br> Drugi klik - stop</label> <br><br>
+            <button id="fly">FLY</button> <br> <br>
+            <input type="checkbox" name="kierunek" id="kierunek">
+            <label for="kierunek">kierunek lotu</label>
+        </div>
+    </div>
+</body>
+
+</html>

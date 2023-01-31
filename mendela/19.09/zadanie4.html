@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #main {
+            width: 300px;
+            height: 300px;
+            position: relative;
+        }
+
+        #obrazek {
+            width: 150px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <img src="Interia.png" alt="interia" id="obrazek">
+    </div>
+
+
+    <script>
+
+        const promien = 120
+        let obrazek = document.getElementById("obrazek")
+
+        let kat = 0
+
+        setInterval(function () {
+            let x = (Math.cos(kat) * promien) + promien
+            console.log(Math.cos(kat) * promien);
+            let y = (Math.sin(kat) * promien) + promien
+
+            if (kat >= Math.PI * 2) {
+                angle = 0
+            }
+            kat += Math.PI * 0.03
+
+            obrazek.style.top = `${x}px`
+            obrazek.style.left = `${y}px`
+        }, 50)
+
+    </script>
+</body>
+
+</html>

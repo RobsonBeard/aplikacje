@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .naglowek {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- cw1 -->
+    <!-- <h1 class="naglowek">Ćwiczenie 01 - form post</h1> <br>
+    <form method="post" action="handlePost">
+        <input name="bt1" value="wyślij dane postem" type="submit" />
+    </form> -->
+
+    <!-- cw2 -->
+    <!-- <h1 class="naglowek">Ćwiczenie 02 - form, urlencoded data</h1> <br>
+    <form method="post" action="handlePost">
+        <input type="text" name="txt1">
+        <input type="text" name="txt2">
+        <input name="bt1" type="submit" value="wyślij">
+        <input type="hidden" name="suma">
+        <input type="hidden" name="iloczyn">
+    </form> -->
+
+    <!-- cw3 -->
+    <h1 class="naglowek">Ćwiczenie 03 - ajax, json data</h1> <br>
+    <form action="post" method="post">
+        <input type="text" name="txt1">
+        <input type="text" name="txt2">
+        <input type="hidden" name="suma">
+        <input type="hidden" name="iloczyn">
+    </form>
+    <div id="d1">klik</div>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#d1").on("click", function () {
+                console.log("klik")
+
+                $.ajax({
+                    url: "/post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        txt1: document.getElementsByName("txt1")[0].value,
+                        txt2: document.getElementsByName("txt2")[0].value
+                    }),
+                    type: "POST",
+                    success: function (data) {
+                        //czytamy odesłane z serwera dane
+                        let pobranedane = data;
+                        console.log(pobranedane)
+                        //ew parsujemy na obiekt
+                        // var obj = JSON.parse(data) // nie dziala cos
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error: ' + error.message);
+                    },
+                });
+
+                // alert(`${data.suma}`) //????????
+
+                // let obj = {
+                //     suma: ,
+                //     iloczyn: ,
+                // }
+
+                // alert(obj)
+            })
+        })
+    </script>
+</body>
+
+</html>

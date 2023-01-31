@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        * {
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+
+        #main {
+            margin-left: 100px;
+            /* width: 1000px;
+            height: 1000px; */
+        }
+
+        .d1 {
+            background-color: blue;
+            color: white;
+            font-size: 20px;
+            width: 250px;
+            height: 50px;
+            border: 1px solid white;
+            padding-left: 15px;
+            align-items: center;
+            display: flex;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            
+            $("#bt1").on("click", function () {
+
+                $("#main").empty()
+                
+                let x = $("#sel1").val()
+                console.log(x);
+
+                // let d1 = $("<div class='d1'></div>") // nowy div klasy d1
+                for (i = 1; i <= x; i++) {
+
+                    let nowydiv = $("<div>")
+                        nowydiv
+                            .addClass("d1")
+                            .html(`${i}`)
+                            .attr("id", `${i}`)
+                    $("#main").append(nowydiv)
+                    nowydiv.on("click", function(){
+                        console.log($(this))
+                        let y = confirm("Czy chcesz usunąć ten element?")
+                        if(y)
+                        {
+                            $(this).remove();
+                        }
+                        // obiekt this wewnątrz funkcji daje dostęp do elementu którym się zajmujemy
+                    })
+                }
+            })
+            
+            $("#bt2").on("click", function () {
+                let z = confirm("Czy chcesz usunąć całe menu?")
+                if(z)
+                {
+                    $("#main").empty()
+                }
+                else
+                {
+                    alert("oki :)")
+                }
+
+            })
+
+
+        })
+    </script>
+</head>
+
+<body>
+    <h1 style="color: blue;">Pętla for, dynamiczne tworzenie i usuwanie HTML'a cz.1</h1>
+    <br>
+    <button id="bt1">UTWÓRZ MENU</button>
+    <button id="bt2">USUŃ MENU</button>
+    <select name="sel1" id="sel1">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+    </select>
+    <br><br>
+    <div id="main"></div>
+</body>
+
+</html>

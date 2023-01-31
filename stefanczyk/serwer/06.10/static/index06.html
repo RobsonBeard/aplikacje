@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+        }
+
+        .naglowek {
+            color: red;
+            text-decoration: underline;
+        }
+
+        .button {
+            background-color: blue;
+            color: white;
+            border: 1px solid black;
+            width: 100px;
+            height: 40px;
+            padding: 5px;
+            font-size: larger;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+        }
+
+        #main {
+            display: flex;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1 class="naglowek">Get data from server by fetch</h1> <br>
+    <div id="main">
+        <button class="button" id="getfetch">get fetch</button>
+    </div>
+    <br>
+
+    <script>
+
+        function fetchPost() {
+
+            const headers = { "Content-Type": "application/json" }
+
+            fetch("/api", { method: "get", headers })
+                .then(response => response.json())
+                .then(
+                    data => {
+                        console.log(data)
+                        alert(JSON.stringify(data, null, 3))
+                    }
+                )
+
+        }
+
+        document.getElementById("getfetch").onclick = function () {
+            fetchPost()
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    font-family: monospace;
+}
+
+h1 {
+    color: blue;
+    text-decoration: underline;
+}
+
+a {
+    font-size: 18px;
+    color: gray;
+}
+
+a:hover {
+    color: cornflowerblue;
+}
+
+p {
+    font-size: 22px;
+}
+
+button {
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid blue;
+    border-radius: 10px;
+    color: blue;
+}
+
+pre {
+    overflow: auto;
+}
+
+.preContainer {
+    width: 300px;
+    margin-top: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid red;
+    border-radius: 10px;
+    padding: 15px;
+    color: red;
+}
+
+.fixed {
+    position: fixed;
+}

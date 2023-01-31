@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div style="position: fixed;">
+        <h1 class="naglowek">02: Zmiana FOV (field of view)</h1>
+        <br>
+        <label for="range" class="label">Field of view </label>
+        <input type="range" name="range" id="range" class="range">
+        <br><br>
+        <div class="container">
+            <pre id="fovSrodek"></pre>
+        </div>
+        <br><br>
+    </div>
+    <div id="root"></div>
+
+    <script>
+
+        function fetchPost(valueRange) {
+
+            const body = JSON.stringify({ c: "fetch", wartosc: valueRange }); // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
+
+            fetch("/fcw2", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        console.log(data)
+                        let wysyl = { fov: data.wartosc }
+                        document.getElementById("fovSrodek").innerText = `${JSON.stringify(wysyl, null, 3)}`
+
+                    } // dane odpowiedzi z serwera
+                )
+        }
+
+        document.getElementById("range").addEventListener("input", zmiana)
+
+        function zmiana() {
+            valueRange = document.getElementById("range").value
+            fetchPost(valueRange)
+        }
+
+        window.addEventListener("load", function () {
+            console.log("załadowano");
+            valueRange = document.getElementById("range").value
+            fetchPost(valueRange);
+        })
+
+        // scena 3D
+
+        const scene = new THREE.Scene();
+
+        // kamera perspektywiczna - przeczytaj dokładnie objaśnienia w komentarzach
+
+        const camera = new THREE.PerspectiveCamera(
+            45,    // kąt patrzenia kamery (FOV - field of view)
+            16 / 9,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        // renderer wykorzystujący WebGL - działa stabilnie na wszystkich
+        // najnowszych przeglądarkach zarówno desktopowych jak mobilnych
+
+        const renderer = new THREE.WebGLRenderer();
+
+        // kolor tła sceny - uwaga na prefix 0x a nie #
+
+        renderer.setClearColor(0xffffff);
+
+        // ustal rozmiary renderowanego okna w px (szer, wys)
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // dodanie renderera do diva, który istnieje na scenie
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        // camera.position.x = -200;
+        // camera.position.y = 200;
+        // camera.position.z = 200;
+
+        // lub
+
+        camera.position.set(100, 0, 100)
+
+        // nakierowanie kamery na punkt (0,0,0) w przestrzeni (zakładamy, że istnieje już scena)
+
+        camera.lookAt(scene.position);
+
+        // kluczowy element - animacja
+
+        const axes = new THREE.AxesHelper(1000)
+
+        scene.add(axes) //do bazowego pliku dodaj osie układu współrzędnych
+
+        const geometry = new THREE.BoxGeometry(50, 50, 50); //geometria sześcianu
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x8888ff,
+            side: THREE.DoubleSide,
+            wireframe: false, //materiał siatka lub nie (wireframe true/false)
+            transparent: true,
+            opacity: 0.5
+        });
+        const cube = new THREE.Mesh(geometry, material); //bryła 3D (mesh)
+        scene.add(cube);
+
+
+
+        function render() {
+
+
+            //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
+            //np zmieniająca się wartość rotacji obiektu
+
+            cube.rotation.y += 0.01;
+
+            //wykonywanie funkcji bez końca, ok 60 fps jeśli pozwala na to wydajność maszyny
+
+            requestAnimationFrame(render);
+
+            // potwierdzenie w konsoli, że render się wykonuje
+
+            console.log("render leci")
+
+            //ciągłe renderowanie / wyświetlanie widoku sceny naszą kamerą
+
+            renderer.render(scene, camera);
+
+            camera.fov = document.getElementById("range").value;
+            camera.updateProjectionMatrix();
+        }
+
+        // na koniec jednokrotne wykonanie powyższej funkcji
+
+        render();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+    </style>
+    <script>
+        function zadanie1(ileRazyMaWykonac) {
+            for (let i = 1; i <= ileRazyMaWykonac; i++) {
+                document.write("X")
+            }
+            document.write("<br><br>")
+        }
+
+        function wypiszTylkoX(ileRazyMaWykonac) {
+            for (let i = 1; i <= ileRazyMaWykonac; i++) {
+                document.write("X ")
+            }
+            document.write("<br>")
+        }
+
+        function wypiszBoki(ileRazyMaWykonac) {
+            for (let i = 1; i <= ileRazyMaWykonac; i++) {
+                if (i == 1 || i == ileRazyMaWykonac)
+                    document.write("X ")
+                else
+                    document.write("&nbsp&nbsp")
+            }
+            document.write("<br>")
+        }
+
+        function rzadek(n) {
+            for (let i = 1; i <= n; i++) {
+                document.write(i)
+            }
+            document.write("<br>")
+        }
+
+        let daneUsera
+        do {
+            daneUsera = prompt("Podaj liczbe");
+            daneUsera = parseInt(daneUsera)
+            if (isNaN(daneUsera) || daneUsera <= 2)
+                alert("Proszę podać liczbę naturalną większą od 2")
+        } while (daneUsera <= 2)
+
+        wypiszTylkoX(daneUsera)
+        for (let i = 1; i <= (daneUsera - 2); i++) {
+            wypiszBoki(daneUsera)
+        }
+        wypiszTylkoX(daneUsera)
+
+        for (let i = 1; i <= daneUsera; i++) {
+            rzadek(daneUsera)
+        }
+
+
+
+    </script>
+
+
+</head>
+
+<body>
+
+</body>
+
+</html>

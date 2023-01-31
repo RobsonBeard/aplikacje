@@ -1,0 +1,25 @@
+#img1 {
+    width: 200px;
+}
+
+#p1 {
+    color: red;
+}
+
+#p2 {
+    color: blue;
+}
+
+#p3 {
+    color: green;
+}
+
+.img2 {
+    width: 200px;
+    height: 200px;
+}
+
+.p2 {
+    font-weight: bold;
+    font-size: 30px;
+}

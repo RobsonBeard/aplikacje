@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1>lekcja 01 webGL - geometries, materials, camera</h1>
+    <script>
+        fetchPost();
+
+        function fetchPost() {
+
+            const body = JSON.stringify({ a: "request" }) // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" } // nagłowek czyli typ danych
+
+            fetch("/cwiczenia", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => genLinks(data) // dane odpowiedzi z serwera
+                )
+        }
+
+        function genLinks(data) {
+            data.forEach(file => {
+                let link = document.createElement("a");
+                let br = document.createElement("br");
+                link.setAttribute("href", file);
+                link.innerText = file;
+                console.log(file);
+                document.body.appendChild(link);
+                document.body.appendChild(br);
+            });
+        }
+    </script>
+</body>
+
+</html>

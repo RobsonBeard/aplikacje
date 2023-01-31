@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakieta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        button {
+            border-radius: 0%;
+            padding: 5px;
+            margin: 10px;
+        }
+
+        #main {
+            width: 800px;
+            height: 800px;
+            position: relative;
+            background: darkblue;
+            float: left;
+        }
+
+        .planet {
+            position: absolute;
+            background-image: url("planet.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            /* background: white; */
+            width: 100px;
+            height: 100px;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .rocket {
+            position: absolute;
+            background-image: url("rocket.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 200px;
+            height: 200px;
+            z-index: 1;
+        }
+    </style>
+
+    <script src="../jq.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let pos = [];
+            let rocket = $("#rocket");
+            let planets = 0;
+            let steps = 0;
+            let interval;
+            let jumpingOn = true;
+            let flyOn = true;
+            let start;
+            let posA;
+            let posB;
+            let vect;
+            let newRocketPos;
+            let fff = 0;
+            let vectCount = 0;
+
+            $("#main").on("mousedown", function (e) {
+                console.log("x: " + e.clientX + ", y: " + e.clientY);
+                let newPosObj = { x: e.clientX, y: e.clientY };
+                let planet = $("<div>");
+                pos.push(newPosObj);
+                planet
+                    .addClass("planet")
+                    .css("top", newPosObj.y - 50)
+                    .css("left", newPosObj.x - 50)
+                    .append(planets);
+                planets++
+                $("#main").append(planet);
+                console.table(pos);
+            })
+
+            $("#steps").on("click", function () {
+                rocket
+                    .addClass("rocket")
+                    .css("top", pos[steps].y - 100)
+                    .css("left", pos[steps].x - 100);
+                steps++;
+                if (steps == pos.length) {
+                    steps = 0;
+                }
+            })
+
+            $("#jumping").on("click", function () {
+                if (jumpingOn) {
+                    console.log("start rakiety");
+                    interval = setInterval(function () {
+                        rocket
+                            .addClass("rocket")
+                            .css("top", pos[steps].y - 100)
+                            .css("left", pos[steps].x - 100);
+                        steps++;
+                        if (steps == pos.length) {
+                            steps = 0;
+                        }
+                    }, 1000)
+                    jumpingOn = false;
+                }
+                else {
+                    console.log("zatrzymanie rakiety");
+                    clearInterval(interval);
+                    jumpingOn = true;
+                }
+
+            })
+
+            $("#fly").on("click", function () {
+
+                if (flyOn) {
+                    start = true;
+                    console.log("start");
+                    animateRocket();
+                    flyOn = false;
+                }
+                else {
+                    start = false;
+                    console.log("stop");
+                    animateRocket();
+                    flyOn = true;
+                }
+            })
+
+            function animateRocket() {
+                rocket.addClass("rocket");
+
+                if (start) {
+                    console.log(newRocketPos);
+
+                    if (fff == planets - 1) {
+                        posA = { x: pos[fff].x, y: pos[fff].y };
+                        posB = { x: pos[0].x, y: pos[0].y };
+                    }
+                    else {
+                        posA = { x: pos[fff].x, y: pos[fff].y };
+                        posB = { x: pos[fff + 1].x, y: pos[fff + 1].y };
+                    }
+
+                    vect = {
+                        x: (posB.x - posA.x) / 100,
+                        y: (posB.y - posA.y) / 100
+                    }
+
+                    if (vectCount == 0) {
+                        newRocketPos = {
+                            x: pos[fff].x - 100,
+                            y: pos[fff].y - 100
+                        }
+                    }
+
+                    if (vectCount == 100) {
+                        fff++;
+                        if (fff == planets) {
+                            vectCount = 0;
+                            fff = 0;
+                            requestAnimationFrame(animateRocket);
+                        }
+                        else {
+                            vectCount = 0;
+                            requestAnimationFrame(animateRocket);
+                        }
+                    }
+                    else {
+                        newRocketPos.x += vect.x;
+                        newRocketPos.y += vect.y;
+
+                        vectCount++;
+
+                        rocket
+                            .css("top", newRocketPos.y)
+                            .css("left", newRocketPos.x);
+
+                        requestAnimationFrame(animateRocket);
+                    }
+                }
+                else {
+                    cancelAnimationFrame(animateRocket);
+                }
+
+            }
+
+        })
+    </script>
+</head>
+
+<body>
+    <div id="main">
+        <h1>T: Wektory, setInterval, requestAnimationFrame</h1>
+        <div id="rocket"></div>
+    </div>
+    <button id="steps">STEPS</button>
+    <button id="jumping">JUMPING</button>
+    <button id="fly">FLY</button>
+</body>
+
+</html>

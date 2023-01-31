@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *
+        {
+            font-family: monospace;
+        }
+    </style>
+    <script>
+        document.write("<h1>Trzeba uważać na to, żeby nie skopiować nici razem ze spacjami lub enterami, bo wtedy wyskakują undefined</h1><br><br>");
+
+
+        let x= prompt("Wpisz nić DNA o długości minimum 2 tysięcy znaków (podzielną przez trzy)", "gttcttgcaatacctgtcagattcagtcagggtaatcggtcaggtgggcggaagaaggcaacttgatctggccccatgccgcaatcctggcgacaatagtct");       
+        // let x= "gttcttgcaatacctgtcagattcagtcagggtaatcggtcaggtgggcggaagaaggcaacttgatctggccccatgccgcaatcctggcgacaatagtct"; // to tylko do testow, potem odkomentowac wyzej
+        let xduze= x.toUpperCase(); //robimy wszystkie litery capsem
+        // console.log(xduze)
+ 
+        let pom=""; // zmienna pomocnicza, która trzyma litery capsem ze spacjami
+        for(let i=0; i<xduze.length; i++)
+        {
+            pom+= xduze[i];
+            if((i+1) % 3 == 0)
+                pom += " ";
+        }
+        document.write(x + "<br>");
+ 
+        // latwo to z tej postaci zrobic w tablice, splitnac po spacji
+        let pom2 = pom.trim(); // na koncu tablicy była spacja, wiec ją obcinam
+        let testtab = pom2.split(" "); // to jest tylko tablica, zeby zobaczyc czy cos sie zmienia po wykonaniu petli
+        let tab = pom2.split(" "); //dziele po spacji
+        // console.log(testtab);
+        for(let i=0; i<(xduze.length/3); i++)
+        {
+            if (tab[i] == "ATG")
+            {
+                // tab[i] = "XXX" // to zadzialalo i zamienilo ATG na XXX w tabeli
+                tab[i] = tab[i].bold();
+                tab[i] = tab[i].fontcolor("green");
+            }
+            if (tab[i] == "TAA" || tab[i] == "TAG" || tab[i] == "TGA")
+            {
+                tab[i] = "<span style=\"background-color: yellow;\">" + tab[i] + "</span>";
+            }  
+        }
+        // console.log(tab);
+        //let tab2 = tab.toString(); // zmieniam tablice na stringa, wazne XD
+        //document.write(tab2.replaceAll(","," ")); // zamieniam przecinki na spacje i wypisuje zawartosc tablicy
+        let tab2 = tab.join(" "); // inny, lepszy sposób (mniej linijek kodu i nie trzeba zamieniac na stringa, bo robi to join)
+        document.write(tab2); 
+        document.write("<br><br>");
+
+        let pom3 = ""; // trzeba zrobić pustego stringa, tak samo bylo wyzej, zeby to jakos dzialalo, nie wiem
+        for(let i=0; i<x.length; i++) // no i tu sie robi nic komplementarna bez capsa
+        {
+            if(x[i] == "t")
+            {
+                pom3 += "a";
+            }
+                
+            else if (x[i] == "a")
+            {
+                pom3 += "t";
+            }
+            else if (x[i] == "g")
+            {
+                pom3 += "c";
+            } 
+            else if (x[i] == "c")
+            {
+                pom3 += "g";
+            }        
+        }
+        let pom4 = pom3.toUpperCase(); // tu z capsem
+
+        let pom5 = ""; // i tutaj ze spacjami z capsem
+        for(let i=0; i<x.length; i++)
+        {
+            pom5 += pom4[i];
+            if((i+1) % 3 == 0)
+                pom5 += " ";
+        }
+
+            
+        // console.log(x);
+        // console.log(pom4);
+        // console.log(pom5);
+
+        document.write(pom5 + "<br>");
+        document.write(pom3 + "<br><br>");
+
+        // ----------------
+
+        let stat= [];
+        let znalazl = false;
+        for(let i=0; i<testtab.length; i++)
+        {
+            znalazl= false;
+            for(let j=0; j<stat.length; j++)
+            {
+                if(testtab[i] == stat[j].name) 
+                {
+                    znalazl = true;
+                    stat[j].val++;
+                    break;
+                }
+            }
+            if(znalazl == false)
+            {
+                stat.push({name: testtab[i], val: 1});
+            }
+        }
+        console.log(stat);
+
+        // wypisać w ten sposób w pętli
+        // document.write(stat[1].name);
+
+        let stat2 = stat.sort(function(a, b){return b.val - a.val})
+        console.log(stat2);
+
+        let czerwony;
+        let zielony;
+        let niebieski;
+
+        for(let i=0; i<stat2.length; i++)
+        {
+            if(i==0 || i%5 == 0)
+            {
+                czerwony = Math.floor(Math.random() * 256);
+                zielony = Math.floor(Math.random() * 256);
+                niebieski = Math.floor(Math.random() * 256); // uzyc math floor i math random * 256, potem wstawić spana do document write na dole i użyć tych randomowych wartości [background-color: rgb(100,100,100);]
+            }
+            // document.write(stat2[i].name + " - " + stat2[i].val + "<br>")
+            document.write("<span style='background-color: rgb(" + zielony + "," + czerwony + "," + niebieski + ")'>" + stat2[i].name + " - " + stat2[i].val + "<br></span>")
+            // document.write(`<span></span>`)
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

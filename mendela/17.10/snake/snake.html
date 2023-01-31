@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tabelka {
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+
+        .komoreczka {
+            border: 1px solid black;
+            width: 30px;
+            height: 30px;
+            background-color: rgb(219, 199, 144);
+            /* background-image: url(grafiki/tlo.png); */
+        }
+
+        .sciany {
+            background-color: brown;
+        }
+
+        .waz {
+            background-color: red !important;
+            /* background-image: url(grafiki/glowa-gora.png); */
+        }
+
+        .jedzenie {
+
+            background-image: url(grafiki/jedzonko.png);
+            /* background-color: yellowgreen; */
+            background-size: cover;
+        }
+
+        #obecnadlugosc {
+            font-size: x-large;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body onkeydown="ruszanie(event)">
+    <h1>Poruszanie strzałkami</h1>
+    <h1>Jak chcesz zresetować - odśwież stronę</h1>
+    <p id="obecnadlugosc">Twoja obecna długość to: </p>
+
+    <script>
+        let mapa = {
+            wysokosc: 12,
+            szerokosc: 12
+        }
+
+        let tabela = document.createElement("table")
+        tabela.classList.add("tabelka")
+
+        for (let i = 0; i < mapa.wysokosc; i++) {
+            let rzad = document.createElement("tr")
+            for (let j = 0; j < mapa.szerokosc; j++) {
+                let komorka = document.createElement("td")
+                komorka.classList.add("komoreczka")
+                komorka.id = `${j}_${i}` // potem jest wygodniej z koordynatami w tej kolejności
+                if (i == 0 || j == 0 || i == (mapa.wysokosc - 1) || j == (mapa.szerokosc - 1)) {
+                    komorka.classList.add("sciany") // ściany
+                }
+                rzad.appendChild(komorka)
+            }
+            tabela.appendChild(rzad)
+        }
+        document.body.appendChild(tabela) // generowanie prowizorycznej tabelki
+
+        let koordynaty = [
+            { x: 4, y: 5 }
+        ] // tak oznaczam miejsce, w którym na początku będzie znajdował się mój wąż. potem tutaj będę chciał dodawać kolejne punkty tego węża po trafieniu w jedzenie
+
+        let kierunekporuszania = { x: 1, y: 0 } // tutaj będę zmieniał swój kierunek poruszania na osi X i Y
+        // i x i y to może być co najwyżej 1, żeby się poruszał o jedną kratkę
+
+        let nastepnapozycja;
+        let przesuniecieweza;
+
+        // let pom1 = document.getElementById(`${koordynaty[0].x}_${koordynaty[0].x}`)
+        // pom1.classList.add("waz") // ustawiam pozycję startową węża
+
+        let interval;
+
+        interval = setInterval(function () {
+            nastepnapozycja = {
+                x: koordynaty[0].x + kierunekporuszania.x,
+                y: koordynaty[0].y + kierunekporuszania.y,
+            } // tu obliczam koordynaty następnej pozycji, czyli dodaje lub odejmuje x lub y (poruszam się w 4 kierunkach)
+
+            koordynaty.unshift(nastepnapozycja) // dodaję na początek tabeli koordynaty następnej pozycji
+            przesuniecieweza = document.getElementById(`${nastepnapozycja.x}_${nastepnapozycja.y}`) // pobieram sobie komórkę z tabeli o takich koordynatach
+
+            //teraz warunki przegranej
+            if (koordynaty[0].x == (mapa.szerokosc - 1) || koordynaty[0].x == 0 || koordynaty[0].y == (mapa.wysokosc - 1) || koordynaty[0].y == 0) {
+                clearInterval(interval)
+                alert("Przegrałeś z powodu uderzenia w ścianę :)")
+            }
+
+            if (document.getElementById(`${nastepnapozycja.x}_${nastepnapozycja.y}`).classList.contains("waz")) {
+                clearInterval(interval)
+                alert("Przegrałeś z powodu uderzenia w ciało węża :)")
+            }
+
+            przesuniecieweza.classList.add("waz") // dodaję klasę, czyli przesuwam węża
+
+            console.log(koordynaty[0])
+
+            if (koordynaty[0].x == polejedzonka.x && koordynaty[0].y == polejedzonka.y) {
+                console.log("Trafiłeś jedzenie! Twoja długość to: ")
+                console.log(koordynaty.length)
+                document.getElementById(`${polejedzonka.x}_${polejedzonka.y}`).classList.remove("jedzenie")
+                zrobjedzenie();
+            }
+            else {
+                let usuniecieweza = koordynaty.pop() // usuwam ostatni element tablicy koordynaty i przechowuje go w zmiennej
+                przesuniecieweza = document.getElementById(`${usuniecieweza.x}_${usuniecieweza.y}`) // pobieram komórkę w tabeli o koordynatach przechowywanych w tamtej zmiennej
+                przesuniecieweza.classList.remove("waz") // usuwam klasę, czyli usuwam element węża, dzięki czemu się przesunie
+                // kiedy wąż zje jedzenie, to po prostu nie usuwam tego ostatniego elementu
+            }
+
+            // warunek wygranej
+
+            if (koordynaty.length == ((mapa.wysokosc * mapa.szerokosc) - ((mapa.wysokosc * mapa.szerokosc) - ((mapa.szerokosc - 1) * (mapa.wysokosc - 1))))) {
+                clearInterval(interval)
+                alert("WYGRALEEEEES :D")
+            }
+
+            document.getElementById("obecnadlugosc").innerText = `Twoja obecna długość to: ${koordynaty.length}`
+
+            // for (let i = 1; i < koordynaty.length; i++) {
+            //     if (koordynaty[0].x == koordynaty[i].x && koordynaty[0].y == koordynaty[i].y) {
+            //         clearInterval(interval)
+            //         alert("Przegrałeś z powodu uderzenia w ciało węża :)")
+            //     }
+            // } // pętlę zaczynam od i=1 żeby nie wyrzucało błędu za to że głowa jest na miejscu głowy
+            // // tu jest błąd: mogę przejść przez ogon swojego węża
+
+
+        }, 200)
+
+        let polejedzonka;
+
+        function zrobjedzenie() {
+            polejedzonka = {
+                x: Math.floor(Math.random() * (mapa.szerokosc - 2)) + 1,
+                y: Math.floor(Math.random() * (mapa.wysokosc - 2)) + 1
+            } // liczba od 1 do 19
+            for (let i = 0; i < koordynaty.length; i++) {
+                if ((polejedzonka.x == koordynaty[0].x && polejedzonka.y == koordynaty[0].y) || (polejedzonka.x == (koordynaty[0].x + 1) && polejedzonka.y == koordynaty[0].y) || (polejedzonka.x == koordynaty[i].x && polejedzonka.y == koordynaty[i].y)) {
+                    document.getElementById(`${polejedzonka.x}_${polejedzonka.y}`).classList.remove("jedzenie")
+
+                    zrobjedzenie();
+                } // nie chcę, żeby jedzenie było na początkowych polach ani nie chcę żeby było w ciele węża
+            }
+            console.log('Nowe jedzenie: ');
+            console.log(polejedzonka);
+            console.log('----------');
+            document.getElementById(`${polejedzonka.x}_${polejedzonka.y}`).classList.add("jedzenie")
+        }
+
+        zrobjedzenie(); // robię pierwsze jedzenie
+
+
+
+        // modyfikuję poruszanie tak, żebym nie mógł nagle zawrócić (to mogłoby oznaczać szybką przegraną przez missclick)
+
+        // let glowaweza = document.getElementById(`${koordynaty[0].x}_${koordynaty[0].y}`)
+
+        function ruszanie(e) {
+            // console.log(e);
+            if (e.key == "ArrowRight") {
+                // console.log(e.key);
+                if (kierunekporuszania.x != -1) {
+                    kierunekporuszania.x = 1
+                    kierunekporuszania.y = 0
+                }
+            }
+            else if (e.key == "ArrowLeft") {
+                // console.log(e.key);
+                if (kierunekporuszania.x != 1) {
+                    kierunekporuszania.x = -1
+                    kierunekporuszania.y = 0
+                }
+
+            }
+            else if (e.key == "ArrowUp") {
+                // console.log(e.key);
+                if (kierunekporuszania.y != 1) {
+                    kierunekporuszania.y = -1
+                    kierunekporuszania.x = 0
+                }
+
+            }
+            else if (e.key == "ArrowDown") {
+                // console.log(e.key);
+                if (kierunekporuszania.y != -1) {
+                    kierunekporuszania.y = 1
+                    kierunekporuszania.x = 0
+                }
+
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

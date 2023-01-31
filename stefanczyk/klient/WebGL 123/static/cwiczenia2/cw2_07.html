@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div style="position: fixed;">
+        <h1 class="naglowek">07: Raycaster - o co chodzi w tym zadaniu - chyba nikt nie wie</h1>
+
+        <br><br>
+
+        <div class="container2">
+            <pre id="daneSrodek"></pre>
+        </div>
+    </div>
+    <!-- bardzo wazne, position fixed i pre w divie -->
+
+    <div id="root"></div>
+
+    <script>
+
+        let klikniete;
+        let daneWysyl = []
+
+        function fetchPost(klikniete) {
+
+            const body = JSON.stringify({ rot: klikniete.rot }); // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
+
+            fetch("/fcw2_07", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        // console.log(data);
+
+                        daneWysyl.push(data)
+                        document.getElementById("daneSrodek").innerText = `${JSON.stringify(daneWysyl, null, 3)}`
+
+                    } // dane odpowiedzi z serwera
+                )
+        }
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            45,    // fov
+            this.window.innerWidth / this.window.innerHeight,    // proporcje widoku // 16 / 9
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xffffff);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        camera.position.set(100, 0, 100)
+        camera.lookAt(scene.position);
+
+        const axes = new THREE.AxesHelper(1000)
+        scene.add(axes)
+
+        const material = new THREE.MeshBasicMaterial({
+
+            side: THREE.DoubleSide, // dwustronny
+            map: new THREE.TextureLoader().load('mats/dirt.jpg'), // plik tekstury
+            transparent: true, // przezroczysty / nie
+            opacity: 0.8, // stopień przezroczystości
+
+        })
+        let geometria = new THREE.BoxGeometry(30, 30, 30)
+        let figura = new THREE.Mesh(geometria, material)
+        scene.add(figura)
+
+
+        function render() {
+
+
+            requestAnimationFrame(render);
+            console.log("render leci")
+            renderer.render(scene, camera);
+            camera.updateProjectionMatrix();
+        }
+        render();
+        console.log(scene);
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        } // jak będę zmieniał rozmiar konsoli to się będzie zmieniać szerokosc i dlugosc sceny
+
+        window.addEventListener("load", function () {
+            console.log("załadowano");
+
+        })
+
+        const raycaster = new THREE.Raycaster(); // obiekt Raycastera symulujący "rzucanie" promieni
+        const mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie, a potem przeliczenia na pozycje 3D
+
+        window.addEventListener("mousedown", (e) => {
+            mouseVector.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1; // pozycja myszy zostaje przeliczona na wartości -1 do 1, wymagane przez raycaster
+            // console.log(mouseVector);
+            // console.log(e);
+            raycaster.setFromCamera(mouseVector, camera); // szukamy punktów wspólnych "promienia" i obiektu 3D
+            const intersects = raycaster.intersectObjects(scene.children); // intersects - tablica obiektów w które "trafia" nasz "promień" wysyłany z kamery
+            console.log(intersects.length) // scene.children oznacza, że szukamy meshów bezpośrednio dodanych do sceny3D
+            if (intersects.length > 0) {
+
+                // zerowy w tablicy czyli najbliższy kamery obiekt to ten, którego potrzebujemy:
+
+                console.log(intersects[0].object); // jeśli długość tablicy > 0 oznacza to że "trafiliśmy" w obiekt 3D czyli "kliknęliśmy" go
+
+            }
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>div</div>
+    <span class="lol">l</span>
+    <span class="lol">l</span>
+    <span class="lol">l</span>
+    <img id="obrazek" />
+    <form name="formularz"><input name="inpucik"></form>
+
+    <script>
+        /*
+            var z = 10;
+            test();
+            console.log(z);
+            console.log("oo", oo);
+            // console.log("zz", zz);   // undefined
+            console.log(suma(10, 30))
+    
+    
+            var f = function () {
+                console.log("bzdura");
+            }
+            f();
+    
+            var ff = (p1, p2) => { // arrow function !!! Kontekst !!! W Przyszłości 
+                console.log(p1 / p2)
+            }
+            ff(100, 10);
+    
+            function nazwa(a, b) { // moze przyjmować parametry
+    
+            }
+    
+            function test() {
+                var zz = 20;
+                oo = "oooo";  // !!!! uwaga
+                console.log(z)
+                console.log("zz", zz);
+                console.log("oo", oo);
+            }
+    
+            function suma(a, b) {
+                return a + b;
+            }
+    
+            function para() {
+                console.log(arguments, arguments[0]);
+            }
+            para("adssd", 3, 4, 5, 6, 7);
+        */
+        /*
+         let el = document.querySelector(".lol");
+         console.log(el);
+         let els = document.querySelectorAll(".lol");
+         console.log(els);
+         el = document.getElementById("obrazek");
+         console.log(el);
+         el = document.getElementsByClassName("lol");
+         console.log(el);
+         el = document.getElementsByTagName("span");
+         console.log(el);
+         let forms = document.forms
+         console.log(forms);
+         // document.images
+         // document.links
+         console.log(obrazek) // nie polecam!!!!
+         console.log(formularz); // nie polecam!!!!
+         console.log(formularz.inpucik); // nie polecam!!!!
+         // tu nie wiem czy to zmienna czy DOM !!!!
+         */
+
+        let els = document.querySelectorAll(".lol");
+        console.log(els[1]);
+        // els[1].style.color = "red";
+        els[1].style["color"] = "red";
+        els[1].style["background-color"] = "black";
+        els[1].style.backgroundColor = "pink";
+        els[1].id = "spanik";
+        els[1].className = "a b c d";
+        els[1].innerText = "<b>Frugo</b>"; // <znacznik>INNER</znaczik>
+        els[1].innerHTML = "<b>Frugo</b>";
+
+        window.setTimeout(function () {
+            console.log("pyk");
+        }, 2000); // czas w ms
+
+        let funk = () => {
+            console.log("pyk2");
+        }
+        idd = setTimeout(funk, 2000);
+        clearTimeout(idd);
+
+        setInterval("console.log('lol');", 3000);
+        //clearInterval
+    </script>
+</body>
+
+</html>

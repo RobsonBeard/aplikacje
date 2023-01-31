@@ -1,0 +1,14 @@
+<h1 class="naglowek">{{subject}}</h1> <br>
+
+<div class="content3">
+    <form action="/radios" method="GET">
+        {{#each fields}}
+        <label class="radiosy">{{name}}</label>
+        <input type="radio" name="radiosy" value={{name}}>
+        <br> <br>
+        {{/each}}
+        <br>
+        <button class="button" type="submit">Wyslij</button>
+
+    </form>
+</div>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function init() {
+            let input = document.createElement("input");
+ 
+            /*
+            let c = function () {
+                console.log("click", this);
+            }*/
+ 
+            let c = (e) => {
+                console.log("click", this, e.target);
+            }
+ 
+            input.oninput = function () {
+                console.log("aaa", this);
+                this.value = "lool";
+            }
+            /*
+            input.onclick = c;
+            input.onclick = c2;
+            input.onclick = function () {
+                console.log("nadpisana!!!!!");
+            }*/
+ 
+            input.addEventListener("click", c, false);
+            input.addEventListener("click", c2, false);
+            input.addEventListener("click", function () {
+                console.log("nie nadpisana");
+            }, false);
+ 
+            document.body.append(input);
+ 
+            let out = document.getElementById("outer");
+            let inn = document.getElementById("inner");
+            out.addEventListener("click", () => {
+                console.log("O");
+            }, false);
+            inn.addEventListener("click", (e) => {
+                console.log("I");
+                e.stopPropagation();
+            }, false);
+ 
+        }
+ 
+        function c2() {
+            console.log("click - 2");
+        }
+    </script>
+</head>
+ 
+<body onload="init();" >
+    <span onmouseover="console.log('lol',this); this.style.color='red';">LOL</span>
+    <span onmouseover="console.log('lol',this); this.style.color='red';">LOL</span>
+    <span onmouseover="console.log('lol',this); this.style.color='red';">LOL</span>
+    <span onmouseover="console.log('lol',this); this.style.color='red';">LOL</span>
+ 
+    <div id="outer">OUT
+        <div id="inner">IN</div>
+    </div>
+</body>
+ 
+</html>

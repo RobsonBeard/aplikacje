@@ -1,0 +1,281 @@
+<script>
+    /*
+        1a
+    */
+    document.write("<strong>Witaj JavaScript</strong> <br>");
+
+    /*
+        1b
+    */
+    for (let i = -22; i < 22; i++)
+        document.write(i + "<br>");
+
+    /*
+        1c
+    */
+    for (let i = 55; i > -15; i -= 5)
+        document.write(i + " ");
+
+    document.write("<br>");
+
+    /*
+        1d
+    */
+    for (let i = 40; i >= 10; i--)
+    {
+        if ( i < 25 && i > 15 )
+            continue;
+        else 
+            document.write( i + " ");
+    }
+    
+    document.write("<br>");
+
+    /*
+        2a
+    */
+    for ( let i = -40; i < 40; i++ )
+    {
+        if ( i >= 3 && i < 30 )
+            continue;
+        else if ( i % 2 == 1 || i % 2 == -1 )
+            console.log( i + " ");
+    }
+
+    document.write("<br>");
+
+    /*
+        2b
+    */
+    for ( let i = -20; i < 20; i++ )
+    {
+        if ( i >= 5 && i < 10 )
+            continue;
+        else if ( i % 2 == 0 )
+            console.log( i + " ");
+    }
+
+    document.write("<br>");
+
+    /*
+        2c
+    */
+    for ( let i = -100; i < 41; i++ )
+    {
+        if ( i > -28 && i < 14 )
+            continue;
+        else if ( i % 7 == 0 )
+            console.log( i + " " );
+    }
+    
+    var n = prompt( "Wprowadź liczbę" );
+
+    /*
+        3a
+    */
+    for ( let i = 0; i < n; i++ )
+        document.write( "X" );
+
+    document.write( "<br>" );
+
+    /*
+        3b
+    */
+    for ( let i = 0; i < n; i++ )
+    {
+        if ( i == 0 || i == ( n - 1 ) )
+        {
+            for ( let j = 0; j < n; j++ )
+                document.write( "X" + "&nbsp" );
+            document.write( "<br>" )
+        }
+        else 
+        {
+            document.write( "X" );
+            for ( let k = 0; k < ( 2*n - 3 ); k++ )
+                {
+                    document.write( "&nbsp" );
+                }
+            document.write( "X" );
+            document.write( "<br>" )
+        }
+        
+    }
+    
+    document.write( "<br>" );
+
+    /*
+        3c
+    */
+    for ( let i = 1; i < n; i++ )
+    {
+        for ( let j = n; j >= 1; j-- )
+        {
+            if ( j == i )
+                document.write ( "X" );
+            else if ( j == 1 )
+                document.write( "X" );
+            else
+                document.write( "&nbsp" );
+        }
+        document.write( "<br>" );
+    }
+
+    for ( let k = 0; k < n; k++ )
+            document.write( "X" );
+        
+    document.write( "<br>" );
+
+    /*
+        3d
+    */
+    for ( let i = 1; i <= n; i++ )
+    {
+        for ( let j = 1; j <= n; j++ )
+        {
+            if ( j <= i )
+                document.write ( j );
+            else
+                document.write ( "&nbsp" );
+        }
+        document.write( "<br>" );
+    }
+    
+    /*
+        3e
+    */
+    for ( let i = 1; i <= n; i++ )
+    {
+        for ( let j = n; j >= 1; j-- )
+        {
+            if ( j <= i )
+                document.write ( j );
+            else
+                document.write ( "&nbsp" );
+        }
+        document.write( "<br>" );
+    }
+   
+    /*
+        3f
+    */
+    function silnia( x )
+    {
+        if ( x < 2 )
+            return 1;
+        else
+            return (x * silnia ( x - 1 ));
+    }
+    document.write( silnia( n ) + "<br>" );
+    
+    /*
+        3g
+    */
+    function suma( x )
+    {
+        let wynik = 0;
+        for ( let i = 0; i < x; i+=2 )
+            wynik += i;
+        return wynik;
+    }
+    document.write( suma( n ) );
+   
+    /*
+        3h
+    */
+    function czyPierwsza( x )
+    {
+    if ( x < 2 )
+        return false;
+    for ( let i = 2; i < x; i++ )
+    {
+        if ( x % i == 0 )
+            return false;
+    }
+    return true;
+    }
+    alert( czyPierwsza( n ) );
+
+    /*
+        3i
+    */
+    document.write("<table>");
+    for ( let i = 0; i <= n; i++ )
+    {
+        document.write("<tr>");
+        for ( let j = 0; j <= n; j++ )
+        {   
+            if ( (i == 0) && (j == 0) )
+                document.write("<th class=bbb></th>" );
+            else if ( i == j )
+                document.write("<td class=aaa>" + (i * j) + "</td>" );
+            else if ( (i == 0) )
+                document.write("<th>" + j + "</th>" );
+            else if ( (j == 0) )
+                document.write("<th>" + i + "</th>" );
+            else
+                document.write("<td>" + ( i * j ) + "</td>" );
+        }
+        document.write("</tr>")
+    }
+    document.write("</table>");
+
+    /*
+        4
+    */
+    let regon = prompt("Wprowadź REGON");
+    let sumaReg = 0;
+    const wagi9 = [8, 9, 2, 3, 4, 5, 6, 7];
+    const wagi14 = [2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8];
+
+    if ( (regon.length != 9) && (regon.length != 14) && (isNaN( parseInt( regon ) )) )
+        alert("Niepoprawny REGON. Musi mieć 9 lub 14 cyfr!");
+    else if ( regon.length == 9 )
+    {
+        for ( let i = 0; i < 8; i++ )
+            sumaReg += parseInt( regon[i] ) * wagi9[i];
+    }
+    else if ( regon.length == 14 )
+    {
+        for ( let i = 0; i < 13; i++ )
+            sumaReg += parseInt( regon[i] ) * wagi14[i];
+    }
+    if ( (sumaReg % 11) == regon[ regon.length - 1 ] )
+        alert("Poprawny REGON");
+    else
+        alert("Niepoprawny REGON :(");
+</script>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body { 
+        font-family: monospace; 
+    }
+
+    td, tr, th { 
+        text-align: center;
+        padding: 2px;
+    }
+
+    th {
+        background: rgb(76, 102, 250);
+        color: white;
+    }
+
+    td {
+        background: rgb(255, 197, 90);
+    }
+
+    .aaa {
+        background: white;
+    }
+
+    .bbb {
+        background: none;
+        border: none;
+    }
+</style>

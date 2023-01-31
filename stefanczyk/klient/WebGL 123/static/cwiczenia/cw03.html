@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../js/three145.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div style="position: fixed;">
+        <h1 class="naglowek">03: Utwórz 4 różne bryły po kliknięciu w btn</h1>
+        <br>
+
+        <button class="button" id="b1">Dodaj</button>
+        <button class="button" id="b2">Dodaj</button>
+        <button class="button" id="b3">Dodaj</button>
+        <button class="button" id="b4">Dodaj</button>
+        <br><br>
+
+        <div class="container">
+            <pre id="daneSrodek"></pre>
+        </div>
+    </div>
+    <!-- bardzo wazne, position fixed i pre w divie -->
+
+    <div id="root"></div>
+
+    <script>
+        let klikniete;
+
+        let jeden = document.getElementById("b1")
+        let dwa = document.getElementById("b2")
+        let trzy = document.getElementById("b3")
+        let cztery = document.getElementById("b4")
+
+
+
+        let daneWysyl = [] // tu wazne
+
+        function fetchPost(klikniete) {
+
+            const body = JSON.stringify({ type: klikniete.type, geometry: klikniete.geometry }); // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
+
+            fetch("/fcw3", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => {
+                        let pom = data
+                        daneWysyl.push(pom)
+                        document.getElementById("daneSrodek").innerText = `${JSON.stringify(daneWysyl, null, 3)}`
+
+                       
+                    } // dane odpowiedzi z serwera
+                )
+        }
+
+        // scena 3D
+
+        const scene = new THREE.Scene();
+
+        // kamera perspektywiczna - przeczytaj dokładnie objaśnienia w komentarzach
+
+        const camera = new THREE.PerspectiveCamera(
+            45,    // kąt patrzenia kamery (FOV - field of view)
+            16 / 9,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        // renderer wykorzystujący WebGL - działa stabilnie na wszystkich
+        // najnowszych przeglądarkach zarówno desktopowych jak mobilnych
+
+        const renderer = new THREE.WebGLRenderer();
+
+        // kolor tła sceny - uwaga na prefix 0x a nie #
+
+        renderer.setClearColor(0xffffff);
+
+        // ustal rozmiary renderowanego okna w px (szer, wys)
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // dodanie renderera do diva, który istnieje na scenie
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        // camera.position.x = -200;
+        // camera.position.y = 200;
+        // camera.position.z = 200;
+
+        // lub
+
+        camera.position.set(100, 100, 100)
+
+        // nakierowanie kamery na punkt (0,0,0) w przestrzeni (zakładamy, że istnieje już scena)
+
+        camera.lookAt(scene.position);
+
+        // kluczowy element - animacja
+
+        const axes = new THREE.AxesHelper(1000)
+
+        scene.add(axes) //do bazowego pliku dodaj osie układu współrzędnych
+
+        const material1 = new THREE.MeshBasicMaterial({
+            color: 0x0000FF,
+            side: THREE.DoubleSide,
+            wireframe: true
+        });
+
+        const geometria1 = new THREE.BoxGeometry(50, 50, 50)
+        const figura1 = new THREE.Mesh(geometria1, material1)
+      
+
+        const material2 = new THREE.MeshBasicMaterial({
+            color: 0xFF00FF,
+            side: THREE.DoubleSide,
+            wireframe: true
+        })
+
+        const geometria2 = new THREE.ConeGeometry(25, 50)
+        const figura2 = new THREE.Mesh(geometria2, material2)
+      
+
+        const material3 = new THREE.MeshBasicMaterial({
+            color: 0x00FF00,
+            side: THREE.DoubleSide,
+            wireframe: true
+        })
+
+        const geometria3 = new THREE.SphereGeometry(25)
+        const figura3 = new THREE.Mesh(geometria3, material3)
+       
+
+        const material4 = new THREE.MeshBasicMaterial({
+            color: 0xFF0000,
+            side: THREE.DoubleSide,
+            wireframe: true
+        })
+
+        const geometria4 = new THREE.CylinderGeometry(25, 25, 50)
+        const figura4 = new THREE.Mesh(geometria4, material4)
+        
+
+
+        function render() {
+
+
+            //w tym miejscu ustalamy wszelkie zmiany w projekcie (obrót, skalę, położenie obiektów)
+            //np zmieniająca się wartość rotacji obiektu
+
+            // cube.rotation.y += 0.01;
+
+            //wykonywanie funkcji bez końca, ok 60 fps jeśli pozwala na to wydajność maszyny
+
+            requestAnimationFrame(render);
+
+            // potwierdzenie w konsoli, że render się wykonuje
+
+            console.log("render leci")
+
+            //ciągłe renderowanie / wyświetlanie widoku sceny naszą kamerą
+
+            renderer.render(scene, camera);
+
+            camera.updateProjectionMatrix();
+        }
+
+        // na koniec jednokrotne wykonanie powyższej funkcji
+
+        render();
+        console.log(scene);
+
+        klikniete = {
+            type: scene.children[0].type,
+            geometry: scene.children[0].geometry.type
+        }
+        // console.log(klikniete);
+
+        let bul = true
+        if (bul == true) {
+            fetchPost(klikniete)
+            bul = false
+        }
+        // szczerze mówiąc, nie wiem, czy to potrzebne, ale mam już dość wykrzaczania się programu XD
+
+
+        // window.addEventListener('resize', onWindowResize, false);
+
+        // function onWindowResize() {
+
+        //     camera.aspect = window.innerWidth / window.innerHeight;
+        //     camera.updateProjectionMatrix();
+
+        //     renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // }
+
+        jeden.addEventListener("click", klikaj1)
+        dwa.addEventListener("click", klikaj2)
+        trzy.addEventListener("click", klikaj3)
+        cztery.addEventListener("click", klikaj4)
+
+        function klikaj1() {
+            // if (this.innerText == `Dodaj`) {
+            //     this.innerText = `Dodano`
+            // }
+
+            // if (this.innerText == `Dodano`) {
+            //     this.innerText = `Dodaj`
+            // } // czemu sie nie da?
+
+            if (jeden.innerText == `Dodaj`) {
+                jeden.innerText = `Dodano`
+                scene.add(figura1)
+
+                klikniete = {
+                    type: figura1.type,
+                    geometry: figura1.geometry.type
+                }
+                fetchPost(klikniete)
+            }
+        }
+        function klikaj2() {
+            if (dwa.innerText == `Dodaj`) {
+                dwa.innerText = `Dodano`
+                klikniete.b = 1
+                scene.add(figura2)
+                klikniete = {
+                    type: figura2.type,
+                    geometry: figura2.geometry.type
+                }
+                fetchPost(klikniete)
+            }
+        }
+        function klikaj3() {
+            if (trzy.innerText == `Dodaj`) {
+                trzy.innerText = `Dodano`
+                klikniete.c = 1
+                scene.add(figura3)
+                klikniete = {
+                    type: figura3.type,
+                    geometry: figura3.geometry.type
+                }
+                fetchPost(klikniete)
+            }
+        }
+        function klikaj4() {
+            if (cztery.innerText == `Dodaj`) {
+                cztery.innerText = `Dodano`
+                klikniete.d = 1
+                scene.add(figura4)
+                klikniete = {
+                    type: figura4.type,
+                    geometry: figura4.geometry.type
+                }
+                fetchPost(klikniete)
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>

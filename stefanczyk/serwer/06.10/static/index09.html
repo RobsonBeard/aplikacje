@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+        }
+
+        .naglowek {
+            color: red;
+            text-decoration: underline;
+        }
+
+        .button {
+            background-color: blue;
+            color: white;
+            border: 1px solid black;
+            width: 100px;
+            height: 40px;
+            padding: 5px;
+            font-size: larger;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+        }
+
+        #main {
+            display: flex;
+        }
+
+        .napis {
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1 class="naglowek">Post data to server by fetch</h1> <br>
+
+    <div id="main">
+        <!-- <input type="hidden" name="info" value="file uploaded succesfully!"> -->
+        <input type="file" name="zdjecie" id="zdjecie" multiple required accept="image/*" class="button"
+            style="width: 300px;">
+        <br> <br>
+        <button type="submit" id="button" class="button">Submit</button>
+    </div>
+    <br><br>
+    <p id="napis" class="napis"></p>
+
+    <script>
+        function fetchPost() {
+
+            let fd = new FormData()
+
+            fd.append("file", document.getElementById("zdjecie").files[0]) // plik z inputa
+
+            const body = fd
+
+            const headers = { "Content-Type": "application/json" }
+
+            fetch("/api", { method: "post", body })
+                .then(response => response.json())
+                .then(
+                    data => {
+                        let pom = data
+                        console.log(pom)
+                        pobraneDane = {
+                            info: `file uploaded successfully!`,
+                            date: `${pom[1].file.mtime}`,
+                            fileName: `${pom[1].file.name}`
+                        }
+
+                        document.getElementById("napis").innerText = `${JSON.stringify(pobraneDane, null, 3)}`
+                    }
+                )
+                .catch(error => console.log(error)) // ew błąd
+        }
+
+        document.getElementById("button").onclick = function () {
+            fetchPost()
+        }
+
+    </script>
+</body>
+
+</html>

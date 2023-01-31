@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bartosik Sebastian</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let dna = prompt("daj mi dna smierdzielu","tgtcccatactatgtagaggggggagttttgctgtacttaccaaactgaaagaccttctcattctagatgaccactgccgacgaccactcctgggccagcaaatgtactgtgttttacatatcctttgagtacgtattcgcaaggtcgcgaaaagcaggtggcgcttttgagaagattaa"); // zwykłe
+        dnaDuze = dna.toUpperCase(); // z dużych liter
+        let dnaCaps=""; // z dużych liter, ze spacjami
+        for ( let i = 0; i < dna.length; i++ )
+        {
+            dnaCaps += dnaDuze[ i ];
+            if ( (i+1) % 3 == 0 )
+                dnaCaps += " ";
+        }
+
+        let dnaColor = dnaCaps; // z dużych liter, ze spacjami, atg na zielono
+
+        let atg = "ATG";
+        atg = atg.bold();
+        atg = atg.fontcolor("green");
+
+        dnaColor = dnaColor.replaceAll("ATG", atg);
+
+        let taa = "<span style=\"background: yellow;\">TAA</span>";
+        let tag= "<span style=\"background: yellow;\">TAG</span>";
+        let tga= "<span style=\"background: yellow;\">TGA</span>";
+
+        dnaColor = dnaColor.replaceAll("TAA", taa);
+        dnaColor = dnaColor.replaceAll("TAG", tag);
+        dnaColor = dnaColor.replaceAll("TGA", tga);
+
+        let dnaKomp = "";
+
+        for ( let i = 0; i < dnaCaps.length; i++ )
+        {
+            if ( dnaCaps[ i ] == "T")
+                dnaKomp += "a";
+            else if ( dnaCaps[ i ] == "C")
+                dnaKomp += "g";
+            else if ( dnaCaps[ i ] == "G")
+                dnaKomp += "c";
+            else if ( dnaCaps[ i ] == "A")
+                dnaKomp += "t";
+        }
+
+        let kodony = [
+            [],
+            []
+        ];
+        
+        for ( let i = 0; i < dnaDuze.length; i+=3 )
+        {
+            for ( let j = -1; j <= kodony[0].length; j++ )
+            {
+                if ( dnaDuze.slice(i, i + 3) == kodony[0][j+1] )
+                {
+                    kodony[1][j+1]++;
+                    break;
+                }
+                else if ( ( j == kodony[0].length ) ) 
+                {
+                    kodony[1][kodony[0].length] = 0;
+                    kodony[1][kodony[0].length]++;
+                    kodony[0][kodony[0].length] = dnaDuze.slice(i, i + 3);
+                    break;
+                }
+            }
+        }
+
+
+        console.log(kodony);
+        console.table(kodony);
+        
+        for ( let i = 1; i < kodony[0].length; i++)
+        {
+            for ( let j = kodony[0].length - 1; j >= 1; j-- )
+            {
+                if ( kodony[1][j] > kodony[1][j - 1] )
+                {
+                    let pom0;
+                    let pom1;
+
+                    pom0 = kodony[0][j - 1];
+                    pom1 = kodony[1][j - 1];
+
+                    kodony[0][j - 1] = kodony[0][j];
+                    kodony[0][j] = pom0;
+
+                    kodony[1][j - 1] = kodony[1][j];
+                    kodony[1][j] = pom1;
+                }
+            }
+        }
+
+        console.log(kodony);
+        console.table(kodony);
+
+        document.write( dna + "<br>" );
+        document.write( dnaCaps + "<br>" );
+        document.write( dnaColor + "<br>" );
+        document.write( dnaKomp + "<br>" );
+
+        let randomR;
+        let randomG;
+        let randomB;
+
+        // let randomHex;
+
+        for ( let i = 0; i < kodony[0].length; i++ )
+        {
+            if ( (i % 5 == 0) || (i == 0) )
+            {
+                randomR = Math.floor(Math.random() * 256);
+                randomG = Math.floor(Math.random() * 256);
+                randomB = Math.floor(Math.random() * 256);
+                // randomHex = Math.floor(Math.random() * 16777216)
+            }
+            document.write( `<span style=\"background: rgb(${randomR}, ${randomG}, ${randomB});\">` + kodony[0][i] + " - " + kodony[1][i] + "</span> <br>" )
+        }
+
+        
+    </script>
+</body>
+</html>

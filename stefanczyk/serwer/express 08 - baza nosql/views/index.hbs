@@ -1,0 +1,69 @@
+<h1 class="naglowek">{{title}}</h1>
+<br><br>
+
+<div class="flex2">
+	<form action="/formularz" method="GET">
+		<div class="flex1">
+			<table class="tabela1">
+				<caption class="naglowek2">Dane pojazdu:</caption>
+				{{#each pola}}
+				<tr>
+					<td><label for={{name}}>{{name}}</label></td>
+					<td><input type="checkbox" name={{name}} id={{name}}></td>
+				</tr>
+				{{/each}}
+			</table>
+			<button type="submit" class="button">Dodaj do bazy</button>
+		</div>
+	</form>
+	<table class="tabela2">
+		<caption class="naglowek2">Wszystkie pojazdy</caption>
+		<tr>
+			<th>id</th>
+			<th>ubezpieczony</th>
+			<th>benzyna</th>
+			<th>uszkodzony</th>
+			<th>naped4x4</th>
+			<th></th>
+			<th></th>
+		</tr>
+		{{#each nowatabelka}}
+		<tr>
+			<td>{{_id}}</td>
+			<td>{{ubezpieczony}}</td>
+			<td>{{benzyna}}</td>
+			<td>{{uszkodzony}}</td>
+			<td>{{naped}}</td>
+			<td><a href="/delete?id={{_id}}" class="buttonDelete">DELETE</a></td>
+			<td><a href="/edit?id={{_id}}" class="buttonEdit">EDIT</a></td>
+		</tr>
+		{{/each}}
+	</table>
+</div>
+
+<script>
+	console.log(document.querySelectorAll(".buttonEdit"))
+	let butony1 = document.querySelectorAll(".buttonEdit")
+	for (let i = 0; i < butony1.length; i++) {
+		butony1[i].addEventListener("click", klikamEdit)
+		console.log(butony1[i])
+	}
+	function klikamEdit() {
+		console.log("trealalalalal")
+	} // to dziala no ale po co
+
+	/* function fetchPost(klikniete) {
+
+	   const body = JSON.stringify({}); // body czyli przesyłane na serwer dane
+
+	   const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
+
+	   fetch("/fetch", { method: "post", body, headers }) // fetch
+		   .then(response => response.json())
+		   .then(
+			   data => {
+		   	
+			   } // dane odpowiedzi z serwera
+		   )
+   } */
+</script>

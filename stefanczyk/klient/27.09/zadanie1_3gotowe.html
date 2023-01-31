@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #tabela {
+            border: 2px solid darkgray;
+        }
+
+        td {
+            border: darkgray solid 1px;
+        }
+
+        .naglowek {
+            color: blue;
+            font-weight: bold
+        }
+
+        .cenagotowa{
+            font-weight: bold;
+            color: red;
+            text-align: center;
+        }
+
+
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            let lps = ["lp", "cena", "produkt"]
+            let ceny = ["5,60", "3,23", "7,45", "10,00", "3,20", "4,20"]
+            let produkty = ["chleb", "mąka", "masło", "kefir", "dżem", "weade"]
+            let tab = []
+            // let td = $("<td>") // komórka tabeli
+            // let tr = $("<tr>") // wiersz tabeli
+
+            let nowatabela = $(`<table id="tabela">`)
+
+            
+
+            $("#bt1").on("click", function () {
+                console.log("klik")
+
+                $("body").append(nowatabela)
+                $("#tabela").empty()
+
+                let tr = $("<tr>")
+                for (let i = 0; i < lps.length; i++) {
+                    let td = $("<td>")
+                    td.append(lps[i])
+                    td.addClass("naglowek")
+                    tr.append(td)
+                }
+                $("#tabela").append(tr)
+
+                for (let i = 0; i < produkty.length; i++) {
+                    let tr = $("<tr>")
+                    for (let j = 1; j <= lps.length; j++) {
+                        let td = $("<td>")
+                        if (j == 1) {
+                            td.append(i+1)
+                            tr.append(td)
+                        }
+                        else if (j == 2) {
+                            td.append(ceny[i])
+                            tr.append(td)
+                        }
+                        else if (j == 3) {
+
+                            td.append(produkty[i])
+                            tr.append(td)
+                        }
+                        // td.append(produkty[i])
+                        // tr.append(td)
+                    }
+                    $("#tabela").append(tr)
+                }
+                
+                let tr2 = $("<tr>")
+                let zliczaj = 0;
+                let pomoc1;
+                let pomoc2;
+                let pomoc3;
+                // for(let i=0; i<produkty.length;i++)
+                // {
+                    
+                    for(let j=0; j<2; j++){
+                        let td = $("<td>")
+                        if(j==1)
+                        {
+                            td.attr("colspan", "2")
+                            for(let i=0; i<produkty.length;i++)
+                            {
+                                pomoc1 = ceny[i].replace(",",".")
+                                pomoc2 = parseFloat(pomoc1)
+                                zliczaj += pomoc2;
+                            }
+                            pomoc3 = zliczaj.toString()
+                            td.append(pomoc3.replace(".",","))
+                            td.addClass("cenagotowa")
+                        }
+                        else if(j==0){
+                            td.append("suma")
+                        }
+                        tr2.append(td)
+                    }
+                    
+                
+                // }
+                $("#tabela").append(tr2)
+
+
+            })
+
+
+
+
+
+        })
+    </script>
+
+</head>
+
+<body>
+    <h1>T: tablice</h1>
+    <br>
+    <button id="bt1">Utwórz tabelę</button>
+    <br> <br>
+    <!-- <table id="tabela"></table> -->
+
+</body>
+
+</html>
