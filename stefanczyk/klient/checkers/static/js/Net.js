@@ -122,8 +122,8 @@ class Net {
 
 
 			if (this.intersects.length > 0) {
-				console.log(this.intersects[0].object);
 				this.kliknietyTeraz = this.intersects[0].object
+				console.log(this.kliknietyTeraz);
 
 				if (this.kliknietyTeraz.type != "AxesHelper") {
 
@@ -132,56 +132,50 @@ class Net {
 					if (this.klikniete.length > 2) {
 						this.klikniete.shift()
 					}
-					if (this.klikniete.length == 2) { // i tu tez nie moze byc w ten sposob
-						switch (this.kliknietyTeraz.info) {
-							case "bialyPionek":
-								this.kliknietyTeraz.material.color.r = 0
-								this.kliknietyTeraz.material.color.g = 1
-								this.kliknietyTeraz.material.color.b = 0
-								break;
-							case "czarnyPionek":
-								this.kliknietyTeraz.material.color.r = 0
-								this.kliknietyTeraz.material.color.g = 1
-								this.kliknietyTeraz.material.color.b = 0 // najpierw musze jednak stworzyc kilka tych obiektow
-								break;
-							case "bialePole":
-								this.kliknietyTeraz.material.color.r = 0
-								this.kliknietyTeraz.material.color.g = 1
-								this.kliknietyTeraz.material.color.b = 0
-								break;
-							case "czarnePole":
-								this.kliknietyTeraz.material.color.r = 0
-								this.kliknietyTeraz.material.color.g = 1
-								this.kliknietyTeraz.material.color.b = 0
-								break;
-						}
+
+					if (this.klikniete.length == 1) {
+						this.kliknietyTeraz.material.color.g = 0 // 0 - koloruje, 1 - bez zmian
 					}
-					// console.log(this.klikniete);
+					else if (this.klikniete.length == 2) {
+						this.klikniete[0].material.color.g = 1
+						this.klikniete[1].material.color.g = 0
+					}
+
+
+					// if (this.klikniete.length == 2) { // i tu tez nie moze byc w ten sposob
+					// 	switch (this.kliknietyTeraz.info) {
+					// 		case "bialyPionek":
+					// 			this.kliknietyTeraz.material.color.r = 0
+					// 			this.kliknietyTeraz.material.color.g = 1
+					// 			this.kliknietyTeraz.material.color.b = 0
+					// 			break;
+					// 		case "czarnyPionek":
+					// 			this.kliknietyTeraz.material.color.r = 0
+					// 			this.kliknietyTeraz.material.color.g = 1
+					// 			this.kliknietyTeraz.material.color.b = 0 // najpierw musze jednak stworzyc kilka tych obiektow
+					// 			break;
+					// 		case "bialePole":
+					// 			this.kliknietyTeraz.material.color.r = 0
+					// 			this.kliknietyTeraz.material.color.g = 1
+					// 			this.kliknietyTeraz.material.color.b = 0
+					// 			break;
+					// 		case "czarnePole":
+					// 			this.kliknietyTeraz.material.color.r = 0
+					// 			this.kliknietyTeraz.material.color.g = 1
+					// 			this.kliknietyTeraz.material.color.b = 0
+					// 			break;
+					// 	}
+					// }
+
+					console.log(this.klikniete);
+
+
 
 
 				}
 
 			}
 		})
-
-		// window.addEventListener("mousedown", (e) => {
-		//     mouseVector.x = (event.clientX / window.innerWidth) * 2 - 1;
-		//     mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1; 
-		//     // console.log(mouseVector);
-		//     // console.log(e);
-		//     raycaster.setFromCamera(mouseVector, camera); // szukamy punktów wspólnych "promienia" i obiektu 3D
-		//     const intersects = raycaster.intersectObjects(scene.children); // intersects - tablica obiektów w które "trafia" nasz "promień" wysyłany z kamery
-		//     // console.log(intersects.length) // scene.children oznacza, że szukamy meshów bezpośrednio dodanych do sceny3D
-		//     if (intersects.length > 0) {
-		//         // zerowy w tablicy czyli najbliższy kamery obiekt to ten, którego potrzebujemy:
-		//         console.log(intersects[0].object); // jeśli długość tablicy > 0 oznacza to że "trafiliśmy" w obiekt 3D czyli "kliknęliśmy" go
-		//         siatka = intersects[0].object
-		//         if (siatka.type != "AxesHelper") {
-		//             console.log("naciśnięto na bryłę - tryb kamery: ruch brył");
-		//             trybKamery = false // przełączam tryb na ruszanie bloku
-		//         }
-		//     }
-		// });
 	}
 
 }
