@@ -66,7 +66,7 @@ let zrobBialePionki = () => {
             if (game.pionki[i][j] == 1) {
 
                 let bP = new Pionek()
-                let figura2 = bP.czarnePionki()
+                let figura2 = bP.bialePionki()
                 figura2.position.y = 15
                 figura2.position.x = -105 + j * 30
                 figura2.position.z = -105 + i * 30
