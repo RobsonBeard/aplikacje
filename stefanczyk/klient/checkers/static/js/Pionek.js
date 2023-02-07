@@ -41,40 +41,38 @@ class Pionek {
         return this.figura2
     }
 
+    zrobCzarnePionki = () => {
+        for (let i = 0; i < game.pionki.length; i++) {
+            for (let j = 0; j < game.pionki[0].length; j++) {
+                if (game.pionki[i][j] == 2) {
 
-}
-let zrobCzarnePionki = () => {
-    for (let i = 0; i < game.pionki.length; i++) {
-        for (let j = 0; j < game.pionki[0].length; j++) {
-            if (game.pionki[i][j] == 2) {
-
-                let czP = new Pionek()
-                let figura2 = czP.czarnePionki()
-                figura2.position.y = 15
-                figura2.position.x = -105 + j * 30
-                figura2.position.z = -105 + i * 30
-                figura2.info = `czarnyPionek`
-                game.scene.add(figura2)
+                    let figura2 = this.czarnePionki()
+                    figura2.position.y = 15
+                    figura2.position.x = -105 + j * 30
+                    figura2.position.z = -105 + i * 30
+                    figura2.info = `czarnyPionek`
+                    figura2.rodzaj = `pionek`
+                    game.scene.add(figura2)
+                }
             }
         }
     }
-} // i w ten sposob to dziala dobrze, pokrecone mocno
 
-let zrobBialePionki = () => {
-    for (let i = 0; i < game.pionki.length; i++) {
-        for (let j = 0; j < game.pionki[0].length; j++) {
-            if (game.pionki[i][j] == 1) {
+    zrobBialePionki = () => {
+        for (let i = 0; i < game.pionki.length; i++) {
+            for (let j = 0; j < game.pionki[0].length; j++) {
+                if (game.pionki[i][j] == 1) {
 
-                let bP = new Pionek()
-                let figura2 = bP.czarnePionki()
-                figura2.position.y = 15
-                figura2.position.x = -105 + j * 30
-                figura2.position.z = -105 + i * 30
-                figura2.info = `bialyPionek`
-                game.scene.add(figura2)
+                    let figura2 = this.bialePionki()
+                    figura2.position.y = 15
+                    figura2.position.x = -105 + j * 30
+                    figura2.position.z = -105 + i * 30
+                    figura2.info = `bialyPionek`
+                    figura2.rodzaj = `pionek`
+                    game.scene.add(figura2)
+                }
             }
         }
     }
+
 }
-
-

@@ -22,7 +22,6 @@ class Net {
 		this.raycaster = new THREE.Raycaster(); // obiekt Raycastera symulujący "rzucanie" promieni
 		this.mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie, a potem przeliczenia na pozycje 3D
 
-
 	}
 
 	fetchPost() {
@@ -47,12 +46,12 @@ class Net {
 						let kolorGracza
 						if (data.kolor == "biale") {
 							kolorGracza = "bialymi"
-							zrobBialePionki()
+							pionki.zrobBialePionki()
 						}
 						else if (data.kolor == "czarne") {
 							kolorGracza = "czarnymi"
 
-							zrobCzarnePionki()
+							pionki.zrobCzarnePionki()
 
 							game.camera.position.x = 0
 							game.camera.position.z = -300
@@ -112,6 +111,8 @@ class Net {
 	klikanieRaycaster = () => {
 
 		this.klikniete = []
+		let licznik = 0
+		let nachodzacy
 
 		window.addEventListener("mousedown", (e) => {
 			this.mouseVector.x = (e.clientX / window.innerWidth) * 2 - 1
@@ -119,70 +120,63 @@ class Net {
 			this.raycaster.setFromCamera(this.mouseVector, game.camera)
 			this.intersects = this.raycaster.intersectObjects(game.scene.children)
 
-			//kliknietyTeraz i kliknietyPoprzednio
-
 
 			if (this.intersects.length > 0) {
-				console.log(this.intersects[0].object);
 				this.kliknietyTeraz = this.intersects[0].object
+				console.log(this.kliknietyTeraz);
 
 				if (this.kliknietyTeraz.type != "AxesHelper") {
+
+					licznik++
+					if (licznik > 2) {
+						licznik = 1
+					}
+					console.log(licznik);
+
 
 					this.klikniete.push(this.kliknietyTeraz)
 
 					if (this.klikniete.length > 2) {
-						this.klikniete.shift()
+						this.klikniete.shift() // klikniety na pozycji 2 => 1 => out
 					}
-					if (this.klikniete.length == 2) { // i tu tez nie moze byc w ten sposob
-						switch (this.kliknietyTeraz.info) {
-							case "bialyPionek":
-								this.kliknietyTeraz.material.color.r = 0
-								this.kliknietyTeraz.material.color.g = 1
-								this.kliknietyTeraz.material.color.b = 0
-								break;
-							case "czarnyPionek":
-								this.kliknietyTeraz.material.color.r = 0
-								this.kliknietyTeraz.material.color.g = 1
-								this.kliknietyTeraz.material.color.b = 0 // najpierw musze jednak stworzyc kilka tych obiektow
-								break;
-							case "bialePole":
-								this.kliknietyTeraz.material.color.r = 0
-								this.kliknietyTeraz.material.color.g = 1
-								this.kliknietyTeraz.material.color.b = 0
-								break;
-							case "czarnePole":
-								this.kliknietyTeraz.material.color.r = 0
-								this.kliknietyTeraz.material.color.g = 1
-								this.kliknietyTeraz.material.color.b = 0
-								break;
+
+
+					if (this.klikniete.length == 1) {
+						this.kliknietyTeraz.material.color.r = 0 // 0 - koloruje, 1 - bez zmian
+					}
+					else if (this.klikniete.length == 2) {
+						this.klikniete[0].material.color.r = 1
+						this.klikniete[1].material.color.r = 0
+					}
+
+
+					// info bialyPionek jest z malej ale rodzaj Pionek jest z duzej
+					//  2 pionki na jednej pozycji - chyba problem załatwiony, ale nie jestem pewien
+					if (licznik == 2) {
+						nachodzacy = false
+
+						for (let i = 0; i < game.scene.children.length; i++) {
+							if (game.scene.children[i].rodzaj == "pionek" && (this.klikniete[1].position.x == game.scene.children[i].position.x && this.klikniete[1].position.z == game.scene.children[i].position.z)) {
+								nachodzacy = true
+								console.log(nachodzacy);
+							}
+						}
+
+						if (nachodzacy == false && (this.klikniete[0].rodzaj == "pionek" && this.klikniete[1].info == "czarnePole")) {
+							this.klikniete[0].position.x = this.klikniete[1].position.x
+							this.klikniete[0].position.z = this.klikniete[1].position.z
+						}
+						else {
+							licznik = 1
 						}
 					}
-					// console.log(this.klikniete);
 
+					console.log(this.klikniete);
 
 				}
 
 			}
 		})
-
-		// window.addEventListener("mousedown", (e) => {
-		//     mouseVector.x = (event.clientX / window.innerWidth) * 2 - 1;
-		//     mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1; 
-		//     // console.log(mouseVector);
-		//     // console.log(e);
-		//     raycaster.setFromCamera(mouseVector, camera); // szukamy punktów wspólnych "promienia" i obiektu 3D
-		//     const intersects = raycaster.intersectObjects(scene.children); // intersects - tablica obiektów w które "trafia" nasz "promień" wysyłany z kamery
-		//     // console.log(intersects.length) // scene.children oznacza, że szukamy meshów bezpośrednio dodanych do sceny3D
-		//     if (intersects.length > 0) {
-		//         // zerowy w tablicy czyli najbliższy kamery obiekt to ten, którego potrzebujemy:
-		//         console.log(intersects[0].object); // jeśli długość tablicy > 0 oznacza to że "trafiliśmy" w obiekt 3D czyli "kliknęliśmy" go
-		//         siatka = intersects[0].object
-		//         if (siatka.type != "AxesHelper") {
-		//             console.log("naciśnięto na bryłę - tryb kamery: ruch brył");
-		//             trybKamery = false // przełączam tryb na ruszanie bloku
-		//         }
-		//     }
-		// });
 	}
 
 }
