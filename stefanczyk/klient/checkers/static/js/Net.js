@@ -111,14 +111,14 @@ class Net {
 	klikanieRaycaster = () => {
 
 		this.klikniete = []
+		let licznik = 0
+		let nachodzacy
 
 		window.addEventListener("mousedown", (e) => {
 			this.mouseVector.x = (e.clientX / window.innerWidth) * 2 - 1
 			this.mouseVector.y = -(e.clientY / window.innerHeight) * 2 + 1 // pozycja myszy zostaje przeliczona na wartości -1 do 1, wymagane przez raycaster
 			this.raycaster.setFromCamera(this.mouseVector, game.camera)
 			this.intersects = this.raycaster.intersectObjects(game.scene.children)
-
-			//kliknietyTeraz i kliknietyPoprzednio
 
 
 			if (this.intersects.length > 0) {
@@ -127,50 +127,51 @@ class Net {
 
 				if (this.kliknietyTeraz.type != "AxesHelper") {
 
+					licznik++
+					if (licznik > 2) {
+						licznik = 1
+					}
+					console.log(licznik);
+
+
 					this.klikniete.push(this.kliknietyTeraz)
 
 					if (this.klikniete.length > 2) {
-						this.klikniete.shift()
+						this.klikniete.shift() // klikniety na pozycji 2 => 1 => out
 					}
+
 
 					if (this.klikniete.length == 1) {
-						this.kliknietyTeraz.material.color.g = 0 // 0 - koloruje, 1 - bez zmian
+						this.kliknietyTeraz.material.color.r = 0 // 0 - koloruje, 1 - bez zmian
 					}
 					else if (this.klikniete.length == 2) {
-						this.klikniete[0].material.color.g = 1
-						this.klikniete[1].material.color.g = 0
+						this.klikniete[0].material.color.r = 1
+						this.klikniete[1].material.color.r = 0
 					}
 
 
-					// if (this.klikniete.length == 2) { // i tu tez nie moze byc w ten sposob
-					// 	switch (this.kliknietyTeraz.info) {
-					// 		case "bialyPionek":
-					// 			this.kliknietyTeraz.material.color.r = 0
-					// 			this.kliknietyTeraz.material.color.g = 1
-					// 			this.kliknietyTeraz.material.color.b = 0
-					// 			break;
-					// 		case "czarnyPionek":
-					// 			this.kliknietyTeraz.material.color.r = 0
-					// 			this.kliknietyTeraz.material.color.g = 1
-					// 			this.kliknietyTeraz.material.color.b = 0 // najpierw musze jednak stworzyc kilka tych obiektow
-					// 			break;
-					// 		case "bialePole":
-					// 			this.kliknietyTeraz.material.color.r = 0
-					// 			this.kliknietyTeraz.material.color.g = 1
-					// 			this.kliknietyTeraz.material.color.b = 0
-					// 			break;
-					// 		case "czarnePole":
-					// 			this.kliknietyTeraz.material.color.r = 0
-					// 			this.kliknietyTeraz.material.color.g = 1
-					// 			this.kliknietyTeraz.material.color.b = 0
-					// 			break;
-					// 	}
-					// }
+					// info bialyPionek jest z malej ale rodzaj Pionek jest z duzej
+					//  2 pionki na jednej pozycji - chyba problem załatwiony, ale nie jestem pewien
+					if (licznik == 2) {
+						nachodzacy = false
+
+						for (let i = 0; i < game.scene.children.length; i++) {
+							if (game.scene.children[i].rodzaj == "pionek" && (this.klikniete[1].position.x == game.scene.children[i].position.x && this.klikniete[1].position.z == game.scene.children[i].position.z)) {
+								nachodzacy = true
+								console.log(nachodzacy);
+							}
+						}
+
+						if (nachodzacy == false && (this.klikniete[0].rodzaj == "pionek" && this.klikniete[1].info == "czarnePole")) {
+							this.klikniete[0].position.x = this.klikniete[1].position.x
+							this.klikniete[0].position.z = this.klikniete[1].position.z
+						}
+						else {
+							licznik = 1
+						}
+					}
 
 					console.log(this.klikniete);
-
-
-
 
 				}
 

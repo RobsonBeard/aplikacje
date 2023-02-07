@@ -33,6 +33,7 @@ class Pole {
                 if (game.szachownica[i][j] == 0) {
                     let figura = this.czarnePola()
                     figura.info = `czarnePole`
+                    figura.rodzaj = `pole`
                     figura.position.x = -105 + i * 30
                     figura.position.z = -105 + j * 30
                     game.scene.add(figura)
@@ -47,6 +48,7 @@ class Pole {
                 if (game.szachownica[i][j] == 1) {
                     let figura = this.bialePola()
                     figura.info = `bialePole`
+                    figura.rodzaj = `pole`
                     figura.position.x = -105 + i * 30
                     figura.position.z = -105 + j * 30
                     game.scene.add(figura)

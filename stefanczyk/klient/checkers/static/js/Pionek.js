@@ -51,6 +51,7 @@ class Pionek {
                     figura2.position.x = -105 + j * 30
                     figura2.position.z = -105 + i * 30
                     figura2.info = `czarnyPionek`
+                    figura2.rodzaj = `pionek`
                     game.scene.add(figura2)
                 }
             }
@@ -67,6 +68,7 @@ class Pionek {
                     figura2.position.x = -105 + j * 30
                     figura2.position.z = -105 + i * 30
                     figura2.info = `bialyPionek`
+                    figura2.rodzaj = `pionek`
                     game.scene.add(figura2)
                 }
             }
