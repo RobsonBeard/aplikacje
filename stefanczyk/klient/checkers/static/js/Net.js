@@ -149,8 +149,6 @@ class Net {
 						this.klikniete[1].material.color.r = 0
 					}
 
-
-					// info bialyPionek jest z malej ale rodzaj Pionek jest z duzej
 					//  2 pionki na jednej pozycji - chyba problem załatwiony, ale nie jestem pewien
 					if (licznik == 2) {
 						nachodzacy = false
