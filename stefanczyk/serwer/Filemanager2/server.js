@@ -10,11 +10,7 @@ const fs = require("fs")
 // potrzebny express, handlebars, i formidable
 
 app.use(express.static('static'))
-
-app.get("/", function (req, res) {
-    // res.render('index.hbs');
-    res.redirect('/filemanager')
-})
+app.use(express.json())
 
 let przechowujePliki = []
 let j = 0 // zliczanie ID
@@ -27,7 +23,7 @@ app.post("/handleUpload", function (req, res) { //możliwość zaznaczenia i upl
 
     form.multiples = true
     form.keepExtensions = true
-    form.uploadDir = __dirname + '/pliki/upload/'
+    form.uploadDir = __dirname + '/pliki/'
 
     form.parse(req, function (err, fields, files) {
 
@@ -38,7 +34,7 @@ app.post("/handleUpload", function (req, res) { //możliwość zaznaczenia i upl
         // if (JSON.stringify(files.plik) === '{}') {
 
         // } //puste, ale dałem na inpucie, że wymagane jest przesłanie pliku, więc raczej nie może wystąpić
-        // else 
+        // else
         if (Array.isArray(files.plik)) {
             for (let i = 0; i < files.plik.length; i++) {
                 testTab = files.plik[i].type.split("/")
@@ -142,63 +138,66 @@ app.post("/handleUpload", function (req, res) { //możliwość zaznaczenia i upl
         console.log(nowyKontekst);
 
         // res.render('index.hbs') // nie jestem pewien czy tu dawac nowyKontekst
-        res.redirect('/filemanager')
+        res.redirect('/')
     })
 })
 
 const filepath = path.join(__dirname, "pliki")
-let przechowujeKatalogi = []
+let mamKatalogi = []
+let mamPliki = []
 
-app.get("/filemanager", function (req, res) {
+// app.get("/filemanager", function (req, res) {
+// })
+
+
+app.get("/", function (req, res) {
 
     fs.readdir(filepath, (err, files) => {
+
+        mamKatalogi = []
+        mamPliki = []
+
         if (err) throw err
 
-        // console.log(files);
-
-        // for (let i = 0; i < files.length; i++) {
-        //     fs.lstat(path.join(filepath, files[i]), (err, stats) => {
-        //         if (stats.isDirectory()) {
-        //             console.log(files[i], stats.isDirectory());
-        //             let pom2 = {
-        //                 name: files[i],
-        //             }
-        //             przechowujeKatalogi.push(pom2)
-        //             console.log(przechowujeKatalogi);
-        //         }
-        //     })
-        // }
-
-
-        // files.forEach((file) => {
-        //     fs.lstat(path.join(filepath, file), (err, stats) => {
-        //         console.log(file, stats.isDirectory());
-        //         if (stats.isDirectory()) {
-        //             console.log(file, stats.isDirectory());
-        //             let pom2 = {
-        //                 name: file,
-        //             }
-        //             przechowujeKatalogi.push(pom2)
-        //             console.log(przechowujeKatalogi);
-        //         }
-
-        //     })
-        // }) // trzeba to jakoś zrobić, żeby nie czytało tych plików od nowa po odświezeniu
-
-
-
-        // console.log("----katalogi----");
-        // console.log(przechowujeKatalogi); // to sie dzieje wczesniej niz ten fs.readdir nadal
-
+        for (let i = 0; i < files.length; i++) {
+            fs.lstat(path.join(filepath, files[i]), (err, stats) => {
+                if (stats.isDirectory()) {
+                    let pom2 = {
+                        name: files[i],
+                    }
+                    mamKatalogi.push(pom2)
+                }
+                else {
+                    let pom3 = {
+                        name: files[i]
+                    }
+                    mamPliki.push(pom3)
+                }
+            })
+        }
     })
-    // console.log("----katalogi----"); // to sie dzieje wczesniej niz ten fs.readdir
-    // console.log(przechowujeKatalogi);
 
-    // nowyKontekst.katalogi = przechowujeKatalogi
-
-    // console.log(nowyKontekst);
+    nowyKontekst.katalogi = mamKatalogi
+    nowyKontekst.pliki = mamPliki
 
     res.render('filemanager.hbs', nowyKontekst);
+}) // dopiero po odświezeniu strony wskakują foldery, moze trzeba fetchem
+
+app.post('/fetch', function (req, res) {
+
+    // console.log(req.body)
+
+
+
+    res.setHeader('content-type', 'application/json');
+    res.send(JSON.stringify(req.body, null, 3))
+})
+
+app.post("/nowyKatalog", function (req, res) {
+
+    console.log("przeszlo");
+    console.log(req.body);
+    res.redirect('/')
 })
 
 // app.get("/reset", function (req, res) {
@@ -265,6 +264,7 @@ app.get("/filemanager", function (req, res) {
 
 
 
+
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', hbs({
     defaultLayout: 'main.hbs',
@@ -274,7 +274,7 @@ app.engine('hbs', hbs({
         // shortTitle: function (title) {
         //     return title.substring(0, 10) + "...";
         // },
-    } //mozna niby bylo robic helperem te rozszerzenia plikow i ikonki ale mi sie juz nie chce sprawdzac tego kodu
+    }
 }));
 app.set('view engine', 'hbs');
 

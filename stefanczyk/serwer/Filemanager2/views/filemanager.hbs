@@ -6,8 +6,7 @@
 
 	<div class="menuleft duzyGuzik">
 		<div class="divStrzałka">
-			<img src="https://www.svgrepo.com/show/167030/up-arrow-hand-drawn-outline.svg" alt="strzałka"
-				class="obrazek1" id="strzałka">
+			<img src="https://www.svgrepo.com/show/167030/up-arrow-hand-drawn-outline.svg" alt="strzałka" class="obrazek1" id="strzałka">
 		</div>
 
 		<div>
@@ -21,22 +20,45 @@
 	</div>
 </div>
 
-{{!-- <div class="content2">
+<div class="content3">
+	<div class="content4">
+		{{#each katalogi}}
+		<div class="divKatalog">
+			<div>
+				<img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="katalog">
+				{{!-- tutaj jeszcze bedzie button do usuwania --}}
+			</div>
+			<p>{{name}}</p>
+		</div>
+		{{/each}}
+	</div>
+	<div class="content4">
+		{{#each pliki}}
+		<div class="divPlik">
+			<div>
+				<img src="https://cdn-icons-png.flaticon.com/512/342/342348.png" alt="plik">
+				{{!-- tutaj jeszcze bedzie button do usuwania --}}
+			</div>
+			<p>{{name}}</p>
+		</div>
 
-</div> --}}
+		{{/each}}
+	</div>
+</div>
 {{!-- https://cdn-icons-png.flaticon.com/512/716/716784.png --}}
 
 <dialog id="dialog1" class="dialog1">
-	<form action="" method="">
+	<form action="/nowyKatalog" method="POST" id="dialogForm1">
+		{{!-- moze do formularza tu dac get i /filemanager --}}
 		<br>
 		<p>nazwa nowego folderu</p>
 		<br>
-		<input type="text" name="" id="">
+		<input type="text" name="nazwa" id="nazwa" value="cos">
 		<br> <br>
 		<button type="submit" class="button2">OK</button>
-		<button class="button2" type="text">cancel</button>
-
+		<button type="text" class="button2">cancel</button>
 	</form>
+	{{!-- problem jest z tym ze nie wysyła req body, moze sprobowac fetchem --}}
 </dialog>
 
 <dialog id="dialog2" class="dialog2">
@@ -47,7 +69,7 @@
 		<input type="text" name="" id="">
 		<br> <br>
 		<button type="submit" class="button2">OK</button>
-		<button class="button2" type="text">cancel</button>
+		<button type="text" class="button2">cancel</button>
 
 	</form>
 </dialog>
@@ -72,5 +94,25 @@
 		dialog2.open = true
 		dialog1.open = false
 	}
+
+
+	function fetchPost() {
+
+		const body = JSON.stringify({ a: "a" }) // body czyli przesyłane na serwer dane
+
+		const headers = { "Content-Type": "application/json" }
+
+		fetch("/fetch", { method: "post", body, headers }) // fetch
+			.then(response => response.json())
+			.then(
+				data => console.log(data) // dane odpowiedzi z serwera
+
+			)
+	}
+
+	window.addEventListener("load", function () {
+		fetchPost()
+
+	})
 
 </script>

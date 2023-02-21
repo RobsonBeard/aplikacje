@@ -24,7 +24,7 @@
     align-items: center;
 }
 
-.leftbar a{
+.leftbar a {
     font-size: larger;
     color: rgb(110, 137, 255);
     font-weight: bold;
@@ -51,7 +51,7 @@
     height: 100vh;
 }
 
-.content2{
+.content2 {
     float: left;
     width: 80%;
     height: 100vh;
@@ -62,14 +62,14 @@
     height: 30px;
 }
 
-.tabela1{
+.tabela1 {
     border-collapse: collapse;
     width: 100%;
     /* height: 100%; */
     text-align: center;
 }
 
-.tabela1 th{
+.tabela1 th {
     background-color: rgb(110, 137, 255);
     height: 40px;
     width: 11%;
@@ -77,32 +77,33 @@
     font-size: larger;
 }
 
-.tabela1 td{
+.tabela1 td {
     color: rgb(74, 54, 185);
     font-size: larger;
     font-weight: bold;
     height: 50px;
 }
 
-.tabela1 td img{
+.tabela1 td img {
     height: 50px;
 }
 
-.link2{
+.link2 {
     color: rgb(110, 137, 255);
 }
 
-.flex1{
+.flex1 {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
 }
-.flex1 p, .flex1 a{
+.flex1 p,
+.flex1 a {
     margin: 10px 0;
 }
 
-.infopliku{
+.infopliku {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -116,16 +117,16 @@
     width: 100%;
 } */
 
-.infopliku div{
+.infopliku div {
     display: flex;
 }
 
-.infopliku div p:nth-child(2){
+.infopliku div p:nth-child(2) {
     color: grey;
     width: 500px;
 }
 
-.menuleft{
+.menuleft {
     background-color: rgb(219, 201, 41);
     width: 90%;
     height: 50px;
@@ -139,12 +140,12 @@
     margin: 5px 0;
 }
 
-.duzyGuzik{
+.duzyGuzik {
     display: flex;
     align-items: center;
 }
 
-.duzyGuzik div:nth-child(1){
+.duzyGuzik div:nth-child(1) {
     width: 25%;
     height: 100%;
     border-radius: 10px 0 0 10px;
@@ -154,22 +155,22 @@
     justify-content: center;
 }
 
-.obrazek1{
+.obrazek1 {
     width: 30px;
     height: 30px;
 }
 
-.duzyGuzik div:nth-child(2){
+.duzyGuzik div:nth-child(2) {
     width: 50%;
     height: 100%;
 }
 
-.duzyGuzik div:nth-child(2) form{
+.duzyGuzik div:nth-child(2) form {
     width: 100%;
     height: 100%;
 }
 
-.duzyGuzik div:nth-child(2) form label{
+.duzyGuzik div:nth-child(2) form label {
     width: 100%;
     height: 100%;
     display: flex;
@@ -177,7 +178,7 @@
     align-items: center;
 }
 
-.duzyGuzik button:nth-child(3){
+.duzyGuzik button:nth-child(3) {
     width: 25%;
     height: 100%;
     border-radius: 0 10px 10px 0;
@@ -188,7 +189,7 @@
     color: white;
 }
 
-.dialog1{
+.dialog1 {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -203,7 +204,7 @@
     padding: 10px;
 }
 
-.dialog2{
+.dialog2 {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -218,7 +219,7 @@
     padding: 10px;
 }
 
-.button2{
+.button2 {
     width: 60px;
     height: 30px;
     background-color: rgb(219, 201, 41);
@@ -226,3 +227,51 @@
     font-weight: bold;
 }
 
+.content3 {
+    float: left;
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content4 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.divKatalog {
+    background-color: rgb(74, 54, 185);
+    border-radius: 10px;
+    height: 100px;
+    width: 100px;
+    color: white;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.divKatalog img {
+    width: 50px;
+    height: 50px;
+}
+
+.divPlik {
+    background-color: rgb(148, 54, 185);
+    border-radius: 10px;
+    height: 100px;
+    width: 100px;
+    color: white;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.divPlik img {
+    width: 50px;
+    height: 50px;
+}
