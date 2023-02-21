@@ -11,6 +11,10 @@ const fs = require("fs")
 
 app.use(express.static('static'))
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+})); // !!!! to bylo wazne
+
 
 let przechowujePliki = []
 let j = 0 // zliczanie ID
@@ -175,13 +179,17 @@ app.get("/", function (req, res) {
                 }
             })
         }
+
+        nowyKontekst.katalogi = mamKatalogi
+        nowyKontekst.pliki = mamPliki
+
+        res.render('filemanager.hbs', nowyKontekst);
+
     })
 
-    nowyKontekst.katalogi = mamKatalogi
-    nowyKontekst.pliki = mamPliki
+    console.log(nowyKontekst);
 
-    res.render('filemanager.hbs', nowyKontekst);
-}) // dopiero po odświezeniu strony wskakują foldery, moze trzeba fetchem
+}) // moze trzeba fetchem??
 
 app.post('/fetch', function (req, res) {
 
@@ -195,9 +203,41 @@ app.post('/fetch', function (req, res) {
 
 app.post("/nowyKatalog", function (req, res) {
 
-    console.log("przeszlo");
-    console.log(req.body);
-    res.redirect('/')
+    let daneKatalog = req.body
+
+    if (!fs.existsSync(`./pliki/${daneKatalog.nazwa}`)) {
+        fs.mkdir(`./pliki/${daneKatalog.nazwa}`, (err) => {
+            if (err) throw err
+            console.log(`stworzono katalog o nazwie ${daneKatalog.nazwa}`);
+        })
+        res.redirect('/')
+    }
+    else {
+        console.log(`katalog o nazwie ${daneKatalog.nazwa} juz istnieje`);
+        res.redirect('/')
+    }
+
+})
+
+app.post("/nowyPlik", function (req, res) {
+
+    let danePliku = req.body
+    const filepath = path.join(__dirname, "pliki", `${danePliku.nazwa}.txt`)
+
+    if (!fs.existsSync(filepath)) {
+
+        fs.writeFile(filepath, "", (err) => {
+            if (err) throw err
+            console.log(`stworzono plik o nazwie ${danePliku.nazwa}.txt`);
+        })
+
+        res.redirect('/')
+    }
+    else {
+        console.log(`plik o nazwie ${danePliku.nazwa}.txt już istnieje`);
+        res.redirect('/')
+    }
+
 })
 
 // app.get("/reset", function (req, res) {

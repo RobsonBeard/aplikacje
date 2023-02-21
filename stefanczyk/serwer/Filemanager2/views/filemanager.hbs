@@ -6,7 +6,8 @@
 
 	<div class="menuleft duzyGuzik">
 		<div class="divStrzałka">
-			<img src="https://www.svgrepo.com/show/167030/up-arrow-hand-drawn-outline.svg" alt="strzałka" class="obrazek1" id="strzałka">
+			<img src="https://www.svgrepo.com/show/167030/up-arrow-hand-drawn-outline.svg" alt="strzałka"
+				class="obrazek1" id="strzałka">
 		</div>
 
 		<div>
@@ -16,7 +17,11 @@
 			</form>
 		</div>
 		<button type="submit" form="hiddenForm">OK</button>
-
+	</div>
+	<br>
+	<div class="infotext">
+		<p>Wybierz - wybierz pliki</p>
+		<p>OK - button submit</p>
 	</div>
 </div>
 
@@ -53,7 +58,7 @@
 		<br>
 		<p>nazwa nowego folderu</p>
 		<br>
-		<input type="text" name="nazwa" id="nazwa" value="cos">
+		<input type="text" name="nazwa" id="nazwa">
 		<br> <br>
 		<button type="submit" class="button2">OK</button>
 		<button type="text" class="button2">cancel</button>
@@ -62,11 +67,11 @@
 </dialog>
 
 <dialog id="dialog2" class="dialog2">
-	<form action="" method="">
+	<form action="/nowyPlik" method="POST" id="dialogForm2">
 		<br>
 		<p>nazwa nowego pliku</p>
 		<br>
-		<input type="text" name="" id="">
+		<input type="text" name="nazwa" id="nazwa">
 		<br> <br>
 		<button type="submit" class="button2">OK</button>
 		<button type="text" class="button2">cancel</button>

@@ -275,3 +275,16 @@
     width: 50px;
     height: 50px;
 }
+
+.infotext{
+    color: rgb(71, 71, 71);
+    font-size: large;
+    font-weight: bold;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    column-gap: 5px;
+    width: 90%;
+}
