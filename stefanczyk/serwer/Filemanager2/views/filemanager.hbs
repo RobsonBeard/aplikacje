@@ -6,8 +6,7 @@
 
 	<div class="menuleft duzyGuzik">
 		<div class="divStrzałka">
-			<img src="https://www.svgrepo.com/show/167030/up-arrow-hand-drawn-outline.svg" alt="strzałka"
-				class="obrazek1" id="strzałka">
+			<img src="https://www.svgrepo.com/show/167030/up-arrow-hand-drawn-outline.svg" alt="strzałka" class="obrazek1" id="strzałka">
 		</div>
 
 		<div>
@@ -29,22 +28,27 @@
 	<div class="content4">
 		{{#each katalogi}}
 		<div class="divKatalog">
+			<form action="/usunKatalog" method="POST">
+				<button type="submit" class="buttonDelete" value="{{name}}" name="nazwa">X</button>
+			</form>
 			<div>
 				<img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="katalog">
-				{{!-- tutaj jeszcze bedzie button do usuwania --}}
 			</div>
-			<p>{{name}}</p>
+			<p>{{shortName name}}</p>
 		</div>
 		{{/each}}
 	</div>
 	<div class="content4">
 		{{#each pliki}}
 		<div class="divPlik">
+			<form action="/usunPlik" method="POST">
+				<button type="submit" class="buttonDelete" value="{{name}}" name="nazwa">X</button>
+			</form>
 			<div>
-				<img src="https://cdn-icons-png.flaticon.com/512/342/342348.png" alt="plik">
+				<img src="{{image}}" alt="plik">
 				{{!-- tutaj jeszcze bedzie button do usuwania --}}
 			</div>
-			<p>{{name}}</p>
+			<p>{{shortName name}}</p>
 		</div>
 
 		{{/each}}

@@ -1,290 +1,293 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: monospace;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
 }
 
 .nav {
-    background-color: rgb(74, 54, 185);
-    width: 100%;
-    height: 75px;
-    display: flex;
-    align-items: center;
+  background-color: rgb(74, 54, 185);
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
 }
 
 .leftbar {
-    background-color: rgb(196, 196, 196);
-    height: 100vh;
-    width: 15%;
-    float: left;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
+  background-color: rgb(196, 196, 196);
+  height: 100vh;
+  width: 15%;
+  float: left;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 
 .leftbar a {
-    font-size: larger;
-    color: rgb(110, 137, 255);
-    font-weight: bold;
+  font-size: larger;
+  color: rgb(110, 137, 255);
+  font-weight: bold;
 }
 
 .link {
-    color: white;
-    font-weight: bold;
-    margin: 0 0 0 20px;
-    font-size: large;
+  color: white;
+  font-weight: bold;
+  margin: 0 0 0 20px;
+  font-size: large;
 }
 
 .szarynapis {
-    color: grey;
-    font-weight: bold;
-    font-size: x-large;
-    margin-top: 10px;
+  color: grey;
+  font-weight: bold;
+  font-size: x-large;
+  margin-top: 10px;
 }
 
 .content1 {
-    padding: 40px;
-    float: left;
-    width: 80%;
-    height: 100vh;
+  padding: 40px;
+  float: left;
+  width: 80%;
+  height: 100vh;
 }
 
 .content2 {
-    float: left;
-    width: 80%;
-    height: 100vh;
+  float: left;
+  width: 80%;
+  height: 100vh;
 }
 
 .button {
-    width: 50px;
-    height: 30px;
+  width: 50px;
+  height: 30px;
 }
 
 .tabela1 {
-    border-collapse: collapse;
-    width: 100%;
-    /* height: 100%; */
-    text-align: center;
+  border-collapse: collapse;
+  width: 100%;
+  /* height: 100%; */
+  text-align: center;
 }
 
 .tabela1 th {
-    background-color: rgb(110, 137, 255);
-    height: 40px;
-    width: 11%;
-    color: rgb(223, 223, 223);
-    font-size: larger;
+  background-color: rgb(110, 137, 255);
+  height: 40px;
+  width: 11%;
+  color: rgb(223, 223, 223);
+  font-size: larger;
 }
 
 .tabela1 td {
-    color: rgb(74, 54, 185);
-    font-size: larger;
-    font-weight: bold;
-    height: 50px;
+  color: rgb(74, 54, 185);
+  font-size: larger;
+  font-weight: bold;
+  height: 50px;
 }
 
 .tabela1 td img {
-    height: 50px;
+  height: 50px;
 }
 
 .link2 {
-    color: rgb(110, 137, 255);
+  color: rgb(110, 137, 255);
 }
 
 .flex1 {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 .flex1 p,
 .flex1 a {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .infopliku {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    row-gap: 10px;
-    color: rgb(74, 54, 185);
-    font-size: larger;
-    font-weight: bold;
-    width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  row-gap: 10px;
+  color: rgb(74, 54, 185);
+  font-size: larger;
+  font-weight: bold;
+  width: 80%;
 }
 /* .infopliku p{
     width: 100%;
 } */
 
 .infopliku div {
-    display: flex;
+  display: flex;
 }
 
 .infopliku div p:nth-child(2) {
-    color: grey;
-    width: 500px;
+  color: grey;
+  width: 500px;
 }
 
 .menuleft {
-    background-color: rgb(219, 201, 41);
-    width: 90%;
-    height: 50px;
-    /* te wartosci trzeba poprawic na jakies responsywne */
-    font-size: larger;
-    font-weight: bold;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5px 0;
+  background-color: rgb(219, 201, 41);
+  width: 90%;
+  height: 50px;
+  /* te wartosci trzeba poprawic na jakies responsywne */
+  font-size: larger;
+  font-weight: bold;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
 }
 
 .duzyGuzik {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .duzyGuzik div:nth-child(1) {
-    width: 25%;
-    height: 100%;
-    border-radius: 10px 0 0 10px;
-    background-color: orange;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 25%;
+  height: 100%;
+  border-radius: 10px 0 0 10px;
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .obrazek1 {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .duzyGuzik div:nth-child(2) {
-    width: 50%;
-    height: 100%;
+  width: 50%;
+  height: 100%;
 }
 
 .duzyGuzik div:nth-child(2) form {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .duzyGuzik div:nth-child(2) form label {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .duzyGuzik button:nth-child(3) {
-    width: 25%;
-    height: 100%;
-    border-radius: 0 10px 10px 0;
-    border: none;
-    background-color: rgb(74, 54, 185);
-    font-size: larger;
-    font-weight: bold;
-    color: white;
+  width: 25%;
+  height: 100%;
+  border-radius: 0 10px 10px 0;
+  border: none;
+  background-color: rgb(74, 54, 185);
+  font-size: larger;
+  font-weight: bold;
+  color: white;
 }
 
 .dialog1 {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    width: 300px;
-    height: 150px;
-    border-radius: 10px;
-    border: none;
-    background-color: rgb(74, 54, 185);
-    font-size: larger;
-    font-weight: bold;
-    color: white;
-    padding: 10px;
+  background-color: rgb(74, 54, 185);
 }
 
 .dialog2 {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    width: 300px;
-    height: 150px;
-    border-radius: 10px;
-    border: none;
-    background-color: rgb(148, 54, 185);
-    font-size: larger;
-    font-weight: bold;
-    color: white;
-    padding: 10px;
+  background-color: rgb(148, 54, 185);
+}
+
+.dialog1,
+.dialog2 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 300px;
+  height: 150px;
+  border-radius: 10px;
+  border: none;
+  font-size: larger;
+  font-weight: bold;
+  color: white;
+  padding: 10px;
 }
 
 .button2 {
-    width: 60px;
-    height: 30px;
-    background-color: rgb(219, 201, 41);
-    font-size: large;
-    font-weight: bold;
+  width: 60px;
+  height: 30px;
+  background-color: rgb(219, 201, 41);
+  font-size: large;
+  font-weight: bold;
 }
 
 .content3 {
-    float: left;
-    width: 80%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+  float: left;
+  width: 80%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .content4 {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .divKatalog {
-    background-color: rgb(74, 54, 185);
-    border-radius: 10px;
-    height: 100px;
-    width: 100px;
-    color: white;
-    margin: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-color: rgb(74, 54, 185);
 }
 
-.divKatalog img {
-    width: 50px;
-    height: 50px;
+.divKatalog,
+.divPlik {
+  border-radius: 10px;
+  height: 100px;
+  min-width: 100px;
+  max-width: 200px;
+  color: white;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.divKatalog img,
+.divPlik img {
+  width: 50px;
+  height: 50px;
 }
 
 .divPlik {
-    background-color: rgb(148, 54, 185);
-    border-radius: 10px;
-    height: 100px;
-    width: 100px;
-    color: white;
-    margin: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-color: rgb(148, 54, 185);
 }
 
-.divPlik img {
-    width: 50px;
-    height: 50px;
+.divPlik p,
+.divKatalog p {
+  margin: 0 5px;
 }
 
-.infotext{
-    color: rgb(71, 71, 71);
-    font-size: large;
-    font-weight: bold;
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    column-gap: 5px;
-    width: 90%;
+.infotext {
+  color: rgb(71, 71, 71);
+  font-size: large;
+  font-weight: bold;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  column-gap: 5px;
+  width: 90%;
+}
+
+.buttonDelete {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+.buttonDelete:hover {
+  text-decoration: underline;
 }
