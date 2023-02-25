@@ -2,8 +2,10 @@
 <div class="leftbar">
 
 	<div class="menuleft" id="nowyFolder">nowy folder</div>
-	<div class="menuleft" id="nowyPlik">nowy plik tekstowy</div>
-
+	<div class="menuleft" id="nowyPlik">nowy plik</div>
+	{{#if sciezka}}
+	<div class="menuleft" id="zmianaNazwy">zmiana nazwy folderu</div>
+	{{/if}}
 	<div class="menuleft duzyGuzik">
 		<div class="divStrzałka">
 			<img src="https://www.svgrepo.com/show/167030/up-arrow-hand-drawn-outline.svg" alt="strzałka"
@@ -12,12 +14,14 @@
 
 		<div>
 			<form enctype="multipart/form-data" method="POST" action="/handleUpload" id="hiddenForm">
+				<input type="hidden" name="sciezka" value="{{sciezka}}">
 				<input type="file" name="plik" id="plik" multiple required hidden>
 				<label for="plik">Wybierz</label>
 			</form>
 		</div>
 		<button type="submit" form="hiddenForm">OK</button>
 	</div>
+
 	<br>
 	<div class="infotext">
 		<p>Wybierz - wybierz pliki</p>
@@ -25,11 +29,16 @@
 	</div>
 </div>
 
+
 <div class="content3">
+	<div class="content5">
+		{{{filePath sciezka}}}
+	</div>
 	<div class="content4">
 		{{#each katalogi}}
 		<div class="divKatalog">
 			<form action="/usunKatalog" method="POST">
+				<input type="hidden" name="sciezka" value="{{../sciezka}}">
 				<button type="submit" class="buttonDelete" value="{{../sciezka}}/{{name}}" name="nazwa">X</button>
 			</form>
 			<div>
@@ -43,6 +52,7 @@
 		{{#each pliki}}
 		<div class="divPlik">
 			<form action="/usunPlik" method="POST">
+				<input type="hidden" name="sciezka" value="{{../sciezka}}">
 				<button type="submit" class="buttonDelete" value="{{../sciezka}}/{{name}}" name="nazwa">X</button>
 			</form>
 			<div>
@@ -78,36 +88,18 @@
 		<br> <br>
 		<button type="submit" class="button2">OK</button>
 		<button type="reset" onclick="zamknijDialog2()" class="button2">cancel</button>
-
 	</form>
 </dialog>
 
-<script>
-	let nowyFolder = document.getElementById("nowyFolder")
-	nowyFolder.addEventListener("click", otworzDialog1)
-	let dialog1 = document.getElementById("dialog1")
-
-	function otworzDialog1() {
-		dialog1.open = true
-		dialog2.open = false
-	}
-
-	let nowyPlik = document.getElementById("nowyPlik")
-	nowyPlik.addEventListener("click", otworzDialog2)
-	let dialog2 = document.getElementById("dialog2")
-
-	function otworzDialog2() {
-		dialog2.open = true
-		dialog1.open = false
-	}
-
-	function zamknijDialog1() {
-		dialog1.open = false
-	}
-
-	function zamknijDialog2() {
-		dialog2.open = false
-	}
-
-
-</script>
+<dialog id="dialog3" class="dialog1">
+	<form action="/zmianaNazwy" method="GET" id="dialogForm2">
+		<input type="hidden" name="sciezka" value="{{sciezka}}">
+		<br>
+		<p>zmiana nazwy folderu</p>
+		<br>
+		<input type="text" name="nazwa" id="nazwa" required>
+		<br> <br>
+		<button type="submit" class="button2">OK</button>
+		<button type="reset" onclick="zamknijDialog3()" class="button2">cancel</button>
+	</form>
+</dialog>

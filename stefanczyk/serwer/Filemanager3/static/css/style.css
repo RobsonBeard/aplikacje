@@ -292,6 +292,33 @@
   text-decoration: underline;
 }
 
-a{
+.divKatalog a, .divPlik a{
   color: white;
+  text-decoration: none;
+}
+
+.divKatalog a:hover, .divPlik a:hover{
+  text-decoration: underline;
+}
+
+.content5{
+  height: 40px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.content5 a, .content5 p{
+ font-size: larger;
+ color: rgb(71, 71, 71);
+ font-weight: bold;
+}
+
+.content5 a{
+  text-decoration: none;
+}
+
+.content5 a:hover{
+  text-decoration: underline;
 }
