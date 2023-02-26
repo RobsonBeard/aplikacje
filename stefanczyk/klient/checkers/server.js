@@ -5,9 +5,12 @@ const PORT = 3000;
 const fs = require("fs")
 const path = require("path");
 const { isDeepStrictEqual } = require("util");
+const http = require('http');
+const server = http.createServer(app); // tu zmiana
+const { Server } = require("socket.io");
+const socketio = new Server(server);
 
 app.use(express.static('static')) // serwuje stronę index.html
-
 app.use(express.json())
 
 
@@ -97,9 +100,27 @@ app.post("/checkUsers", function (req, res) {
     res.send(JSON.stringify(iluUserow, null, 3))
 })
 
-app.listen(PORT, function () {
-    console.log("start serwera na porcie " + PORT)
-})
+// app.listen(PORT, function () {
+//     console.log("start serwera na porcie " + PORT)
+// })
+
+server.listen(3000, () => {
+    console.log('server listening on ' + PORT);
+});
+
+socketio.on('connection', (client) => {
+    console.log("klient się podłączył z id = ", client.id)
+    // client.id - unikalna nazwa klienta generowana przez socket.io
+
+    
+
+
+
+
+
+
+});
+
 
 // klasa Game - działania w 3D, generowanie planszy, pionków
 // klasa Net - komunikacja z serwerem - fetch
@@ -120,7 +141,7 @@ serwer - szczegółowy opis
 
 - na serwerze Express istnieje tablica dla userów, która zwiększa się w miarę przybywania użytkowników
 - klient (przeglądarka) wysyła login gracza na serwer fetchem
-- użytkowników może być max dwóch, po zalogowaniu obaj otrzymują odpowiednie komunikaty, 
+- użytkowników może być max dwóch, po zalogowaniu obaj otrzymują odpowiednie komunikaty,
 - ekran logowania znika dopiero po odpowiedzi serwera, a nie po kliknięciu butona "loguj"
 - dopiero po odpowiedzi serwera na planszy pojawiają się odpowiednie pionki (białe albo czarne)
 - dopiero po odpowiedzi serwera kamera jest ustawiana z jednej albo drugiej strony planszy (nie plansza się obraca)
@@ -147,5 +168,5 @@ serwer - logika logowania - klasa Net() - dokończenie:
 - po zalogowaniu pierwszego gracza, musi on wiedzieć kiedy zaloguje się drugi
 - zaraz po zalogowaniu pierwszemu wyświetla się informacja "czekam..."
 - oraz za pomocą setInterval() wysyła on na serwer zapytanie fetchem np co 1000ms, sprawdzające czy tablica na serwerze ma jednego czy dwóch userów
-- jeśli tablica ma dwóch userów, czyli drugi gracz wszedł do gry, to ekran oczekiwania znika i dowiadujemy się kto jest zalogowany  
+- jeśli tablica ma dwóch userów, czyli drugi gracz wszedł do gry, to ekran oczekiwania znika i dowiadujemy się kto jest zalogowany
 */

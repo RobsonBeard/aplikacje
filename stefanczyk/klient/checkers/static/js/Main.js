@@ -4,6 +4,8 @@ let ui;
 let pionki
 let pola
 window.onload = () => {
+	const client = io();
+
 	game = new Game();
 	net = new Net();
 	// ui = new Ui(); // odkomentowac potem

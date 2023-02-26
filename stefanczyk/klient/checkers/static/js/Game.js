@@ -58,37 +58,6 @@ class Game {
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 
-	// zrobPlansze = () => {
-
-	// 	this.materialCzarnePola = new THREE.MeshBasicMaterial({
-	// 		side: THREE.DoubleSide, // dwustronny
-	// 		transparent: false,
-	// 		map: new THREE.TextureLoader().load('mats/czarne.jpg'),
-	// 	})
-	// 	this.materialBialePola = new THREE.MeshBasicMaterial({
-	// 		side: THREE.DoubleSide, // dwustronny
-	// 		transparent: false,
-	// 		map: new THREE.TextureLoader().load('mats/biale.jpg'),
-	// 	})
-	// 	this.geometriaPola = new THREE.BoxGeometry(30, 15, 30)
-
-	// 	for (let i = 0; i < this.szachownica.length; i++) {
-	// 		for (let j = 0; j < this.szachownica[0].length; j++) {
-	// 			if (this.szachownica[i][j] == 0) {
-	// 				this.figura = new THREE.Mesh(this.geometriaPola, this.materialCzarnePola)
-	// 				this.figura.info = `czarnePole`
-	// 			}
-	// 			else {
-	// 				this.figura = new THREE.Mesh(this.geometriaPola, this.materialBialePola)
-	// 				this.figura.info = `bialePole`
-	// 			}
-
-	// 			this.figura.position.x = -105 + i * 30
-	// 			this.figura.position.z = -105 + j * 30
-	// 			this.scene.add(this.figura)
-	// 		}
-	// 	}
-	// }
 
 }
 

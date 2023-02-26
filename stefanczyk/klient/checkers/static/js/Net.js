@@ -149,11 +149,6 @@ class Net {
 						this.klikniete[1].material.color.r = 0
 					}
 
-<<<<<<< HEAD
-=======
-
-					// info bialyPionek jest z malej ale rodzaj Pionek jest z duzej
->>>>>>> 9bee5251df9a9616001728fcd18d68ee5b202b74
 					//  2 pionki na jednej pozycji - chyba problem załatwiony, ale nie jestem pewien
 					if (licznik == 2) {
 						nachodzacy = false
@@ -168,7 +163,17 @@ class Net {
 						if (nachodzacy == false && (this.klikniete[0].rodzaj == "pionek" && this.klikniete[1].info == "czarnePole")) {
 							this.klikniete[0].position.x = this.klikniete[1].position.x
 							this.klikniete[0].position.z = this.klikniete[1].position.z
-						}
+
+							this.stareZ = this.klikniete[0].position.z
+							this.stareX = this.klikniete[0].position.x
+							this.noweZ = this.klikniete[1].position.z
+							this.noweX = this.klikniete[1].position.x
+							//wyszukac I i J a potem podmienic w tablicy pionkow odpowiednie wartosci, wyslac tablice socketem a potem sie zastanawiac co dalej
+
+							this.stareI = (this.stareX + 105) / 30
+							this.stareJ
+
+						} // czyli tutaj ruch pionka się powiódł
 						else {
 							licznik = 1
 						}
@@ -181,5 +186,8 @@ class Net {
 			}
 		})
 	}
+
+
+
 
 }
