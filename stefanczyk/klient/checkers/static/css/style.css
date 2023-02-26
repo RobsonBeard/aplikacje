@@ -98,3 +98,18 @@
     height: 50px;
     top: 20%
 }
+
+#divPionki{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    color: white;
+    background-color: green;
+    overflow: hidden;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

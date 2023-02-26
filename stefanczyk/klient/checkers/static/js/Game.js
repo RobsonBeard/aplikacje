@@ -42,6 +42,15 @@ class Game {
 		// console.log(pola);
 		// console.log(pionki);
 
+		this.prePionki = document.getElementById("prePionki")
+		for (let i = 0; i < this.pionki.length; i++) {
+			for (let j = 0; j < this.pionki[0].length; j++) {
+				this.prePionki.innerHTML += this.pionki[i][j] + " "
+				if (j == this.pionki[0].length - 1) {
+					this.prePionki.innerHTML += `<br>`
+				}
+			}
+		}
 
 		this.render() // wywołanie metody render
 	}

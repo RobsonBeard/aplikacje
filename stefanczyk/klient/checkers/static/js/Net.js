@@ -22,6 +22,7 @@ class Net {
 		this.raycaster = new THREE.Raycaster(); // obiekt Raycastera symulujący "rzucanie" promieni
 		this.mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie, a potem przeliczenia na pozycje 3D
 
+
 	}
 
 	fetchPost() {
@@ -32,7 +33,7 @@ class Net {
 			.then(response => response.json())
 			.then(
 				data => {
-					console.log(data);
+					// console.log(data);
 					if (data.przepusc) {
 						console.log("zalogowano");
 
@@ -47,11 +48,13 @@ class Net {
 						if (data.kolor == "biale") {
 							kolorGracza = "bialymi"
 							pionki.zrobBialePionki()
+							pionki.zrobCzarnePionki()
 						}
 						else if (data.kolor == "czarne") {
 							kolorGracza = "czarnymi"
 
 							pionki.zrobCzarnePionki()
+							pionki.zrobBialePionki()
 
 							game.camera.position.x = 0
 							game.camera.position.z = -300
@@ -88,8 +91,8 @@ class Net {
 			.then(response => response.json())
 			.then(
 				data => {
-					console.log("data 2 fetch:");
-					console.log(data);
+					// console.log("data 2 fetch:");
+					// console.log(data);
 
 					if (data.ilosc == 2) {
 
@@ -114,6 +117,8 @@ class Net {
 		let licznik = 0
 		let nachodzacy
 
+		const client = io(); // to juz i tak jest w window onload w klasie Main, nie wiem w zasadzie czemu to musi byc w tej funkcji, zeby console log na dole to zczytywal, cos z kontekstem
+
 		window.addEventListener("mousedown", (e) => {
 			this.mouseVector.x = (e.clientX / window.innerWidth) * 2 - 1
 			this.mouseVector.y = -(e.clientY / window.innerHeight) * 2 + 1 // pozycja myszy zostaje przeliczona na wartości -1 do 1, wymagane przez raycaster
@@ -131,7 +136,7 @@ class Net {
 					if (licznik > 2) {
 						licznik = 1
 					}
-					console.log(licznik);
+					// console.log(licznik);
 
 
 					this.klikniete.push(this.kliknietyTeraz)
@@ -156,14 +161,11 @@ class Net {
 						for (let i = 0; i < game.scene.children.length; i++) {
 							if (game.scene.children[i].rodzaj == "pionek" && (this.klikniete[1].position.x == game.scene.children[i].position.x && this.klikniete[1].position.z == game.scene.children[i].position.z)) {
 								nachodzacy = true
-								console.log(nachodzacy);
+								// console.log(nachodzacy);
 							}
 						}
 
 						if (nachodzacy == false && (this.klikniete[0].rodzaj == "pionek" && this.klikniete[1].info == "czarnePole")) {
-							this.klikniete[0].position.x = this.klikniete[1].position.x
-							this.klikniete[0].position.z = this.klikniete[1].position.z
-
 							this.stareZ = this.klikniete[0].position.z
 							this.stareX = this.klikniete[0].position.x
 							this.noweZ = this.klikniete[1].position.z
@@ -171,7 +173,35 @@ class Net {
 							//wyszukac I i J a potem podmienic w tablicy pionkow odpowiednie wartosci, wyslac tablice socketem a potem sie zastanawiac co dalej
 
 							this.stareI = (this.stareX + 105) / 30
-							this.stareJ
+							this.stareJ = (this.stareZ + 105) / 30
+							this.noweI = (this.noweX + 105) / 30
+							this.noweJ = (this.noweZ + 105) / 30
+
+							// console.log("stare:", this.stareI, this.stareJ);
+							// console.log("nowe: ", this.noweI, this.noweJ);
+
+							//pionki[z][x], czyli [starej][starei]
+							//pola[x][z]
+
+							// console.log("stare:", game.pionki[this.stareJ][this.stareI]);
+							// console.log("nowe: ", game.pionki[this.noweJ][this.noweI]);
+
+							this.numerPionka = game.pionki[this.stareJ][this.stareI]
+							game.pionki[this.stareJ][this.stareI] = 0
+							game.pionki[this.noweJ][this.noweI] = this.numerPionka
+
+							this.klikniete[0].position.x = this.klikniete[1].position.x
+							this.klikniete[0].position.z = this.klikniete[1].position.z // tu samo przesuniecie
+
+							// console.table(game.pionki)
+							// console.log(client);
+							client.emit("ruch", {
+								tablicaPionkow: game.pionki
+							})
+
+							client.on("ruch", (data) => {
+								console.table(data.tablicaPionkow);
+							})
 
 						} // czyli tutaj ruch pionka się powiódł
 						else {

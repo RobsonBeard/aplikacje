@@ -112,10 +112,16 @@ socketio.on('connection', (client) => {
     console.log("klient się podłączył z id = ", client.id)
     // client.id - unikalna nazwa klienta generowana przez socket.io
 
-    
+    client.on("disconnect", (reason) => {
+        console.log(`klient o ID: ${client.id} się rozłącza, reason: ${reason}`)
+    })
 
-
-
+    client.on("ruch", (data) => {
+        console.log(data);
+        socketio.emit("ruch", {
+            tablicaPionkow: data.tablicaPionkow,
+        }) // pomyslec czy nie broadcast emit
+    })
 
 
 
