@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: monospace;
 }
+
 #kontener1 {
     position: fixed;
     width: 100%;
@@ -49,11 +50,12 @@
     gap: 15px;
 }
 
-#logowanie > p {
+#logowanie>p {
     font-size: 32px;
     color: lime;
     margin-top: 10px;
 }
+
 #logowanie input {
     width: 150px;
     height: 30px;
@@ -64,7 +66,7 @@
     border-radius: 15px;
 }
 
-#logowanie h4{
+#logowanie h4 {
     font-size: 20px;
     color: lime;
 }
@@ -83,15 +85,35 @@
     font-weight: bold;
 }
 
-.duzyNapis{
+.duzyNapis {
     font-size: 48px;
     color: lime;
     position: fixed;
-    left: calc(50% - 350px);
-    top: 10%
+    top: 10%;
+    /* display: flex; */
+    /* justify-content: center; */
 }
 
-.gifLadowania{
+#oczekiwanieNapis {
+    left: calc(50% - 350px);
+}
+
+#oczekiwanieRuch {
+    left: calc(50% - 250px);
+}
+
+#odliczanie {
+    left: calc(50% - 50px);
+}
+
+.odliczanie {
+    font-size: 48px;
+    color: lime;
+    position: fixed;
+    top: 15%
+}
+
+.gifLadowania {
     position: fixed;
     left: calc(50% - 25px);
     width: 50px;
@@ -99,7 +121,7 @@
     top: 20%
 }
 
-#divPionki{
+#divPionki {
     position: fixed;
     bottom: 0;
     left: 0;

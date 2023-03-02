@@ -1,132 +1,136 @@
 const e = require("express");
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 const PORT = 3000;
-const fs = require("fs")
+const fs = require("fs");
 const path = require("path");
 const { isDeepStrictEqual } = require("util");
-const http = require('http');
+const http = require("http");
 const server = http.createServer(app); // tu zmiana
 const { Server } = require("socket.io");
 const socketio = new Server(server);
 
-app.use(express.static('static')) // serwuje stronę index.html
-app.use(express.json())
+app.use(express.static("static")); // serwuje stronę index.html
+app.use(express.json());
 
+let users = [];
 
-let users = []
+app.post("/fetch", function (req, res) {
+  // console.log("req body:");
+  // console.log(req.body);
 
-app.post('/fetch', function (req, res) {
+  let response = {
+    przepusc: true
+  };
 
-    // console.log("req body:");
-    // console.log(req.body);
+  users.push(req.body);
 
-    let response = {
-        przepusc: true,
+  // console.log("tablica userow przed:");
+  // console.log(users);
+
+  try {
+    console.log(users);
+    if (users.length > 2) {
+      users.pop();
+      throw "Juz jest 2 graczy";
     }
-
-    users.push(req.body)
-
-    // console.log("tablica userow przed:");
-    // console.log(users);
-
-    try {
-        if (users.length > 2) {
-            users.pop()
-            throw "Juz jest 2 graczy"
-        }
-        if (users[0].nick === '') {
-            users.pop()
-            throw "Prosze wypelnic nick"
-        }
-        if (users.length == 2) {
-            if (users[1].nick === users[0].nick) {
-                users.pop()
-                throw "Powtarzajacy sie nick"
-            }
-            if (users[1].nick === '') {
-                users.pop()
-                throw "Prosze wypelnic nick"
-            }
-        }
-
+    if (users[0].nick === "") {
+      users.pop();
+      throw "Prosze wypelnic nick";
     }
-    catch (err) {
-        console.log("złapano błąd");
-        response.przepusc = false
-        response.komunikat = err
+    if (users.length == 2) {
+      if (users[1].nick === users[0].nick) {
+        users.pop();
+        throw "Powtarzajacy sie nick";
+      }
+      if (users[1].nick === "") {
+        users.pop();
+        throw "Prosze wypelnic nick";
+      }
     }
+  } catch (err) {
+    console.log("złapano błąd");
+    response.przepusc = false;
+    response.komunikat = err;
+  }
 
-    response.nick = req.body.nick
+  response.nick = req.body.nick;
 
-    if (users.length == 1) {
-        response.kolor = "biale"
-    }
-    else if (users.length == 2) {
-        response.kolor = "czarne"
-    }
+  if (users.length == 1) {
+    response.kolor = "biale";
+  } else if (users.length == 2) {
+    response.kolor = "czarne";
+  }
 
-    response.iloscgraczy = users.length
+  response.iloscgraczy = users.length;
 
-    console.log("odpowiedz:");
-    console.log(response);
+  console.log("odpowiedz:");
+  console.log(response);
 
-    // console.log("tablica userow po:");
-    // console.log(users);
+  // console.log("tablica userow po:");
+  // console.log(users);
 
-    res.setHeader('content-type', 'application/json');
-    res.send(JSON.stringify(response, null, 3))
-})
+  res.setHeader("content-type", "application/json");
+  res.send(JSON.stringify(response, null, 3));
+});
 
-let iluUserow = {}
+let iluUserow = {};
 
 app.post("/checkUsers", function (req, res) {
+  if (users.length == 0) {
+    iluUserow.ilosc = 0;
+  } else if (users.length == 1) {
+    iluUserow.ilosc = 1;
+  } else if (users.length == 2) {
+    iluUserow.ilosc = 2;
+    iluUserow.drugiNick = users[1].nick;
+  }
+  // albo moze zrobic po prostu tak ze ilosc = dlugosc tablicy nw
 
-    if (users.length == 0) {
-        iluUserow.ilosc = 0
-    }
-    else if (users.length == 1) {
-        iluUserow.ilosc = 1
-    }
-    else if (users.length == 2) {
-        iluUserow.ilosc = 2
-        iluUserow.drugiNick = users[1].nick
-    }
-    // albo moze zrobic po prostu tak ze ilosc = dlugosc tablicy nw
+  res.setHeader("content-type", "application/json");
+  res.send(JSON.stringify(iluUserow, null, 3));
+});
 
+app.post("/czyscUserow", function (req, res) {
+  users.length = 0
 
-
-    res.setHeader('content-type', 'application/json');
-    res.send(JSON.stringify(iluUserow, null, 3))
+  res.setHeader("content-type", "application/json");
+  res.send(JSON.stringify("Operacja wyczyszczenia tablicy userow udana"));
 })
 
-// app.listen(PORT, function () {
-//     console.log("start serwera na porcie " + PORT)
-// })
-
 server.listen(3000, () => {
-    console.log('server listening on ' + PORT);
+  console.log("server listening on " + PORT);
 });
 
-socketio.on('connection', (client) => {
-    console.log("klient się podłączył z id = ", client.id)
-    // client.id - unikalna nazwa klienta generowana przez socket.io
+// let klienci =[]
 
-    client.on("disconnect", (reason) => {
-        console.log(`klient o ID: ${client.id} się rozłącza, reason: ${reason}`)
-    })
+socketio.on("connection", client => {
+  console.log("klient się podłączył z id = ", client.id);
+  // client.id - unikalna nazwa klienta generowana przez socket.io
 
-    client.on("ruch", (data) => {
-        console.log(data);
-        socketio.emit("ruch", {
-            tablicaPionkow: data.tablicaPionkow,
-        }) // pomyslec czy nie broadcast emit
-    })
+  client.on("disconnect", reason => {
+    console.log(`klient o ID: ${client.id} się rozłącza, reason: ${reason}`);
+  });
 
+  client.on("ruch", data => {
+    // console.log(data);
+
+    socketio.emit("ruch", {
+      // tablicaPionkow: data.tablicaPionkow,
+      stareZ: data.stareZ,
+      stareX: data.stareX,
+      noweX: data.noweX,
+      noweZ: data.noweZ,
+      stareI: data.stareI,
+      stareJ: data.stareJ,
+      noweI: data.noweI,
+      noweJ: data.noweJ,
+      ktoWykonalRuch: data.ktoWykonalRuch,
+    });
+  });
 
 
 });
-
 
 // klasa Game - działania w 3D, generowanie planszy, pionków
 // klasa Net - komunikacja z serwerem - fetch
