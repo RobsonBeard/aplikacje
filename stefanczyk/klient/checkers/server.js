@@ -93,7 +93,7 @@ app.post("/checkUsers", function (req, res) {
 
 app.post("/czyscUserow", function (req, res) {
   users.length = 0
-
+  console.log("Wyczyszczono tablice userow");
   res.setHeader("content-type", "application/json");
   res.send(JSON.stringify("Operacja wyczyszczenia tablicy userow udana"));
 })
@@ -128,6 +128,14 @@ socketio.on("connection", client => {
       ktoWykonalRuch: data.ktoWykonalRuch,
     });
   });
+
+  client.on("koniecGry", data => {
+
+    client.broadcast.emit("koniecGry", {
+      ktoWygral: data.ktoWygral
+    })
+
+  })
 
 
 });

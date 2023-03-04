@@ -58,6 +58,7 @@ class Game {
 	render = () => {
 		requestAnimationFrame(this.render);
 		this.renderer.render(this.scene, this.camera);
+		TWEEN.update();
 		console.log("render leci")
 	}
 

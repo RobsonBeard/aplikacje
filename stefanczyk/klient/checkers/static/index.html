@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="libs/tween.umd.js"></script>
     <script src="js/three145.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
     <script src="js/script.js"></script>
@@ -32,6 +33,12 @@
 
     <div id="overlay"></div>
 
+    <div class="divFlex" id="divFlex">
+        <h1 class="duzyNapis" id="oczekiwanieRuch" hidden>Ruch ma przeciwnik</h1>
+        <p class="odliczanie" id="odliczanie" hidden></p>
+        <h1 class="duzyNapis" id="wygranaPrzezCzas" hidden></h1>
+    </div>
+
     <div id="logowanie">
         <p>LOGOWANIE</p>
         <input type="text" name="nick" id="nick">
@@ -44,8 +51,7 @@
     <img src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" alt="ladowanie" class="gifLadowania"
         id="gifLadowania" hidden>
 
-    <h1 class="duzyNapis" id="oczekiwanieRuch" hidden>Ruch ma przeciwnik</h1>
-    <p class="odliczanie" id="odliczanie" hidden></p>
+
 
     <div id="divPionki">
         <pre id="prePionki"></pre>
