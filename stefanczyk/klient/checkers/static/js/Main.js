@@ -4,6 +4,7 @@ let ui;
 let pionki
 let pola
 window.onload = () => {
+
 	game = new Game();
 	net = new Net();
 	// ui = new Ui(); // odkomentowac potem
@@ -16,5 +17,5 @@ window.onload = () => {
 	console.log(pionki);
 	console.log(pola);
 
-	pola.zrobPlansze() // pewnie nie powinno tu tego byc, ale trzeba kombinowac z tym, gdzie kod widzi te funkcje, a gdzie nie
+	pola.zrobPlansze(game.szachownica) // pewnie nie powinno tu tego byc, ale trzeba kombinowac z tym, gdzie kod widzi te funkcje, a gdzie nie
 }

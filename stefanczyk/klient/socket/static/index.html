@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+
+</head>
+
+<body>
+	<h1>T: socket.io</h1>
+	<br><br>
+	<p id="mojeID"></p>
+	<br><br>
+	<pre id="inneID"></pre>
+	<br><br>
+	<pre id="positions"></pre>
+
+	<script>
+		window.onload = function () {
+
+			const client = io();
+
+			client.on("onconnect", (data) => {
+				// console.log(data.clientId)
+				console.log(data);
+				document.getElementById("mojeID").innerText = `moje id = ${data.clientId}`
+
+
+			})
+
+			client.on("tablica_id", (data) => {
+				document.getElementById("inneID").innerText = `${JSON.stringify(data.otherIds, null, 3)}`
+			})
+
+			window.addEventListener("mousemove", function (e) {
+
+				client.emit("mouseposition", {
+					posX: e.clientX,
+					posY: e.clientY
+				})
+
+			})
+
+			client.on("mouseposition", (data) => {
+				// console.log(data)
+				document.getElementById("positions").innerText = JSON.stringify(data, null, 3)
+			})
+
+		}
+	</script>
+</body>
+
+</html>

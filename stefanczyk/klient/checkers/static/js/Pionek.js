@@ -41,10 +41,10 @@ class Pionek {
         return this.figura2
     }
 
-    zrobCzarnePionki = () => {
-        for (let i = 0; i < game.pionki.length; i++) {
-            for (let j = 0; j < game.pionki[0].length; j++) {
-                if (game.pionki[i][j] == 2) {
+    zrobCzarnePionki = (tablica2d) => {
+        for (let i = 0; i < tablica2d.length; i++) {
+            for (let j = 0; j < tablica2d[0].length; j++) {
+                if (tablica2d[i][j] == 2) {
 
                     let figura2 = this.czarnePionki()
                     figura2.position.y = 15
@@ -52,16 +52,17 @@ class Pionek {
                     figura2.position.z = -105 + i * 30
                     figura2.info = `czarnyPionek`
                     figura2.rodzaj = `pionek`
+                    figura2.pozycjaIJ = `${i}_${j}`
                     game.scene.add(figura2)
                 }
             }
         }
     }
 
-    zrobBialePionki = () => {
-        for (let i = 0; i < game.pionki.length; i++) {
-            for (let j = 0; j < game.pionki[0].length; j++) {
-                if (game.pionki[i][j] == 1) {
+    zrobBialePionki = (tablica2d) => {
+        for (let i = 0; i < tablica2d.length; i++) {
+            for (let j = 0; j < tablica2d[0].length; j++) {
+                if (tablica2d[i][j] == 1) {
 
                     let figura2 = this.bialePionki()
                     figura2.position.y = 15
@@ -69,10 +70,16 @@ class Pionek {
                     figura2.position.z = -105 + i * 30
                     figura2.info = `bialyPionek`
                     figura2.rodzaj = `pionek`
+                    figura2.pozycjaIJ = `${i}_${j}`
                     game.scene.add(figura2)
                 }
             }
         }
+    }
+
+    zrobPionki = (tablica2d) => {
+        this.zrobBialePionki(tablica2d)
+        this.zrobCzarnePionki(tablica2d)
     }
 
 }

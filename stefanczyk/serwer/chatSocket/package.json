@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "mime-types": "^2.1.35",
+    "tracer": "^1.0.2",
+    "socket.io": "^4.6.0"
+  }
+}

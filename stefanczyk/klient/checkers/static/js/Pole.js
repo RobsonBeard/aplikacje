@@ -36,6 +36,7 @@ class Pole {
                     figura.rodzaj = `pole`
                     figura.position.x = -105 + i * 30
                     figura.position.z = -105 + j * 30
+                    figura.pozycjaIJ = `${i}_${j}`
                     game.scene.add(figura)
                 }
             }
@@ -51,6 +52,7 @@ class Pole {
                     figura.rodzaj = `pole`
                     figura.position.x = -105 + i * 30
                     figura.position.z = -105 + j * 30
+                    figura.pozycjaIJ = `${i}_${j}`
                     game.scene.add(figura)
                 }
             }

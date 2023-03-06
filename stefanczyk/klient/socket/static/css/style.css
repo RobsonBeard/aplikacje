@@ -1,0 +1,24 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: monospace;
+}
+
+#mojeID {
+	color: red;
+	font-size: large;
+	font-weight: bold;
+}
+
+#positions {
+	color: blue;
+	font-size: large;
+	font-weight: bold;
+}
+
+#inneID {
+	color: green;
+	font-size: large;
+	font-weight: bold;
+}
