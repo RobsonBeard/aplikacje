@@ -8,3 +8,14 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
 	console.log(`serwer startuje na porcie ${PORT}`)
 });
+
+// text/plain
+// text/html
+// application/json
+// text/xml
+// video/mp4
+// image/jpeg
+// image/png
+// text/css
+// application/javascript
+// audio/mpeg

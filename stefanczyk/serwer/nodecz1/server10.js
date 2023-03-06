@@ -14,15 +14,15 @@ const logger = require('tracer').colorConsole();
 const server = http.createServer((req, res) => {
 	fs.readFile("static/index.html", (error, data) => {
 		if (error) {
-			response.writeHead(404, { 'Content-Type': 'text/html' });
-			response.write("<h1>błąd 404 - nie ma pliku!<h1>");
-			response.end();
+			res.writeHead(404, { 'Content-Type': 'text/html;charset=utf-8' });
+			res.write("<h1>błąd 404 - nie ma pliku!<h1>");
+			res.end();
 		}
 
 		else {
-			response.writeHead(200, { 'Content-Type': 'text/html' });
-			response.write(data);
-			response.end();
+			res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });
+			res.write(data);
+			res.end();
 		}
 	});
 })

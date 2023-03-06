@@ -7,9 +7,13 @@ const server = http.createServer((req, res) => {
 	let czyChrome = req.headers["user-agent"].indexOf("Chrome")
 	let czyFirefox = req.headers["user-agent"].indexOf("Firefox")
 	let czyEdge = req.headers["user-agent"].indexOf("Edg")
+	let czyOpera = req.headers["user-agent"].indexOf("OPR")
 	if (czyChrome != -1) {
 		if (czyEdge != -1) {
 			res.end(`<h1>Twoja przeglądarka to Edge</h1>`)
+		}
+		else if (czyOpera != -1) {
+			res.end(`<h1>Twoja przeglądarka to Opera</h1>`)
 		}
 		else {
 			res.end(`<h1>Twoja przeglądarka to Chrome</h1>`)
