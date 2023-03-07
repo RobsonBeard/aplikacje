@@ -39,15 +39,51 @@ server.listen(PORT, () => {
 	console.log(`serwer startuje na porcie ${PORT}`)
 });
 
+let tablicaKlientów = []
+let tablicaNicków = []
+let wylogowanyObiekt
+
 socketio.on("connection", (client) => {
 	console.log("klient się podłączył z id = ", client.id)
 
+	tablicaKlientów.push(client)
+
 	client.on("disconnect", reason => {
 		console.log(`klient o ID: ${client.id} się rozłącza, reason: ${reason}`);
+
+		tablicaKlientów = tablicaKlientów.filter(elem => elem.id !== client.id)
+
+		wylogowanyObiekt = tablicaNicków.filter(elem => elem.id === client.id)
+		tablicaNicków = tablicaNicków.filter(elem => elem.id !== client.id)
+
+		if (wylogowanyObiekt.length != 0) {
+			let wylogowanyNick = wylogowanyObiekt[0].nick
+
+			client.broadcast.emit("wyjscieZCzatu", {
+				wylogowanyNick: wylogowanyNick
+			})
+		}
+
 	});
 
+	client.on("zalogowano", data => {
+		tablicaNicków.push({
+			id: client.id,
+			nick: data.nick
+		})
 
+		client.broadcast.emit("nowePolaczenie", {
+			nick: data.nick,
+		})
+	})
 
+	client.on("wiadomosc", data => {
+		// console.log(data);
+		client.broadcast.emit("nowaWiadomosc", {
+			wiadomosc: data.wiadomosc,
+			nick: data.nick
+		})
+	})
 
 })
 

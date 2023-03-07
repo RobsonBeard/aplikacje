@@ -9,31 +9,94 @@
     margin: 10px;
     width: 600px;
     height: 600px;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
 }
 
 .naglowek{
     color: blue;
-    margin: 20px 0;
+    margin: 20px;
 }
 
 .form{
-    bottom: 0;
-    position: absolute;
+    width: 600px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
 }
 
-#wiadomosc{
-    width: 250px;
+#inputWiadomosc{
+    width: 480px;
     height: 30px;
+    padding: 10px;
 }
 
-#wyslijWiadomosc{
+#buttonWiadomosc{
     width: 100px;
     height: 30px;
 }
 
+#divWiadomosci{
+    overflow: auto;
+    font-weight: bold;
+    font-size: 16px;
+    width: 600px;
+    height: 500px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    row-gap: 20px;
+    border: 2px dotted black;
+}
+
+.polaczenieSiebie, .polaczenieInnych, .mojaWiadomosc, .innaWiadomosc{
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
 .polaczenieSiebie{
+    background-color: rgba(85, 170, 85, 0.5);
+    width: 100%;
+}
+
+.polaczenieInnych{
+    background-color: rgba(190, 75, 75, 0.5);
+    width: 60%;
+}
+
+.wiadomosc{
     width: 100%;
     height: 40px;
-    background-color: green;
+    display: flex;
+}
+
+.wiadomosc.prawo{
+    flex-direction: row-reverse;
+}
+
+.mojaWiadomosc{
+    width: 60%;
+    background-color: rgba(178, 190, 75, 0.5);
+}
+
+.innaWiadomosc{
+    width: 60%;
+    background-color: rgba(129, 129, 129, 0.5);
+}
+
+.spanUser{
+    font-style: italic;
+}
+
+.spanMessage{
+    color: blue;
+}
+
+.spanDate{
+    color: red;
 }
