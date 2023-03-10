@@ -32,7 +32,7 @@ function stworzSockety() {
         console.log(data);
         let innaWiadomosc = document.createElement("div")
         innaWiadomosc.classList.add("innaWiadomosc")
-        const MAX_DLUGOSC = 21
+        const MAX_DLUGOSC = 16
         let ileEnterow = Math.ceil(parseFloat(data.wiadomosc.length) / MAX_DLUGOSC)
         let tablicaStringow = []
         for (let i = 0; i < ileEnterow; i++) {
