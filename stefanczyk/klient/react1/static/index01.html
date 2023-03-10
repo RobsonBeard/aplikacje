@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+
+<body>
+	<div id="react-app"></div>
+
+
+	<script type="text/babel">
+
+		// JSX
+		// ReactDOM.render(
+		// 	<h1 className="klasa1">React component h1 1</h1>,
+		// 	document.getElementById('react-app')
+		// )
+
+		// zwykły js
+		// ReactDOM.render(
+		// 	React.createElement("h1", { className: "klasa1" }, "React component h1 2"),
+		// 	document.getElementById('react-app')
+		// )
+
+		class Start extends React.Component {
+			render() {
+				return (
+					<>
+						<h1 className="naglowek">01: JSX component - simple</h1>
+						<div className="item" style={{ margin: "20px" }}>React component with JSX</div>
+					</>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<Start />,
+			document.getElementById("react-app")
+		)
+
+
+	</script>
+</body>
+
+</html>

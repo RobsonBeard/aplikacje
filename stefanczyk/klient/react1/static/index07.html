@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+	<h1 class="naglowek">07: task list - data from array</h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		let items = [
+			{
+				id: {
+					value: 1,
+					color: "blue",
+				},
+				quantity: {
+					value: 2,
+					color: "black",
+				},
+				task: {
+					verb: "kupić",
+					noun: "masło",
+					color: "red",
+				},
+			},
+			{
+				id: {
+					value: 2,
+					color: "black",
+				},
+				quantity: {
+					value: 6,
+					color: "green",
+				},
+				task: {
+					verb: "wylać",
+					noun: "mleko",
+					color: "red",
+				},
+			},
+			{
+				id: {
+					value: 3,
+					color: "blue",
+				},
+				quantity: {
+					value: 3,
+					color: "green",
+				},
+				task: {
+					verb: "upiec",
+					noun: "chleb",
+					color: "red",
+				},
+			}
+		]
+
+
+		let testArray = []
+		let mapArray
+
+		class TaskList extends React.Component {
+			render() {
+				for (let i = 0; i < items.length; i++) {
+					testArray.push(<Task
+						idValue={items[i].id.value}
+						taskVerb={items[i].task.verb}
+						taskNoun={items[i].task.noun}
+						quantityValue={items[i].quantity.value}
+						key={i} />)
+				}
+				mapArray = items.map(function (elem) {
+					return {
+						id: elem.id.color,
+						quantity: elem.quantity.color,
+						task: elem.task.color
+					}
+				})
+				console.log(mapArray);
+				// w renderze for pushuje ListItem do tablicy, a w returnie zwracam tablice
+				return (
+					<div className="box2">
+						{
+							items.map(elem => {
+
+
+								return <Task
+									idValue={elem.id.value}
+									taskVerb={elem.task.verb}
+									taskNoun={elem.task.noun}
+									quantityValue={elem.quantity.value}
+									key={elem.id.value}
+								/>
+							})
+						}
+					</div> // tutaj map będzie zwracany juz jako tablica i to on powinien mi "rysowac" te ul
+				)
+			}
+		}
+
+		class Task extends React.Component {
+			render() {
+				// console.log(this.props);
+				return (
+					<>
+						<ul className="list1">
+							<li>id: {this.props.idValue}</li>
+							<li>zadanie: {this.props.taskVerb} 	&rarr; {this.props.taskNoun}</li>
+							<li>ile: {this.props.quantityValue}</li>
+						</ul>
+					</>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<TaskList />
+			</>
+			,
+			document.getElementById("react-app")
+
+		)
+
+
+
+	</script>
+</body>
+
+</html>

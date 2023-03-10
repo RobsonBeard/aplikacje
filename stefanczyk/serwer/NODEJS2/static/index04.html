@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+
+</head>
+
+<body>
+    <h1 class="naglowek">ćwiczenie 04 - fetch - URLSearchParams, no form</h1>
+    <form action="/post" method="POST">
+        <input type="text" name="a">
+        <input type="text" name="b">
+        <select name="dzialanie">
+            <option value="suma">suma</option>
+            <option value="roznica">roznica</option>
+            <option value="iloczyn">iloczyn</option>
+            <option value="iloraz">iloraz</option>
+            <option value="wszystko">wszystkie działania</option>
+        </select>
+        <!-- <button name="button" value="wyślij">Wyślij</button> -->
+    </form>
+    <br>
+    <div class="kulka" id="kulka">klik</div>
+
+    <script>
+        let kulka = document.getElementById("kulka")
+        kulka.addEventListener("click", () => {
+
+        })
+
+
+        // let data = new URLSearchParams();
+        // data.append("a", 1);
+        // data.append("b", 2);
+
+        const options = {
+            method: "POST",
+            body: data,
+            headers: { "Content-Type": "application/json" }
+        };
+
+        // fetch("/obliczenia", options)
+        // 	.then(response => response.json())
+        // 	.then(data => console.log(data))
+        // 	.catch(error => console.log(error));
+
+        function fetchPost() {
+
+            fetch("/api", options) // fetch
+                .then(response => response.json())
+                .then(
+                    data => console.log(data) // dane odpowiedzi z serwera
+                )
+                .catch(error => console.log(error));
+        }
+
+    </script>
+</body>
+
+</html>

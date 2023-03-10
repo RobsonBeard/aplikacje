@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+	<h1 class="naglowek">06: map, filter - operacje na tablicach</h1>
+
+	<script type="text/babel">
+		const data = [
+			{ id: 1, quantity: 1, name: "masło" },
+			{ id: 2, quantity: 6, name: "mleko" },
+			{ id: 3, quantity: 3, name: "chleb" }
+		];
+
+		data.map(function (elem, i) {
+			console.log(elem);
+			console.log(i + " dowolne działanie dla każdego elementu tablicy data")
+		})
+
+		const array = data.map(function (elem) {
+			return (elem.quantity)
+		})
+		console.log(array)
+
+		const array2 = data.map(function (elem) {
+			return (elem)
+		})
+		console.log(array2)
+
+		const array3 = data.map(function (elem) {
+			return elem.quantity * 2
+		})
+		console.log(array3)
+
+		const array4 = data.map(function (elem) {
+			return {
+				id: elem.id,
+				quantity: elem.quantity * 3,
+				name: elem.name
+			}
+		})
+		console.log(array4)
+
+
+		data.filter(function (elem) {
+			console.log("dowolne działanie dla każdego elementu tablicy data")
+		})
+
+		data.filter(function (elem) {
+			console.log(elem.quantity > 1)
+		})
+
+		data.filter(function (elem) {
+			console.log(elem.name == "chleb")
+		})
+
+		const array5 = data.filter(function (elem) {
+			return elem.name == "chleb"
+		})
+		console.log(array5)
+
+		const array6 = data.filter(function (elem) {
+			return elem.quantity > 1
+		})
+		console.log(array6)
+
+
+	</script>
+</body>
+
+</html>

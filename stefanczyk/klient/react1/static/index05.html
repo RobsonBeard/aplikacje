@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+	<h1 class="naglowek">05: JSX Component - data simple</h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		let items = [
+			{
+				id: 1,
+				quantity: 1,
+				name: "masło"
+			},
+			{
+				id: 2,
+				quantity: 6,
+				name: "mleko"
+			},
+			{
+				id: 3,
+				quantity: 2,
+				name: "chleb"
+			}
+		]
+
+		class List1 extends React.Component {
+			render() {
+				return (
+
+					<div className="box">
+						<p className="info">Dane z tablicy</p>
+						<div className="item">
+							<ListItem quantity={items[0].quantity} name={items[0].name} />
+							<button className="button1">kup</button>
+							<button className="button1">usuń</button>
+						</div>
+						<div className="item">
+							<ListItem quantity={items[1].quantity} name={items[1].name} />
+							<button className="button1">kup</button>
+							<button className="button1">usuń</button>
+						</div>
+						<div className="item">
+							<ListItem quantity={items[2].quantity} name={items[2].name} />
+							<button className="button1">kup</button>
+							<button className="button1">usuń</button>
+						</div>
+					</div>
+
+				) // tu sa obiekty klasy ListItem
+			}
+		}
+
+		let testArray = []
+
+		class List2 extends React.Component {
+			render() {
+				for (let i = 0; i < items.length; i++) {
+					testArray.push(<ListItem2 quantity={items[i].quantity} name={items[i].name} key={i} />)
+				}
+				console.log(testArray);
+				// w renderze for pushuje ListItem do tablicy, a w returnie zwracam tablice
+				return (
+					<>
+						<div className="box">
+							<p className="info">Dane z tablicy - itemy z pętli</p>
+							{testArray}
+						</div>
+
+					</>
+				)
+			}
+		}
+
+		class ListItem extends React.Component {
+			render() {
+				console.log(this.props);
+				return (
+					<>
+						{this.props.quantity} x {this.props.name}
+					</>
+				)
+			}
+		}
+
+		class ListItem2 extends React.Component {
+			render() {
+
+				return (
+					<div className="item">
+						{this.props.quantity} x {this.props.name}
+						<button className="button1">kup</button>
+						<button className="button1">usuń</button>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<List1 />
+				<List2 />
+			</>
+			,
+			document.getElementById("react-app")
+
+		)
+
+
+
+	</script>
+</body>
+
+</html>
