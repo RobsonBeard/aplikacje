@@ -1,81 +1,102 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: monospace;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
 }
 
 .klasa {
-	color: red;
+  color: red;
 }
 
 .naglowek {
-	color: blue;
-	font-size: 25px;
+  color: blue;
+  font-size: 25px;
 }
 
 .info {
-	color: grey;
-	font-weight: bold;
-	font-size: 20px;
+  color: grey;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .box {
-	width: 400px;
-	height: 250px;
-	display: flex;
-	flex-direction: column;
-	row-gap: 10px;
-	align-items: center;
-	justify-content: center;
-	float: left;
+  width: 400px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: center;
+  justify-content: center;
+  float: left;
 }
 
 .item {
-	/* width: 300px; */
-	width: max-content;
-	height: 50px;
-	background: red;
-	color: white;
-	display: flex;
-	align-items: center;
-	padding: 10px;
-	column-gap: 10px;
-	font-weight: bold;
-	font-size: large;
+  /* width: 300px; */
+  width: max-content;
+  height: 50px;
+  background: red;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  column-gap: 10px;
+  font-weight: bold;
+  font-size: large;
 }
 
 .button1 {
-	background: white;
-	border: 1px solid red;
-	color: red;
-	padding: 3px;
+  background: white;
+  border: 1px solid red;
+  color: red;
+  padding: 3px;
 }
 
 .list1 {
-	background-color: yellow;
-	width: 200px;
-	height: 150px;
+  background-color: yellow;
+  width: 200px;
+  height: 150px;
+  list-style-type: none;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: white;
+}
+
+.list1 li {
+  height: 40px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
 }
 
 .box2 {
-	margin: 10px;
-	display: flex;
-	gap: 10px;
-	/* color: white; */
-}
-.box2 ul {
-	list-style-type: none;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
+  margin: 10px;
+  display: flex;
+  gap: 10px;
 }
 
-.box2 ul li {
-	height: 40px;
-	font-size: 16px;
-	display: flex;
-	align-items: center;
-	padding: 5px;
+.item2 {
+  background-color: red;
+  width: 200px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.item2 p {
+  color: white;
+  font-size: 18px;
+}
+
+.item2 img {
+  height: 100px;
+  width: 100px;
 }

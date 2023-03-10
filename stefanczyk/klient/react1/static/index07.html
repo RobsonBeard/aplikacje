@@ -66,40 +66,21 @@
 			}
 		]
 
-
-		let testArray = []
-		let mapArray
-
 		class TaskList extends React.Component {
 			render() {
-				for (let i = 0; i < items.length; i++) {
-					testArray.push(<Task
-						idValue={items[i].id.value}
-						taskVerb={items[i].task.verb}
-						taskNoun={items[i].task.noun}
-						quantityValue={items[i].quantity.value}
-						key={i} />)
-				}
-				mapArray = items.map(function (elem) {
-					return {
-						id: elem.id.color,
-						quantity: elem.quantity.color,
-						task: elem.task.color
-					}
-				})
-				console.log(mapArray);
-				// w renderze for pushuje ListItem do tablicy, a w returnie zwracam tablice
+
 				return (
 					<div className="box2">
 						{
 							items.map(elem => {
-
-
 								return <Task
 									idValue={elem.id.value}
+									idColor={elem.id.color}
 									taskVerb={elem.task.verb}
 									taskNoun={elem.task.noun}
+									taskColor={elem.task.color}
 									quantityValue={elem.quantity.value}
+									quantityColor={elem.quantity.color}
 									key={elem.id.value}
 								/>
 							})
@@ -115,9 +96,9 @@
 				return (
 					<>
 						<ul className="list1">
-							<li>id: {this.props.idValue}</li>
-							<li>zadanie: {this.props.taskVerb} 	&rarr; {this.props.taskNoun}</li>
-							<li>ile: {this.props.quantityValue}</li>
+							<li style={{ backgroundColor: this.props.idColor }}>id: {this.props.idValue}</li>
+							<li style={{ backgroundColor: this.props.taskColor }}>zadanie: {this.props.taskVerb} &rarr; {this.props.taskNoun}</li>
+							<li style={{ backgroundColor: this.props.quantityColor }}>ile: {this.props.quantityValue}</li>
 						</ul>
 					</>
 				)
