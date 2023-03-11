@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: monospace;
+  font-family: 'Roboto', sans-serif;
 }
 
 .klasa {
@@ -99,4 +100,119 @@
 .item2 img {
   height: 100px;
   width: 100px;
+}
+
+.mainCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.body {
+  background-color: #f0f0f0;
+}
+
+.header {
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.box3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 880px;
+  height: 100%;
+  margin: 20px;
+  padding: 20px;
+}
+
+.box3 .divProdukt {
+  background-color: white;
+  height: 300px;
+  width: 200px;
+  padding: 10px;
+  position: relative;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.box3 .divProdukt img.koszulka {
+  width: 100%;
+}
+
+.box3 .divProdukt div.slogan {
+  background-color: #9c7c5e;
+  color: white;
+  position: absolute;
+  top: 10%;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  transition: 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box3 .divProdukt div.slogan p {
+  opacity: 0;
+  transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  text-align: center;
+  font-weight: bold;
+}
+
+.box3 .divProdukt div.slogan:hover {
+  width: 100%;
+  height: 50px;
+}
+
+.box3 .divProdukt div.slogan:hover p {
+  opacity: 1;
+  transition: 0.6s cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
+.box3 .divProdukt p.name {
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.box3 .divProdukt div.cena, .box3 .divProdukt div.starsDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+}
+
+.box3 .divProdukt div.cena div.gwiazdki, .box3 .divProdukt div.starsDiv div.gwiazdki {
+  height: 60%;
+}
+
+.box3 .divProdukt div.cena div.gwiazdki .gwiazdka, .box3 .divProdukt div.starsDiv div.gwiazdki .gwiazdka {
+  height: 100%;
+}
+
+.box3 .divProdukt div.cena p.grubo, .box3 .divProdukt div.starsDiv p.grubo {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.box3 .divProdukt div.cena p.kategoria, .box3 .divProdukt div.starsDiv p.kategoria {
+  font-weight: lighter;
+  font-size: 14px;
+  color: #646464;
+}
+
+.box3 .divProdukt div.cena p.rating, .box3 .divProdukt div.starsDiv p.rating {
+  font-size: 14px;
 }
