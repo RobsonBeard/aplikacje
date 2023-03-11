@@ -10,6 +10,47 @@
 	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
 	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
 	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<style>
+		.square {
+			background-color: rgb(127, 0, 201);
+			color: white;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 50px;
+			height: 50px;
+			margin: 1px;
+		}
+
+		.column {
+			border: 3px solid grey;
+			flex-direction: column;
+		}
+
+		.table {
+			border: 3px solid rgb(184, 184, 0);
+		}
+
+		.container {
+			border: 3px solid red;
+		}
+
+		.square,
+		.column,
+		.table,
+		.container {
+			display: flex;
+		}
+
+		.column,
+		.table,
+		.container {
+			width: max-content;
+			height: max-content;
+			padding: 3px;
+			margin: 2px;
+		}
+	</style>
 </head>
 
 <body>
@@ -18,57 +59,61 @@
 
 	<script type="text/babel">
 
-		const imagesData = [
-			{ id: 1, name: "hamlet" },
-			{ id: 2, name: "krzyzacy" },
-			{ id: 3, name: "lalka" }
-		]
+		let squareArray = []
+		let columnArray = []
+		let tableArray = []
 
-
-		class ImagesList extends React.Component {
+		class Square extends React.Component {
 			render() {
-
 				return (
-					<div className="box2">
-						{
-							imagesData.map(elem => {
-								return <Image
-									name={elem.name}
-									key={elem.id}
-								/>
-							})
-						}
+					<div className="square">
+						<p>React</p>
+						<p>comp</p>
 					</div>
 				)
 			}
 		}
 
-		class Image extends React.Component {
-			makeImageName(arg) {
-				return arg.substring(0, 1).toUpperCase() + arg.substring(1, arg.length)
-				//funkcja ma zwracać tytuł z dużej litery
-			}
-
-			makeImageUrl(arg) {
-				return `gfx/${arg}.jpg`
-				// funkcja ma zwracać pełny url do obrazka, nie tylko jego nazwę
-			}
-
+		class Column extends React.Component {
 			render() {
-				// console.log(this.props);
+				squareArray = []
+				for (let i = 0; i < 3; i++) {
+					squareArray.push(<Square key={i} />)
+				}
 
 				return (
-					<div className="item2">
-						<p>{this.makeImageName(this.props.name)}</p>
-						<img src={this.makeImageUrl(this.props.name)}></img>
-					</div>
+					<div className="column">{squareArray}</div>
+				)
+			}
+		}
+
+		class Table extends React.Component {
+			render() {
+				columnArray = []
+				for (let i = 0; i < 3; i++) {
+					columnArray.push(<Column key={i} />)
+				}
+				return (
+					<div className="table">{columnArray}</div>
+				)
+			}
+		}
+
+		class Container extends React.Component {
+			render() {
+				tableArray = []
+				for (let i = 0; i < 3; i++) {
+					tableArray.push(<Table key={i} />)
+				}
+				return (
+					<div className="container">{tableArray}</div>
 				)
 			}
 		}
 
 		ReactDOM.render(
 			<>
-				<ImagesList />
+				<Container />
 			</>
 			,
 			document.getElementById("react-app")
