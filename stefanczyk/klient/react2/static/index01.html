@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 01: React state - start</h1>
+	<div id="react-app" class="mainCenter"></div>
+
+	<script type="text/babel">
+
+		// class Square extends React.Component {
+		// 	constructor() {
+		// 		super()
+		// 		// this.state = { a: 1, b: 2 }
+		// 		// this.clickMe = this.clickMe.bind(this);
+		// 	}
+
+		// 	changeState = () => {
+		// 		console.log(this);
+		// 		this.setState({
+		// 			a: Math.random() * 100,
+		// 			b: Math.random() * 100,
+		// 		});
+		// 	}
+
+		// 	clickMe(param) {
+		// 		console.log(param);
+		// 	}
+
+		// 	clickMe2 = (param) => {
+		// 		console.log(param);
+		// 	}
+
+		// 	componentDidMount() { } // po utworzeniu komponentu, po konstruktorze
+		// 	componentDidUpdate() { } // nie wywoływany podczas pierwszego rendera, tylko po aktualizacji
+
+		// 	render() {
+		// 		return (
+		// 			<div>
+		// 				<button onClick={this.clickMe.bind(this, "data")}>click me</button>
+		// 				<button onClick={() => this.clickMe("data")}>click me2</button>
+		// 			</div>
+		// 		)
+		// 	}
+		// }
+
+		// class Square2 extends React.Component {
+		// 	constructor() {
+		// 		super()
+		// 		this.state = { x: false }
+
+		// 	}
+
+		// 	componentDidMount() {
+		// 		console.log("initial state -> " + this.state.x);
+		// 		this.setState({ x: true }, () => console.log("state already updated -> " + this.state.x))
+		// 		console.log("state not updated yet -> " + this.state.x);
+		// 	} // state jest aktualizownany asynchronicznie
+
+		// 	render() {
+		// 		return (
+		// 			<div>
+		// 				<button>click</button>
+		// 			</div>
+		// 		)
+		// 	}
+		// }
+
+		class Square3 extends React.Component {
+			constructor() {
+				super()
+				this.state = { a: 1, b: 2, c: 3 };
+			}
+			render() {
+				return (
+					<div className="square">
+						<p>a = {this.state.a} </p>
+						<p>b = {this.state.b} </p>
+						<p>c = {this.state.c} </p>
+					</div>
+
+				)
+			}
+		}
+
+		class List extends React.Component {
+			render() {
+				let testArray = []
+				for (let i = 0; i < 3; i++) {
+					testArray.push(<Square3 key={i} />)
+				}
+
+				return (
+					<div className="container1">
+						{testArray}
+					</div>
+				)
+			}
+
+		}
+
+		ReactDOM.render(
+			<>
+				<List />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>

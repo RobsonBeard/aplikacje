@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+$bok-pola: 20px;
+
+#divMain {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc($bok-pola * 8);
+    height: calc($bok-pola * 16);
+}
+
+.divPole {
+    border: 1px solid black;
+    width: $bok-pola;
+    height: $bok-pola;
+}

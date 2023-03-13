@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 05: React state - add components</h1>
+	<div id="react-app" class="mainCenter"></div>
+
+	<script type="text/babel">
+
+
+		class FoodList extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					tablica: ["masło", "mleko", "chleb", "dżem"]
+				}
+			}
+			getRndInteger(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+			onButtonClick = () => {
+				let randomNumber = this.getRndInteger(0, 3)
+				this.setState({
+					produkt: this.state.tablica[randomNumber]
+				}) //asynchroniczne
+			}
+			render() {
+				let testArray = []
+				for (let i = 0; i < 3; i++) {
+					testArray.push(<Food produkt={this.state.produkt} key={i} />)
+				}
+				return (
+					<div className="container2">
+						<div className="gora">
+							<p>List component</p>
+							<button className="klikacz" onClick={this.onButtonClick}>wylosuj we wszystkich</button>
+						</div>
+						<div>
+							{testArray}
+						</div>
+
+					</div>
+				)
+			}
+		}
+
+		class Food extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					lubie: null
+				}
+			}
+			onButtonClick2 = () => {
+				if (this.state.lubie === null || this.state.lubie === "nie lubie") {
+					this.setState({
+						lubie: "lubie"
+					}) //asynchroniczne
+				}
+				else {
+					this.setState({
+						lubie: "nie lubie"
+					}) //asynchroniczne
+				}
+			}
+			render() {
+				return (
+					<div className="square">
+						<button className="klikacz" onClick={this.onButtonClick2}>lubię / nie</button>
+						<p>{this.state.lubie}</p>
+						<p>{this.props.produkt}</p>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<FoodList />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>
