@@ -13,9 +13,9 @@
 .container1 {
   display: flex;
   margin: 10px;
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
 }
-
 .container1 p {
   font-size: 18px;
   font-weight: bold;
@@ -36,39 +36,103 @@
   width: 150px;
   height: 150px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   gap: 20px;
 }
+.square img {
+  width: 40px;
+  height: 40px;
+}
 
 .container2 {
   display: flex;
+  flex-wrap: wrap;
   margin: 10px;
   flex-direction: column;
   border: 3px solid blue;
+  width: -moz-max-content;
   width: max-content;
+  max-width: 100%;
   padding: 10px;
 }
-
 .container2 .gora {
   margin: 10px;
   color: blue;
 }
-
 .container2 .gora .klikacz {
   border: 1px solid black;
-  background-color: #cacaca;
+  background-color: rgb(202, 202, 202);
   border-radius: 3px;
 }
-
 .container2 p {
   font-size: 18px;
   font-weight: bold;
 }
-
 .container2 div {
   display: flex;
-  column-gap: 10px;
+  gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
+
+.container3 {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 100%;
+  gap: 10px;
+}
+
+.square2 {
+  width: 150px;
+  height: 150px;
+  color: white;
+  background-color: #808080;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  font-size: 18px;
+  font-weight: bold;
+}
+.square2 button.klikacz2 {
+  border: 1px solid black;
+  background-color: rgb(202, 202, 202);
+  border-radius: 3px;
+  color: blue;
+  font-weight: bold;
+  padding: 3px;
+}
+
+.timer {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+button.klikacz2 {
+  border: 1px solid black;
+  background-color: rgb(201, 201, 201);
+  border-radius: 3px;
+  color: blue;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 3px;
+}
+
+button.klikacz2:disabled {
+  background-color: black;
+}/*# sourceMappingURL=style.css.map */

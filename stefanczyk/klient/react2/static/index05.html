@@ -18,36 +18,46 @@
 
 	<script type="text/babel">
 
+		// this.setState tak jakby wywołuje jeszcze raz render
 
-		class FoodList extends React.Component {
+		class Parent extends React.Component {
 			constructor() {
 				super()
+				this.testArray = []
 				this.state = {
-					tablica: ["masło", "mleko", "chleb", "dżem"]
+					tablica: ["hamburger", "trufle"],
+					licznik: 0
 				}
 			}
-			getRndInteger(min, max) {
-				return Math.floor(Math.random() * (max - min + 1)) + min;
-			}
+
 			onButtonClick = () => {
-				let randomNumber = this.getRndInteger(0, 3)
+				this.testArray.push(<Child name={this.state.tablica[0]} id={this.state.licznik} key={this.state.licznik} src={this.makeSrc(this.state.tablica[0])} />)
+
 				this.setState({
-					produkt: this.state.tablica[randomNumber]
+					licznik: this.state.licznik + 1
 				}) //asynchroniczne
 			}
+			onButtonClick2 = () => {
+				this.testArray.push(<Child name={this.state.tablica[1]} id={this.state.licznik} key={this.state.licznik} src={this.makeSrc(this.state.tablica[1])} />)
+				this.setState({
+					licznik: this.state.licznik + 1
+				}) //asynchroniczne
+			}
+			makeSrc = (nazwa) => {
+				return `./gfx/${nazwa}.jpg`
+			}
 			render() {
-				let testArray = []
-				for (let i = 0; i < 3; i++) {
-					testArray.push(<Food produkt={this.state.produkt} key={i} />)
-				}
+				console.log(this.testArray);
+
 				return (
 					<div className="container2">
 						<div className="gora">
-							<p>List component</p>
-							<button className="klikacz" onClick={this.onButtonClick}>wylosuj we wszystkich</button>
+							<p>App component</p>
+							<button className="klikacz" onClick={this.onButtonClick}>dodaj tanie</button>
+							<button className="klikacz" onClick={this.onButtonClick2}>dodaj drogie</button>
 						</div>
 						<div>
-							{testArray}
+							{this.testArray}
 						</div>
 
 					</div>
@@ -55,31 +65,20 @@
 			}
 		}
 
-		class Food extends React.Component {
+		class Child extends React.Component {
 			constructor() {
 				super()
 				this.state = {
-					lubie: null
+
 				}
 			}
-			onButtonClick2 = () => {
-				if (this.state.lubie === null || this.state.lubie === "nie lubie") {
-					this.setState({
-						lubie: "lubie"
-					}) //asynchroniczne
-				}
-				else {
-					this.setState({
-						lubie: "nie lubie"
-					}) //asynchroniczne
-				}
-			}
+
 			render() {
 				return (
 					<div className="square">
-						<button className="klikacz" onClick={this.onButtonClick2}>lubię / nie</button>
-						<p>{this.state.lubie}</p>
-						<p>{this.props.produkt}</p>
+						<p>{this.props.name}</p>
+						<p>{this.props.id}</p>
+						<img src={this.props.src} alt="obrazek"></img>
 					</div>
 				)
 			}
@@ -87,7 +86,7 @@
 
 		ReactDOM.render(
 			<>
-				<FoodList />
+				<Parent />
 			</>
 			,
 			document.getElementById("react-app")
