@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 07: React state - timer simple </h1>
+	<div id="react-app" class="mainCenter"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class Parent extends React.Component {
+			constructor() {
+				super()
+				this.testArray = []
+
+			}
+
+			render() {
+
+				for (let i = 0; i < 4; i++) {
+					this.testArray.push(<Timer key={i} id={"button" + i} />)
+				}
+
+				return (
+					<div className="container3">
+						{this.testArray}
+					</div>
+				)
+			}
+		}
+
+		class Timer extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					licznik: 10
+				}
+			}
+			setTimer = () => {
+				this.setState({
+					licznik: this.state.licznik - 1
+				}) //asynchroniczne
+				if (this.state.licznik == 0) {
+					clearInterval(this.interval)
+				}
+			}
+			onButtonClick = (id) => {
+				this.interval = setInterval(this.setTimer, 1000)
+				document.getElementById(`${id}`).setAttribute("disabled", "")
+
+			}
+			render() {
+				return (
+					<div className="timer">
+						<p>{this.state.licznik}</p>
+						<button onClick={() => this.onButtonClick(this.props.id)} className="klikacz2" id={this.props.id}>klik</button>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<Parent />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>
