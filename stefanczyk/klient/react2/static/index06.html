@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 06: React state - random style</h1>
+	<div id="react-app" class="mainCenter"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class Parent extends React.Component {
+			constructor() {
+				super()
+				this.testArray = []
+				this.state = { w: 150, h: 150, c: 100 };
+			}
+
+			render() {
+
+				for (let i = 0; i < 4; i++) {
+					this.testArray.push(<Child key={i} />)
+				}
+
+				return (
+					<div className="container3">
+						{this.testArray}
+					</div>
+				)
+			}
+		}
+
+		class Child extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					w: "150px",
+					h: "150px",
+					c: "#808080"
+				}
+
+			}
+			getRndInteger(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+			onButtonClick = () => {
+				this.setState({
+					w: this.getRndInteger(100, 300) + "px",
+					h: this.getRndInteger(100, 300) + "px",
+					c: "#" + Math.floor(Math.random() * 16777215).toString(16)
+				}) //asynchroniczne
+			}
+			render() {
+				// console.log(this.state);
+				// console.log(this.props);
+				return (
+					<div className="square2" style={
+						{
+							width: this.state.w,
+							height: this.state.h,
+							backgroundColor: this.state.c,
+						}
+					}>
+						<p>w = {this.state.w}</p>
+						<p>h = {this.state.h}</p>
+						<p>c = {this.state.c}</p>
+						<button onClick={this.onButtonClick} className="klikacz2">random</button>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<Parent />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 08: React state - stopers </h1>
+	<div id="react-app" class="mainCenter"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class Parent extends React.Component {
+			constructor() {
+				super()
+				this.testArray = []
+
+			}
+
+			render() {
+
+				for (let i = 0; i < 4; i++) {
+					this.testArray.push(<Timer key={i} id={i} />)
+				}
+
+				return (
+					<div className="container3">
+						{this.testArray}
+					</div>
+				)
+			}
+		}
+
+		class Timer extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					minuty: 0,
+					sekundy: 0
+				}
+			}
+			setTimer = (id, start) => {
+
+
+
+				this.setState({
+					sekundy: Math.round((new Date().getTime() - start.getTime()) / 1000)
+				}) //asynchroniczne
+				// if (this.state.licznik == 0) {
+				// 	clearInterval(this.interval)
+				// }
+			}
+			onButtonClick = (id) => {
+				this.start = new Date()
+				this.interval = setInterval(() => this.setTimer(id, this.start), 1000)
+				// document.getElementById(`${id}`).innerText = "stop"
+
+			}
+			render() {
+				return (
+					<div className="timer">
+						<p>{this.state.minuty} : {this.state.sekundy}</p>
+						<button onClick={() => this.onButtonClick(this.props.id)} className="klikacz2" id={this.props.id}>start</button>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<Parent />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>
