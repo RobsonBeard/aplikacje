@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 02: React state - setState</h1>
+	<div id="react-app" class="mainCenter"></div>
+
+	<script type="text/babel">
+
+		class Square extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					ilosc: 1
+				}
+			}
+			onButtonClick = () => {
+				this.setState({
+					ilosc: this.state.ilosc + 1
+				}, () => { console.log("dodajacy setstate: " + this.state.ilosc) }) //asynchroniczne
+				if (this.state.ilosc == 3) {
+					this.setState({
+						ilosc: 1
+					})
+				}
+				console.log(this.state);
+			}
+			render() {
+				return (
+					<div className="square">
+						<p>klik {this.state.ilosc} </p>
+						<button className="klikacz" onClick={this.onButtonClick}>klik</button>
+					</div>
+
+				)
+			}
+		}
+
+		class List extends React.Component {
+			render() {
+				let testArray = []
+				for (let i = 0; i < 3; i++) {
+					testArray.push(<Square key={i} />)
+				}
+
+				return (
+					<div className="container1">
+						{testArray}
+					</div>
+				)
+			}
+
+		}
+
+		ReactDOM.render(
+			<>
+				<List />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>
