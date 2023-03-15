@@ -20,14 +20,14 @@
 
 		// this.setState tak jakby wywołuje jeszcze raz render
 
-		class Parent extends React.Component {
+		class ZonesList extends React.Component {
 			constructor() {
 				super()
 				this.testArray = []
 			}
 			render() {
 				for (let i = 0; i < 3; i++) {
-					this.testArray.push(<Timer key={i} id={i} />)
+					this.testArray.push(<Zone key={i} id={i} />)
 				}
 				return (
 					<div className="container3">
@@ -37,7 +37,7 @@
 			}
 		}
 
-		class Timer extends React.Component {
+		class Zone extends React.Component {
 			constructor() {
 				super()
 				this.state = {
@@ -119,7 +119,7 @@
 
 		ReactDOM.render(
 			<>
-				<Parent />
+				<ZonesList />
 			</>
 			,
 			document.getElementById("react-app")
