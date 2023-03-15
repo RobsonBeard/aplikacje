@@ -12,18 +12,48 @@ app.use(
 );
 
 const data = require("./static/data/zones.json")
+let tablicaKulek = []
 
 app.get("/", function (req, res) {
-    // res.sendFile(path.join(__dirname + "/static/index09.html"))
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    // res.setHeader("Content-Type", "application/json")
-    res.send(JSON.stringify(data, null, 5))
+    tablicaKulek = []
+    res.sendFile(path.join(__dirname + "/static/index09a.html"))
 })
 
-// app.post("/fetch", function (req, res) {
-//     res.setHeader("Content-Type", "application/json")
-//     res.send(JSON.stringify(data, null, 5));
-// })
+app.get("/wybrane", function (req, res) {
+    res.sendFile(path.join(__dirname + "/static/index09b.html"))
+})
+
+app.post("/odbiorJsona", function (req, res) {
+    // console.log(req.body);
+
+    res.setHeader("Content-Type", "application/json")
+    res.send(JSON.stringify(data, null, 5));
+})
+
+app.post("/dodawanieZaznaczonychKulek", function (req, res) {
+    // console.log(req.body);
+    tablicaKulek.push(req.body)
+    console.log(tablicaKulek);
+
+    res.setHeader("Content-Type", "application/json")
+    res.send(JSON.stringify(data, null, 5));
+})
+
+app.post("/usuwanieZaznaczonychKulek", function (req, res) {
+    // console.log(req.body);
+    tablicaKulek = tablicaKulek.filter(elem => elem.id !== req.body.id)
+
+    res.setHeader("Content-Type", "application/json")
+    res.send(JSON.stringify(data, null, 5));
+})
+
+app.post("/wyswietlZaznaczoneKulki", function (req, res) {
+    // console.log(req.body);
+
+    res.setHeader("Content-Type", "application/json")
+    res.send(JSON.stringify(tablicaKulek, null, 5));
+})
+
 
 app.listen(PORT, function () {
     console.log("start serwera na porcie " + PORT);

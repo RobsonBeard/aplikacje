@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 09: React state - time zones </h1>
+	<a class="link" href="/">Powrót</a>
+	<div id="react-app" class="mainCenter"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class ZonesList extends React.Component {
+			constructor() {
+				super()
+				this.testArray = []
+				this.i = 0
+			}
+			componentDidMount() {
+				fetch('http://localhost:3000/wyswietlZaznaczoneKulki', {
+					method: 'post',
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-Type': 'application/json'
+					},
+				})
+					.then(function (response) {
+						return response.json();
+					})
+					.then((data) => {
+						// console.log(data) // pobrane dane json
+
+						this.testArray = data.map(elem => {
+							this.i++
+							return <Zone key={elem.id} id={elem.id} name={elem.info.name} offset={elem.info.offset} />
+						})
+
+						this.setState({
+							a: 1
+						})
+					});
+			}
+			render() {
+				return (
+					<div className="container3">
+						{this.testArray}
+					</div>
+				)
+			}
+		}
+
+		class Zone extends React.Component {
+			constructor(props) {
+				super()
+				this.licznik = 0
+
+				this.offsetDaty = props.offset * 60 * 60 * 1000 + new Date().getTimezoneOffset() * 60 * 1000 //w milisekundach
+				this.data = new Date(new Date().getTime() + this.offsetDaty).toTimeString().substring(0, 9)
+				this.state = {
+					data: this.data,
+					buttonId: `button${props.id}`
+				}
+				this.interval = setInterval(() => this.czasLeci(), 1000);
+			}
+
+			czasLeci = () => {
+				this.data = new Date(new Date().getTime() + this.offsetDaty).toTimeString().substring(0, 9)
+				this.setState({
+					data: this.data
+				})
+			}
+			render() {
+				return (
+					<div className="timer2" id={this.props.id}>
+						<p className="nazwaStrefy">{this.props.name}</p>
+						<p>{this.state.data}</p>
+					</div >
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<ZonesList />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>
