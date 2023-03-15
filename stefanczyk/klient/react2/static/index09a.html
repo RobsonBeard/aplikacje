@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 09: React state - time zones </h1>
+	<a class="link" href="/wybrane">Pokaż wybrane strefy czasowe</a>
+	<div id="react-app" class="mainCenter"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class ZonesList extends React.Component {
+			constructor() {
+				super()
+				this.testArray = []
+				this.i = 0
+			}
+			componentDidMount() {
+				fetch('http://localhost:3000/odbiorJsona', {
+					method: 'post',
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-Type': 'application/json'
+					},
+				})
+					.then(function (response) {
+						return response.json();
+					})
+					.then((data) => {
+						console.log(data) // pobrane dane json
+
+						this.testArray = data.map(elem => {
+							this.i++
+							return <Zone key={this.i} id={this.i} name={elem.value} offset={elem.offset} />
+						})
+						// this.render()
+						this.setState({
+							a: 1
+						})
+					});
+			}
+			render() {
+				return (
+					<div className="container3">
+						{this.testArray}
+					</div>
+				)
+			}
+		}
+
+		class Zone extends React.Component {
+			constructor(props) {
+				super()
+				this.licznik = 0
+
+				this.offsetDaty = props.offset * 60 * 60 * 1000 + new Date().getTimezoneOffset() * 60 * 1000 //w milisekundach
+				this.data = new Date(new Date().getTime() + this.offsetDaty).toTimeString().substring(0, 9)
+				this.state = {
+					data: this.data,
+					buttonId: `button${props.id}`
+				}
+				this.interval = setInterval(() => this.czasLeci(), 1000);
+			}
+			onButtonClick = (id, informacje) => {
+				this.kulka = document.getElementById(`${id}`)
+				this.button = document.getElementById(`button${id}`)
+				if (this.licznik == 0) {
+					this.licznik = 1
+					// console.log(this.kulka);
+
+					fetch('http://localhost:3000/dodawanieZaznaczonychKulek', {
+						method: 'post',
+						headers: {
+							'Accept': 'application/json, text/plain, */*',
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({ id: id, info: informacje }) // dowolne dane przesyłane postem
+					})
+						.then(function (response) {
+							return response.json();
+						})
+						.then(function (data) {
+							// console.log(data) // odpowiedź json z serwera                       
+						});
+
+
+					this.kulka.style.backgroundColor = "greenyellow"
+					this.kulka.style.color = "black"
+					this.button.innerText = "clear"
+				}
+				else {
+					this.licznik = 0
+
+					fetch('http://localhost:3000/usuwanieZaznaczonychKulek', {
+						method: 'post',
+						headers: {
+							'Accept': 'application/json, text/plain, */*',
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({ id: id, info: informacje }) // dowolne dane przesyłane postem
+					})
+						.then(function (response) {
+							return response.json();
+						})
+						.then(function (data) {
+							// console.log(data) // odpowiedź json z serwera                       
+						});
+
+					this.kulka.style.backgroundColor = "blue"
+					this.kulka.style.color = "white"
+					this.button.innerText = "save"
+				}
+			}
+			czasLeci = () => {
+				this.data = new Date(new Date().getTime() + this.offsetDaty).toTimeString().substring(0, 9)
+				this.setState({
+					data: this.data
+				})
+			}
+			render() {
+				return (
+					<div className="timer2" id={this.props.id}>
+						<p className="nazwaStrefy">{this.props.name}</p>
+						<p>{this.state.data}</p>
+						<button onClick={() => this.onButtonClick(this.props.id, { name: this.props.name, offset: this.props.offset })} className="klikacz2" id={this.state.buttonId}>save</button>
+					</div >
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<ZonesList />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>

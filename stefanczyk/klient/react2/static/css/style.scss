@@ -144,3 +144,29 @@ button.klikacz2 {
 button.klikacz2:disabled {
     background-color: black;
 }
+
+.timer2 {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: blue;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+
+    .nazwaStrefy {
+        font-size: 12px;
+        width: 50px;
+        text-align: center;
+    }
+}
+
+.link {
+    color: blue;
+    font-weight: bold;
+    font-size: 16px;
+}
