@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+
+</head>
+
+<body>
+    <h1 class="naglowek">ćwiczenie 05 - fetch - JSON, no form</h1>
+    <form action="/post" method="POST">
+        <select name="imie" id="selectImie">
+            <option value="Jan">Jan</option>
+            <option value="Piotr">Piotr</option>
+            <option value="Anna">Anna</option>
+            <option value="Halina">Halina</option>
+        </select>
+        <select name="nazwisko" id="selectNazwisko">
+            <option value="Nowak">Nowak</option>
+            <option value="Kowalski">Kowalski</option>
+        </select>
+    </form>
+    <br>
+    <div class="kulka" id="kulka" style="background-color: pink;">klik</div>
+
+    <script>
+        let kulka = document.getElementById("kulka")
+        let selectImie = document.getElementById("selectImie")
+        let selectNazwisko = document.getElementById("selectNazwisko")
+
+        kulka.addEventListener("click", () => {
+
+            const data = JSON.stringify({
+                imie: selectImie.value,
+                nazwisko: selectNazwisko.value
+            })
+
+            console.log(data);
+
+            const options = {
+                method: "POST",
+                body: data,
+            };
+
+            fetch("/obliczenia", options)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    alert(JSON.stringify(data, null, 3))
+                }
+
+                )
+                .catch(error => console.log(error));
+
+
+        })
+
+    </script>
+</body>
+
+</html>
