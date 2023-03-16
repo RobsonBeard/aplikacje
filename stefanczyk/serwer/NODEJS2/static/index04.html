@@ -14,9 +14,9 @@
 <body>
     <h1 class="naglowek">ćwiczenie 04 - fetch - URLSearchParams, no form</h1>
     <form action="/post" method="POST">
-        <input type="text" name="a">
-        <input type="text" name="b">
-        <select name="dzialanie">
+        <input type="text" name="a" id="input1" required>
+        <input type="text" name="b" id="input2" required>
+        <select name="dzialanie" id="select">
             <option value="suma">suma</option>
             <option value="roznica">roznica</option>
             <option value="iloczyn">iloczyn</option>
@@ -30,35 +30,39 @@
 
     <script>
         let kulka = document.getElementById("kulka")
+        let input1 = document.getElementById("input1")
+        let input2 = document.getElementById("input2")
+        let select = document.getElementById("select")
+
         kulka.addEventListener("click", () => {
 
+            if (input1.value !== "" && input2.value !== "") {
+                let data = new URLSearchParams();  // to musi byc w onclicku bo nie dziala!!
+                data.append("a", input1.value);
+                data.append("b", input2.value);
+                data.append("dzialanie", select.value)
+
+                const options = {
+                    method: "POST",
+                    body: data,
+                };
+
+                // console.log(input1.value);
+                // console.log(input2.value);
+                // console.log(typeof select.value);
+
+                fetch("/obliczenia", options)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        alert(JSON.stringify(data, null, 3))
+                    }
+
+                    )
+                    .catch(error => console.log(error));
+            }
+
         })
-
-
-        // let data = new URLSearchParams();
-        // data.append("a", 1);
-        // data.append("b", 2);
-
-        const options = {
-            method: "POST",
-            body: data,
-            headers: { "Content-Type": "application/json" }
-        };
-
-        // fetch("/obliczenia", options)
-        // 	.then(response => response.json())
-        // 	.then(data => console.log(data))
-        // 	.catch(error => console.log(error));
-
-        function fetchPost() {
-
-            fetch("/api", options) // fetch
-                .then(response => response.json())
-                .then(
-                    data => console.log(data) // dane odpowiedzi z serwera
-                )
-                .catch(error => console.log(error));
-        }
 
     </script>
 </body>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+
+</head>
+
+<body>
+    <h1 class="naglowek">ćwiczenie 06 - colors (ranges), no form</h1>
+
+    <div class="flexContainer">
+        <div>
+            <label for="inputRed">red: </label>
+            <input type="range" name="red" id="inputRed" min="0" max="255" value="0">
+        </div>
+        <div>
+            <label for="inputGreen">green: </label>
+            <input type="range" name="green" id="inputGreen" min="0" max="255" value="0">
+        </div>
+        <div>
+            <label for="inputBlue">blue: </label>
+            <input type="range" name="blue" id="inputBlue" min="0" max="255" value="0">
+        </div>
+        <div>
+            <label for="inputAlpha">alpha: </label>
+            <input type="range" name="alpha" id="inputAlpha" min="0" max="100" value="100">
+        </div>
+    </div>
+
+    <div class="kwadrat" id="kwadrat"></div>
+
+    <script>
+        let inputRed = document.getElementById("inputRed")
+        let inputGreen = document.getElementById("inputGreen")
+        let inputBlue = document.getElementById("inputBlue")
+        let inputAlpha = document.getElementById("inputAlpha")
+        let divKwadrat = document.getElementById("kwadrat")
+
+        function ruchInputa() {
+
+            const data = JSON.stringify({
+                red: inputRed.value,
+                green: inputGreen.value,
+                blue: inputBlue.value,
+                alpha: inputAlpha.value,
+            })
+
+            // console.log(data);
+
+            const options = {
+                method: "POST",
+                body: data,
+                headers: { "Content-Type": "application/json" },
+            };
+
+            fetch("/obliczenia", options)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    let red = parseFloat(data.red)
+                    let green = parseFloat(data.green)
+                    let blue = parseFloat(data.blue)
+                    let alpha = parseFloat(data.alpha) / 100
+
+                    divKwadrat.style.backgroundColor = `rgba(${red}, ${green},${blue},${alpha})`
+                }
+
+                )
+                .catch(error => console.log(error));
+        }
+
+        inputRed.addEventListener("input", ruchInputa)
+        inputGreen.addEventListener("input", ruchInputa)
+        inputBlue.addEventListener("input", ruchInputa)
+        inputAlpha.addEventListener("input", ruchInputa)
+
+    </script>
+</body>
+
+</html>

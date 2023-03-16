@@ -17,7 +17,7 @@ const server = http.createServer((req, res) => {
 			let mimeName = ''
 
 			if (req.url === "/") {
-				req.url = "/index04.html"
+				req.url = "/index06.html"
 			}
 
 			let filepath = path.join(__dirname, "static", req.url)
@@ -58,79 +58,21 @@ function serverResponse(req, res) {
 		body += data.toString();
 	})
 
-	//kiedy przyjdą już WSZYSTKIE dane, logujemy je
+	//kiedy przyjdą już WSZYSTKIE dane, logujemy je, parsujemy je do obiektu
 	//i odsyłamy do przeglądarki
 
 	req.on("end", function (data) {
 
 		console.log("body: ", body)
-		const params = new URLSearchParams(body)
-		const obj = Object.fromEntries(params)
+
+		const obj = JSON.parse(body)
 		console.log("obj: ");
 		console.log(obj);
-		let finishObj = {}
-		let wynik
-		let message
-		let finishArr = []
 
-
-		if (obj.dzialanie != "wszystko") {
-			switch (obj.dzialanie) {
-				case "suma":
-					wynik = parseFloat(obj.a) + parseFloat(obj.b)
-					message = "suma dwóch elementów"
-					break;
-				case "roznica":
-					wynik = parseFloat(obj.a) - parseFloat(obj.b)
-					message = "różnica dwóch elementów"
-					break;
-				case "iloczyn":
-					wynik = parseFloat(obj.a) * parseFloat(obj.b)
-					message = "iloczyn dwóch elementów"
-					break;
-				case "iloraz":
-					wynik = parseFloat(obj.a) / parseFloat(obj.b)
-					message = "iloraz dwóch elementów"
-					break;
-			}
-			singleObj = {
-				wynik: wynik,
-				message: message
-			}
-			finishObj = singleObj
-
-			console.log("finishObj: ");
-			console.log(finishObj);
-		}
-		else {
-			finishArr = [
-				{
-					wynik: parseFloat(obj.a) + parseFloat(obj.b),
-					message: "suma dwóch elementów"
-				},
-				{
-					wynik: parseFloat(obj.a) - parseFloat(obj.b),
-					message: "różnica dwóch elementów"
-				},
-				{
-					wynik: parseFloat(obj.a) * parseFloat(obj.b),
-					message: "iloczyn dwóch elementów"
-				},
-				{
-					wynik: parseFloat(obj.a) / parseFloat(obj.b),
-					message: "iloraz dwóch elementów"
-				}
-
-			]
-		}
+		let finishObj = obj
 
 		res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
-		if (finishArr.length > 0) {
-			res.end(JSON.stringify(finishArr, null, 5));
-		}
-		else {
-			res.end(JSON.stringify(finishObj, null, 5));
-		}
+		res.end(JSON.stringify(finishObj, null, 5));
 
 	})
 
