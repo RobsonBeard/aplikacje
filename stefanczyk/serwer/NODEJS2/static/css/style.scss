@@ -49,3 +49,29 @@
         gap: 10px;
     }
 }
+
+.fixed {
+    position: fixed;
+}
+
+.szaraCzesc {
+    width: 50%;
+    height: 100vh;
+    background-color: darkgrey;
+    position: relative;
+}
+
+.bialaCzesc {
+    width: 50%;
+    height: 100vh;
+    position: relative;
+}
+
+.flexContainer2 {
+    display: flex;
+}
+
+.malyDiv {
+    background-color: rgb(85, 138, 250);
+    position: absolute;
+}

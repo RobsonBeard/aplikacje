@@ -12,73 +12,80 @@
 </head>
 
 <body>
-    <h1 class="naglowek">ćwiczenie 07 - prostokąty</h1>
-
-    <div class="flexContainer">
-        <div>
-            <label for="inputRed">red: </label>
-            <input type="range" name="red" id="inputRed" min="0" max="255" value="0">
+    <div class="flexContainer2">
+        <div class="szaraCzesc" id="szaryDiv">
+            <!-- <h1 class="naglowek fixed">ćwiczenie 07 - prostokąty</h1> -->
         </div>
-        <div>
-            <label for="inputGreen">green: </label>
-            <input type="range" name="green" id="inputGreen" min="0" max="255" value="0">
-        </div>
-        <div>
-            <label for="inputBlue">blue: </label>
-            <input type="range" name="blue" id="inputBlue" min="0" max="255" value="0">
-        </div>
-        <div>
-            <label for="inputAlpha">alpha: </label>
-            <input type="range" name="alpha" id="inputAlpha" min="0" max="100" value="100">
-        </div>
+        <div class="bialaCzesc" id="bialyDiv"></div>
     </div>
 
-    <div class="kwadrat" id="kwadrat"></div>
-
     <script>
-        let inputRed = document.getElementById("inputRed")
-        let inputGreen = document.getElementById("inputGreen")
-        let inputBlue = document.getElementById("inputBlue")
-        let inputAlpha = document.getElementById("inputAlpha")
-        let divKwadrat = document.getElementById("kwadrat")
+        let szaryDiv = document.getElementById("szaryDiv")
+        let bialyDiv = document.getElementById("bialyDiv")
+        let poczatkowaPozycja = {}
+        let licznik = 0
+        let nowyDiv
+        // https://stackoverflow.com/questions/15088010/adding-and-removing-event-listeners-with-parameters
 
-        function ruchInputa() {
+        szaryDiv.addEventListener("mousedown", function (e) {
+            poczatkowaPozycja = {
+                x: e.offsetX,
+                y: e.offsetY,
+                id: licznik
+            }
+            licznik++
 
-            const data = JSON.stringify({
-                red: inputRed.value,
-                green: inputGreen.value,
-                blue: inputBlue.value,
-                alpha: inputAlpha.value,
-            })
+            nowyDiv = document.createElement("div") // sprobuj var
+            nowyDiv.setAttribute('id', `${poczatkowaPozycja.id}`) // powtarza sie
+            nowyDiv.classList.add("malyDiv")
+            szaryDiv.appendChild(nowyDiv)
 
-            // console.log(data);
+            szaryDiv.addEventListener("mousemove", myListener)
+        })
 
-            const options = {
-                method: "POST",
-                body: data,
-                headers: { "Content-Type": "application/json" },
-            };
+        szaryDiv.addEventListener("mouseup", function (e) {
+            szaryDiv.removeEventListener("mousemove", myListener)
 
-            fetch("/obliczenia", options)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    let red = parseFloat(data.red)
-                    let green = parseFloat(data.green)
-                    let blue = parseFloat(data.blue)
-                    let alpha = parseFloat(data.alpha) / 100
+        })
 
-                    divKwadrat.style.backgroundColor = `rgba(${red}, ${green},${blue},${alpha})`
-                }
-
-                )
-                .catch(error => console.log(error));
+        let ruszanie = (e, div) => {
+            // console.log(e);
+            // console.log(div);
+            // console.log(poczatkowaPozycja);
+            div.style.top = `${e.offsetY}px`
+            div.style.left = `${e.offsetX}px`
+            nowyDiv.style.width = `${Math.abs(e.offsetX - poczatkowaPozycja.x)}px`
+            nowyDiv.style.height = `${Math.abs(e.offsetY - poczatkowaPozycja.y)}px`
         }
 
-        inputRed.addEventListener("input", ruchInputa)
-        inputGreen.addEventListener("input", ruchInputa)
-        inputBlue.addEventListener("input", ruchInputa)
-        inputAlpha.addEventListener("input", ruchInputa)
+        function myListener(e) {
+            ruszanie(e, nowyDiv)
+        }
+
+        // function ruchInputa() {
+
+        //     const data = JSON.stringify({
+
+        //     })
+
+        //     // console.log(data);
+
+        //     const options = {
+        //         method: "POST",
+        //         body: data,
+        //         headers: { "Content-Type": "application/json" },
+        //     };
+
+        //     fetch("/obliczenia", options)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log(data)
+
+        //         }
+
+        //         )
+        //         .catch(error => console.log(error));
+        // }
 
     </script>
 </body>
