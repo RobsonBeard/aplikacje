@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 02: React forms - select </h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class MyForm extends React.Component {
+
+			constructor() {
+				super();
+				this.state = {
+					data: {
+						array: [
+							{ id: 0, name: "hamlet" },
+							{ id: 1, name: "krzyzacy" },
+							{ id: 2, name: "lalka" }
+						],
+						array2: [
+							{ id: 0, name: "Kraków" },
+							{ id: 1, name: "Warszawa" },
+							{ id: 2, name: "Gdańsk" },
+							{ id: 3, name: "Toruń" }
+						]
+					},
+					status: ""
+				};
+				console.log(this.state.status);
+			}
+
+			// handleChange = (event) => {
+			// 	console.log(event.target.value);
+			// 	this.setState({ data: event.target.value });
+			// 	// this.setState({data: event.target.value.toUpperCase()});
+			// }
+
+
+			// handleSubmit = (event) => {
+			// 	this.setState({
+			// 		status: "wyslane"
+			// 	})
+			// 	//blokada przed wysłaniem formularza
+			// 	event.preventDefault();
+			// }
+
+			onHandleSelect = () => {
+				this.setState({
+					status: "cosik"
+				})
+			}
+
+			render() {
+				return (
+					<form className="formularz2">
+						<p className="titleParagaph">Komponent MyForm</p>
+						<MySelect dane={this.state.data.array} handleSelect={() => this.onHandleSelect()} />
+						<MySelect dane={this.state.data.array2} handleSelect={() => this.onHandleSelect()} />
+						<input type="submit" value="send" className="button1" />
+						<p>wysyłane: </p>
+					</form>
+				);
+			}
+		}
+
+		class MySelect extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					data: ":D"
+				}
+
+			}
+
+			onSelectChange = (e) => {
+				this.setState({
+					data: event.target.value
+				})
+			}
+
+
+
+			render() {
+				let finalArray = []
+				finalArray = this.props.dane.map((elem) => {
+					// console.log(elem);
+					return (<option value={elem.name} key={elem.id}>{elem.name}</option>)
+				})
+				return (
+					<div className="divMySelect">
+						<p className="titleParagaph">Komponent MySelect</p>
+						<select onChange={this.onSelectChange}>{finalArray}</select>
+						<p>wybrane z select: {this.state.data}</p>
+					</div >
+
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<div className="flexContainer1">
+				<MyForm />
+				<MyForm />
+			</div>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>
