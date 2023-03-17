@@ -1,73 +1,76 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: monospace;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
 }
 
 .formularz1 {
-	width: 250px;
-	height: 250px;
-	background-color: blue;
-	color: white;
-	display: flex;
-	/* flex-wrap: wrap; */
-	flex-direction: column;
-	align-items: center;
-	font-weight: bold;
-	gap: 10px;
-	margin: 10px;
-	padding: 5px;
+  width: 250px;
+  height: 250px;
+  background-color: blue;
+  color: white;
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  gap: 10px;
+  margin: 10px;
+  padding: 5px;
 }
 
 .button1 {
-	background-color: white;
-	color: blue;
-	font-size: 14px;
-	font-weight: bold;
-	padding: 3px;
+  background-color: white;
+  color: blue;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 3px;
 }
 
 .formularz1 .titleParagaph {
-	color: white;
-	font-size: 20px;
+  color: white;
+  font-size: 20px;
 }
 
 .formularz2 {
-	width: max-content;
-	height: max-content;
-	background-color: blue;
-	margin: 10px;
-	padding: 5px;
-	display: flex;
-	gap: 10px;
-	flex-direction: column;
-	align-items: center;
-	color: rgb(255, 93, 93);
-	font-weight: bold;
+  width: -moz-max-content;
+  width: max-content;
+  height: -moz-max-content;
+  height: max-content;
+  background-color: blue;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(255, 93, 93);
+  font-weight: bold;
 }
 
 .divMySelect {
-	border: 3px solid white;
-	width: 250px;
-	height: max-content;
-	display: flex;
-	gap: 10px;
-	flex-direction: column;
-	align-items: center;
-	padding: 5px;
-	font-weight: bold;
-	color: white;
+  border: 3px solid white;
+  width: 250px;
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  font-weight: bold;
+  color: white;
 }
 
 .formularz2 .titleParagaph {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 .divMySelect .titleParagaph {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 .flexContainer1 {
-	display: flex;
-}
+  display: flex;
+}/*# sourceMappingURL=style.css.map */

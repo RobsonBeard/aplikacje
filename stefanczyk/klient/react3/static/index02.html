@@ -38,40 +38,37 @@
 							{ id: 3, name: "Toruń" }
 						]
 					},
-					status: ""
+					status: "D:"
 				};
 				console.log(this.state.status);
+
+				this.wysylArray = []
 			}
 
-			// handleChange = (event) => {
-			// 	console.log(event.target.value);
-			// 	this.setState({ data: event.target.value });
-			// 	// this.setState({data: event.target.value.toUpperCase()});
-			// }
+			handleSubmit = (event) => {
+				if (this.wysylArray.length != 0) {
+					alert(this.wysylArray.join(","))
+				}
 
+				//blokada przed wysłaniem formularza
+				event.preventDefault();
+			}
 
-			// handleSubmit = (event) => {
-			// 	this.setState({
-			// 		status: "wyslane"
-			// 	})
-			// 	//blokada przed wysłaniem formularza
-			// 	event.preventDefault();
-			// }
-
-			onHandleSelect = () => {
+			onHandleSelect = (wybor) => {
+				this.wysylArray.push(wybor)
 				this.setState({
-					status: "cosik"
+					status: JSON.stringify(this.wysylArray)
 				})
 			}
 
 			render() {
 				return (
-					<form className="formularz2">
+					<form className="formularz2" onSubmit={this.handleSubmit}>
 						<p className="titleParagaph">Komponent MyForm</p>
-						<MySelect dane={this.state.data.array} handleSelect={() => this.onHandleSelect()} />
-						<MySelect dane={this.state.data.array2} handleSelect={() => this.onHandleSelect()} />
+						<MySelect dane={this.state.data.array} handleSelect={this.onHandleSelect} />
+						<MySelect dane={this.state.data.array2} handleSelect={this.onHandleSelect} />
 						<input type="submit" value="send" className="button1" />
-						<p>wysyłane: </p>
+						<p>wysyłane: {this.state.status}</p>
 					</form>
 				);
 			}
@@ -83,21 +80,18 @@
 				this.state = {
 					data: ":D"
 				}
-
 			}
 
 			onSelectChange = (e) => {
 				this.setState({
-					data: event.target.value
+					data: e.target.value
 				})
+				this.props.handleSelect(e.target.value)
 			}
-
-
 
 			render() {
 				let finalArray = []
 				finalArray = this.props.dane.map((elem) => {
-					// console.log(elem);
 					return (<option value={elem.name} key={elem.id}>{elem.name}</option>)
 				})
 				return (
@@ -106,7 +100,6 @@
 						<select onChange={this.onSelectChange}>{finalArray}</select>
 						<p>wybrane z select: {this.state.data}</p>
 					</div >
-
 				)
 			}
 		}
