@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 03: React forms - checkboxes </h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class MyForm extends React.Component {
+
+			constructor() {
+				super();
+				this.state = {
+					data: {
+						array: [
+							{ checked: false, value: 1 },
+							{ checked: false, value: 2 },
+							{ checked: false, value: 3 },
+							{ checked: false, value: 10 },
+							{ checked: false, value: 20 },
+						]
+					},
+					suma: 0
+				};
+
+				this.checkboxArray = []
+			}
+
+			handleSubmit = (event) => {
+				alert(`suma = ${this.state.suma}`)
+
+				//blokada przed wysłaniem formularza
+				event.preventDefault();
+			}
+
+			onCheckboxCheck = (value) => {
+				this.setState((state) => ({
+					suma: this.state.suma + parseFloat(value)
+				}))
+			} // jesli chcemy przypisac cos z wczesniejszego state, lepiej zrobic to w ten sposob!
+
+			onCheckboxUncheck = (value) => {
+				this.setState((state) => ({
+					suma: this.state.suma - parseFloat(value)
+				}))
+			}
+
+			zrobLadnaSume = (suma) => {
+				return `${suma} $`
+			}
+
+			render() {
+				this.checkboxArray = this.state.data.array.map((elem, i) => {
+					return (<MyCheckbox value={elem.value} isChecked={elem.checked} checkboxCheck={this.onCheckboxCheck} checkboxUncheck={this.onCheckboxUncheck} id={i} key={i} />)
+				})
+
+				return (
+					<form className="formularz3" onSubmit={this.handleSubmit}>
+						<p className="titleParagaph"> MyForm</p>
+						{this.checkboxArray}
+						<p>suma: {this.zrobLadnaSume(this.state.suma)}</p>
+						<input type="submit" value="send" className="button1" />
+					</form>
+				);
+			}
+		}
+
+		class MyCheckbox extends React.Component {
+			constructor(props) {
+				super()
+				this.state = {
+					isChecked: props.isChecked
+				}
+			}
+
+			onChangeCheckbox = (e) => {
+				if (!this.state.isChecked) {
+					//checking
+					document.getElementById(this.props.id).style.backgroundColor = "black"
+					document.getElementById(this.props.id).style.color = "white"
+					this.props.checkboxCheck(e.target.value)
+				}
+				else {
+					document.getElementById(this.props.id).style.backgroundColor = "white"
+					document.getElementById(this.props.id).style.color = "black"
+					this.props.checkboxUncheck(e.target.value)
+				}
+				this.setState({
+					isChecked: e.target.checked
+				}) // to jest asynchroniczne i wykonuje sie na koncu
+			}
+
+			zrobLadnaCene = (cena) => {
+				return `${cena} $`
+			}
+
+			render() {
+
+				return (
+					<div className="checkboxField" id={this.props.id}>
+						<div>
+							<input
+								type="checkbox"
+								value={this.props.value}
+								checked={this.state.isChecked}
+								onChange={this.onChangeCheckbox}
+							/>
+							<label>{this.zrobLadnaCene(this.props.value)}</label>
+						</div>
+						<p>MyCheckbox</p>
+					</div >
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<div className="flexContainer1">
+				<MyForm />
+			</div>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>

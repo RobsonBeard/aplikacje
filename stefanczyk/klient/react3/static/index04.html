@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 04: React forms - radios </h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class MyForm extends React.Component {
+
+			constructor() {
+				super();
+
+				this.componentArray = []
+				this.dataArray = [
+					{ name: "AAA" },
+					{ name: "BBB" },
+				]
+
+				this.state = {
+					selectedRadio: "0"
+				};
+			}
+
+			dodajKomponent = (e) => {
+				this.dataArray.push({ name: e.target.value })
+				this.setState({
+					selectedRadio: e.target.value
+				})
+			}
+
+			usunKomponent = (id) => {
+				this.dataArray.splice(id, 1)
+				this.setState({})
+			}
+
+			stworzKomponenty = () => {
+				this.componentArray = this.dataArray.map((elem, i) => {
+					return (<MyRadios usunKomponent={this.usunKomponent} name={elem.name} id={i} key={i} />)
+				})
+			}
+
+			render() {
+				this.stworzKomponenty()
+
+				return (
+					<div className="formularz4">
+						<p className="titleParagaph"> MyForm comp</p>
+						<form>
+							<div className="addComponentRadio">
+								<input
+									type="radio"
+									name="AAA"
+									id="AAA"
+									value="AAA"
+									checked={this.state.selectedRadio === "AAA"}
+									onChange={this.dodajKomponent}
+								/>
+								<label htmlFor="AAA">AAA</label>
+								<input
+									type="radio"
+									name="BBB"
+									id="BBB"
+									value="BBB"
+									checked={this.state.selectedRadio === "BBB"}
+									onChange={this.dodajKomponent}
+								/>
+								<label htmlFor="BBB">BBB</label>
+							</div>
+						</form>
+						<div className="componentContainer">
+							{this.componentArray}
+						</div>
+					</div >
+				);
+			}
+		}
+
+		class MyRadios extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					wybrano: 1
+				}
+			}
+
+			onRadioChange = (e) => {
+				this.setState({
+					wybrano: parseFloat(e.target.value)
+				})
+			}
+
+			onDelete = (e) => {
+				this.props.usunKomponent(e.target.value)
+				e.preventDefault();
+			}
+
+			render() {
+				this.tablicaInputów = []
+				for (let i = 1; i <= 5; i++) {
+					this.tablicaInputów.push(<div key={i}><input type="radio" name={`${this.props.id}numerek`} value={i} checked={this.state.wybrano === i} onChange={this.onRadioChange} /><label>{i}</label></div>)
+				}
+				return (
+					<div className="radioField">
+						<p>{this.props.name}</p>
+						<p>id: {this.props.id}</p>
+						<p>wybrano: {this.state.wybrano}</p>
+						<img src={`./gfx/${this.props.name}.jpg`} alt="obrazek" />
+						<div className='inputContainer'>
+							{this.tablicaInputów}
+						</div>
+						<button className="button1" value={this.props.id} onClick={this.onDelete}>Delete</button>
+					</div >
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<div className="flexContainer1">
+				<MyForm />
+			</div>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>
