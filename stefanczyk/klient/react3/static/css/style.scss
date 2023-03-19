@@ -2,7 +2,11 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: monospace;
+	font-family: Consolas, monospace;
+}
+
+.naglowek {
+	font-size: 30px;
 }
 
 .formularz1 {
@@ -18,6 +22,11 @@
 	gap: 10px;
 	margin: 10px;
 	padding: 5px;
+
+	.titleParagaph {
+		color: white;
+		font-size: 20px;
+	}
 }
 
 .button1 {
@@ -26,11 +35,6 @@
 	font-size: 14px;
 	font-weight: bold;
 	padding: 3px;
-}
-
-.formularz1 .titleParagaph {
-	color: white;
-	font-size: 20px;
 }
 
 .formularz2 {
@@ -45,6 +49,20 @@
 	align-items: center;
 	color: rgb(255, 93, 93);
 	font-weight: bold;
+
+	.titleParagaph {
+		font-size: 20px;
+	}
+
+	.divMySelect {
+		.titleParagaph {
+			font-size: 16px;
+		}
+	}
+}
+
+.flexContainer1 {
+	display: flex;
 }
 
 .divMySelect {
@@ -60,14 +78,143 @@
 	color: white;
 }
 
-.formularz2 .titleParagaph {
-	font-size: 20px;
-}
-
-.divMySelect .titleParagaph {
+.formularz3 {
+	width: max-content;
+	height: max-content;
+	background-color: blue;
+	margin: 10px;
+	padding: 5px;
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+	align-items: center;
+	color: rgb(255, 93, 93);
+	font-weight: bold;
 	font-size: 16px;
 }
 
-.flexContainer1 {
+.checkboxField {
+	width: 250px;
+	padding: 3px;
 	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: white;
+	color: black;
+
+	div {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+
+	input {
+		width: 20px;
+		height: 20px;
+	}
+}
+
+.formularz4 {
+	width: max-content;
+	height: max-content;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	margin: 10px;
+	padding: 10px;
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+
+	form {
+		width: 100%;
+	}
+
+	.addComponentRadio {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+
+		input {
+			width: 15px;
+			height: 15px;
+		}
+	}
+}
+
+.componentContainer {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.radioField {
+	width: 200px;
+	height: max-content;
+	background-color: blue;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding: 10px;
+
+	img {
+		width: 50px;
+		height: 50px;
+	}
+
+	.inputContainer {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		input {
+			width: 15px;
+			height: 15px;
+		}
+
+		div {
+			display: flex;
+			align-items: center;
+			gap: 3px;
+		}
+	}
+}
+
+.timersContainer {
+	display: flex;
+	gap: 10px;
+	margin: 10px;
+	width: max-content;
+	height: max-content;
+}
+
+.timer {
+	width: 150px;
+	height: 150px;
+	background-color: darkblue;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 50%;
+	border: 5px solid rgb(199, 199, 199);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.button2 {
+	background-color: white;
+	border: none;
+	color: darkblue;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 2px;
 }
