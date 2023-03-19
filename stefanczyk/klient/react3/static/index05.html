@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 05: React forms? - range </h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class MyForm extends React.Component {
+
+			constructor() {
+				super();
+				this.timersArray = []
+			}
+
+			render() {
+				for (let i = 0; i < 3; i++) {
+					this.timersArray.push(<MyTimer id={i} key={i} />)
+				}
+
+				return (
+					<div className="timersContainer">
+						{this.timersArray}
+					</div >
+				);
+			}
+		}
+
+		class MyTimer extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					rangeCzasu: 0,
+					godzina: "00:00:00",
+					rangeStep: 1
+				}
+				this.godziny = 0
+				this.minuty = 0
+				this.sekundy = 0
+
+				this.wlacznik = 0
+			}
+
+			onRangeInput = (e) => {
+				this.minuty = parseFloat(e.target.value) % 60
+				this.godziny = Math.floor(parseFloat(e.target.value) / 60)
+
+				this.ustawGodzine = new Date().setHours(this.godziny, this.minuty, '00')
+				//bez 00 robią się obecne sekundy
+
+				this.setState({
+					rangeCzasu: parseFloat(e.target.value),
+					godzina: this.sformatujGodzine(this.ustawGodzine)
+				})
+			}
+
+			onButtonClick = (e) => {
+				if (this.godziny === 0 && this.minuty === 0) {
+					alert("ustaw jakis czas kurcze")
+				}
+				else if (this.wlacznik === 0) {
+					document.getElementById(`${this.props.id}`).setAttribute("disabled", "")
+					this.interval = setInterval(() => this.startTimer(), 1000);
+					this.sekundy = 0
+					document.getElementById(`button${this.props.id}`).innerText = "stop"
+					this.wlacznik = 1
+				}
+				else {
+					this.zatrzymajTimer()
+				}
+			}
+
+			zatrzymajTimer = () => {
+				document.getElementById(`${this.props.id}`).removeAttribute("disabled")
+				clearInterval(this.interval)
+				document.getElementById(`button${this.props.id}`).innerText = "start"
+				this.wlacznik = 0
+
+				this.godziny = 0
+				this.minuty = 0
+				this.sekundy = 0
+				this.setState({
+					rangeCzasu: 0,
+					godzina: "00:00:00",
+				}) // to jest po to, zeby ladnie sie po zatrzymaniu wyzerowalo
+			}
+
+			sformatujGodzine = (ustawionaGodzina) => {
+				return new Date(ustawionaGodzina).toTimeString().substring(0, 9)
+			}
+
+			startTimer = () => {
+				if (this.godziny === 0 && this.minuty === 0 && this.sekundy === 0) {
+					this.zatrzymajTimer()
+				}
+				else if (this.sekundy === 0) {
+					if (this.minuty > 0) {
+						this.minuty--
+						this.sekundy += 60
+					}
+					else {
+						this.godziny--
+						this.minuty += 59
+						this.sekundy += 60
+					}//czyli minuty === 0 i sekundy === 0, w innym przypadku zadziala ten najwyzszy if
+				}
+
+				if (!(this.godziny === 0 && this.minuty === 0 && this.sekundy === 0)) {
+					this.sekundy--
+				} // zeby bylo ladnie 00:00:00 na koniec
+
+				this.ustawGodzine = new Date().setHours(this.godziny, this.minuty, this.sekundy)
+
+				this.setState({
+					godzina: this.sformatujGodzine(this.ustawGodzine)
+				})
+			}
+
+			render() {
+
+				return (
+					<div className="timer">
+						<p>{this.state.godzina}</p>
+						<input
+							type="range"
+							name="timeRange"
+							id={this.props.id}
+							value={this.state.rangeCzasu}
+							min="0"
+							max="180"
+							step={this.state.rangeStep}
+							onInput={this.onRangeInput}
+						/>
+						<button className="button2" id={`button${this.props.id}`} onClick={this.onButtonClick}>start</button>
+					</div >
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<div className="flexContainer1">
+				<MyForm />
+			</div>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>

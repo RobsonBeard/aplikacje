@@ -2,7 +2,11 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: monospace;
+	font-family: Consolas, monospace;
+}
+
+.naglowek {
+	font-size: 30px;
 }
 
 .formularz1 {
@@ -181,4 +185,36 @@
 			gap: 3px;
 		}
 	}
+}
+
+.timersContainer {
+	display: flex;
+	gap: 10px;
+	margin: 10px;
+	width: max-content;
+	height: max-content;
+}
+
+.timer {
+	width: 150px;
+	height: 150px;
+	background-color: darkblue;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 50%;
+	border: 5px solid rgb(199, 199, 199);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.button2 {
+	background-color: white;
+	border: none;
+	color: darkblue;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 2px;
 }
