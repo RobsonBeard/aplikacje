@@ -10,7 +10,13 @@ const coll2 = new Datastore({
     autoload: true
 });
 
-app.use(express.static('static'))
+app.use(express.static("static"));
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true
+    })
+);
 
 const context = {
     title: "03: Zapis/Odczyt danych w bazie NEDB - edit/update",
@@ -39,9 +45,9 @@ let nowykontekst = {
 //     console.log(key, obj[key])
 
 app.get("/", function (req, res) {
-    if (nowykontekst.nowatabelka.length == 0) {
-        res.render('index.hbs', context);
-    }
+    // if (nowykontekst.nowatabelka.length == 0) {
+    //     res.render('index.hbs', context);
+    // }
     res.render('index.hbs', nowykontekst)
 })
 
@@ -52,13 +58,13 @@ coll2.remove({}, { multi: true }, function (err, numRemoved) {
     console.log("usunięto wszystkie dokumenty: ", numRemoved)
 });
 
-app.get('/formularz', function (req, res) {
+app.post('/formularz', function (req, res) {
     let obj = {
         _id: i,
-        ubezpieczony: req.query.ubezpieczony == "on" ? "TAK" : "NIE",
-        benzyna: req.query.benzyna == "on" ? "TAK" : "NIE",
-        uszkodzony: req.query.uszkodzony == "on" ? "TAK" : "NIE",
-        naped: req.query.naped == "on" ? "TAK" : "NIE",
+        ubezpieczony: req.body.ubezpieczony == "on" ? "TAK" : "NIE",
+        benzyna: req.body.benzyna == "on" ? "TAK" : "NIE",
+        uszkodzony: req.body.uszkodzony == "on" ? "TAK" : "NIE",
+        naped: req.body.naped == "on" ? "TAK" : "NIE",
     }
     coll2.insert(obj, function (err, newDoc) {
         console.log("dodano dokument");
@@ -99,7 +105,7 @@ app.get('/delete', function (req, res) {
         // console.log("nowykontekst: ");
         // console.log(nowykontekst.nowatabelka);
         nowykontekst.nowatabelka = docs // to i render usuwa mi fizycznie z tabelki
-        res.render('index.hbs', nowykontekst); // res redirect
+        res.render('index.hbs', nowykontekst);
     })
 
 })

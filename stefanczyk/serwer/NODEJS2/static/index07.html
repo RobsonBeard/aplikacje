@@ -25,6 +25,8 @@
         let poczatkowaPozycja = {}
         let licznik = 0
         let nowyDiv
+        let dane
+        let options
         // https://stackoverflow.com/questions/15088010/adding-and-removing-event-listeners-with-parameters
 
         szaryDiv.addEventListener("mousedown", function (e) {
@@ -35,8 +37,8 @@
             }
             licznik++
 
-            nowyDiv = document.createElement("div") // sprobuj var
-            nowyDiv.setAttribute('id', `${poczatkowaPozycja.id}`) // powtarza sie
+            nowyDiv = document.createElement("div")
+            nowyDiv.setAttribute('id', `${poczatkowaPozycja.id}`)
             nowyDiv.classList.add("malyDiv")
             szaryDiv.appendChild(nowyDiv)
 
@@ -46,46 +48,53 @@
         szaryDiv.addEventListener("mouseup", function (e) {
             szaryDiv.removeEventListener("mousemove", myListener)
 
+            fetch("/obliczenia", options)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    let prawyDiv = document.createElement("div")
+                    prawyDiv.classList.add("malyDiv")
+                    prawyDiv.setAttribute("id", licznik)
+                    licznik++
+
+                    prawyDiv.style.top = data.top
+                    prawyDiv.style.left = data.left
+                    prawyDiv.style.height = data.wysokosc
+                    prawyDiv.style.width = data.szerokosc
+
+                    bialyDiv.appendChild(prawyDiv)
+
+                })
+                .catch(error => console.log(error));
         })
 
         let ruszanie = (e, div) => {
-            // console.log(e);
+            // console.log(e.clientX);
             // console.log(div);
             // console.log(poczatkowaPozycja);
-            div.style.top = `${e.offsetY}px`
-            div.style.left = `${e.offsetX}px`
-            nowyDiv.style.width = `${Math.abs(e.offsetX - poczatkowaPozycja.x)}px`
-            nowyDiv.style.height = `${Math.abs(e.offsetY - poczatkowaPozycja.y)}px`
+            div.style.left = `${e.clientX - Math.abs(e.clientX - poczatkowaPozycja.x)}px`
+            div.style.top = `${e.clientY - Math.abs(e.clientY - poczatkowaPozycja.y)}px`
+            div.style.width = `${Math.abs(e.clientX - poczatkowaPozycja.x)}px`
+            div.style.height = `${Math.abs(e.clientY - poczatkowaPozycja.y)}px` // zeby bylo ladnie. powinienem to zrobic na 4 warianty w zaleznosci od kierunku poruszania myszki od pozycji startowej
+
+            dane = JSON.stringify({
+                wysokosc: div.style.height,
+                szerokosc: div.style.width,
+                top: div.style.top,
+                left: div.style.left
+            })
+
+            options = {
+                method: "POST",
+                body: dane,
+                headers: { "Content-Type": "application/json" },
+            };
+
         }
 
         function myListener(e) {
             ruszanie(e, nowyDiv)
         }
-
-        // function ruchInputa() {
-
-        //     const data = JSON.stringify({
-
-        //     })
-
-        //     // console.log(data);
-
-        //     const options = {
-        //         method: "POST",
-        //         body: data,
-        //         headers: { "Content-Type": "application/json" },
-        //     };
-
-        //     fetch("/obliczenia", options)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             console.log(data)
-
-        //         }
-
-        //         )
-        //         .catch(error => console.log(error));
-        // }
 
     </script>
 </body>

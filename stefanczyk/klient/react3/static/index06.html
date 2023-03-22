@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">cw 06: React forms - textarea - post comments</h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class App extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					data: 0
+				}
+
+				this.threadArray = []
+			}
+
+			odbierzDane = () => {
+				fetch('http://localhost:3000/odbiorDanych', {
+					method: 'post',
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-Type': 'application/json'
+					},
+				})
+					.then((response) => {
+						return response.json();
+					})
+					.then((data) => {
+						this.threadArray = data.array.map((elem, i) => {
+							return <Thread odbierzDane={this.odbierzDane} threadData={elem} key={i} />
+						})
+
+						this.setState({
+							data: data
+						})
+					});
+			}
+
+			componentDidMount() {
+				this.odbierzDane()
+			}
+
+			render() {
+				return (
+					<div className="threadContainer">
+						{this.threadArray}
+					</div>
+				)
+			}
+		}
+
+		class Thread extends React.Component {
+			constructor(props) {
+				super()
+				// console.log(props.threadData.comments);
+				// console.log(props);
+				this.state = {
+					threadName: props.threadData.thread,
+					threadId: props.threadData.id
+				}
+			}
+
+			addComment = (text) => {
+				this.dzien = new Date().toLocaleDateString()
+				this.godzina = new Date().toLocaleTimeString()
+
+				fetch('http://localhost:3000/nowyKomentarz', {
+					method: 'post',
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ text: text, date: `${this.dzien}, ${this.godzina}`, threadId: this.state.threadId })
+				})
+					.then((response) => {
+						return response.json();
+					})
+					.then((data) => {
+						// console.log(data) // pobrane dane json
+						this.props.odbierzDane()
+					});
+
+			}
+
+			render() {
+				// console.log(this.props);
+				return (
+					<div className="thread">
+						<p className="threadTitle">title: {this.props.threadData.thread}, id: {this.props.threadData.id}</p>
+						<CommentsList commentsData={this.props.threadData.comments} />
+						<CommentForm idDoElementów={this.props.threadData.id} addComment={this.addComment} />
+					</div>
+				)
+			}
+		}
+
+		class CommentsList extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					commentsArray: this.commentsArray
+				}
+				this.commentsArray = []
+			}
+
+			getComments = () => {
+				this.commentsArray = []
+
+				this.commentsArray = this.props.commentsData.map((elem, i) => {
+					return <Comment text={elem.text} date={elem.date} id={elem.id} key={i} />
+				})
+			}
+
+			render() {
+				this.getComments()
+				return (
+					<div className="commentsContainer">
+						{this.commentsArray}
+					</div>
+				)
+			}
+		}
+
+		class Comment extends React.Component {
+			constructor() {
+				super()
+
+			}
+
+			render() {
+
+				return (
+					<div className="comment">
+						<p>{this.props.id}, {this.props.text}, {this.props.date}</p>
+					</div>
+				)
+			}
+		}
+
+		class CommentForm extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					textareaPlaceholder: 'Wpisz tekst...',
+					textareaValue: '',
+					status: "niewysłane"
+				}
+			}
+
+			handleChange = (e) => {
+				this.setState({
+					textareaValue: e.target.value
+				})
+			}
+
+			handleButtonClick = (e) => {
+				if (this.state.textareaValue !== '') {
+					this.props.addComment(this.state.textareaValue)
+					this.setState({
+						status: "wysłane",
+						textareaValue: ''
+					})
+				}
+			}
+
+			render() {
+
+				return (
+					<div className="commentForm">
+						<textarea
+							name={`textarea${this.props.idDoElementów}`}
+							id={`textarea${this.props.idDoElementów}`}
+							spellCheck="false"
+							maxLength="50"
+							value={this.state.textareaValue}
+							placeholder={this.state.textareaPlaceholder}
+							onChange={this.handleChange}
+						>
+						</textarea>
+						<button className="button3" onClick={this.handleButtonClick}>send</button>
+						<p><i>status: </i><i>{this.state.status}</i></p>
+						<p><i>data: </i><i>{this.state.textareaValue}</i></p>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<div className="flexContainer1">
+				<App />
+			</div>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>

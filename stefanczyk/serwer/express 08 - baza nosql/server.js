@@ -1,20 +1,3 @@
-// const express = require("express")
-// const app = express()
-// const PORT = 3000;
-// const hbs = require('express-handlebars');
-// // const context = require("./data/dane.json")
-// const path = require("path")
-// app.use(express.static('static'))
-// app.get("/", function (req, res) {
-//     // res.render('index.hbs', context);
-// })
-// // app.set('views', path.join(__dirname, 'views'));
-// // app.set('view engine', 'hbs');
-// app.listen(PORT, function () {
-//     console.log("start serwera na porcie " + PORT)
-// })
-
-
 const Datastore = require('nedb')
 
 // kolekcja - tabela
@@ -49,7 +32,7 @@ const coll1 = new Datastore({
 //         console.log("id dokumentu: " + newDoc._id, "DODANO: " + new Date().getMilliseconds())
 //     });
 // }
-// console.log("PO FOR: " + new Date().getMilliseconds()) // zobacz kolejność wyświetlania milisekund
+// console.log("PO FOR: " + new Date().getMilliseconds()) // zobacz kolejność wyświetlania milisekund // dodawanie jest asynchroniczne
 // --------------
 
 // let doc = {
