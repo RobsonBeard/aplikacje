@@ -2,7 +2,7 @@
 <br><br>
 
 <div class="flex2">
-	<form action="/formularz" method="POST">
+	<form action="/dodajDokument" method="POST">
 		<div class="flex1">
 			<table class="tabela1">
 				<caption class="naglowek2">Dane pojazdu:</caption>
@@ -30,31 +30,88 @@
 		{{#each nowatabelka}}
 		<tr>
 			<td>{{_id}}</td>
-			<td>{{ubezpieczony}}</td>
-			<td>{{benzyna}}</td>
-			<td>{{uszkodzony}}</td>
-			<td>{{naped}}</td>
-			<td><a href="/delete?id={{_id}}" class="buttonDelete">DELETE</a></td>
-			<td><a href="/edit?id={{_id}}" class="buttonEdit">EDIT</a></td>
+			<td id="{{_id}}ubezpieczony">{{ubezpieczony}}</td>
+			<td id="{{_id}}benzyna">{{benzyna}}</td>
+			<td id="{{_id}}uszkodzony">{{uszkodzony}}</td>
+			<td id="{{_id}}naped">{{naped}}</td>
+			<td><a href="/delete?id={{_id}}" class="buttonDelete malyButton" id="{{_id}}delete">DELETE</a></td>
+			<td><a class="buttonEdit malyButton" id="{{_id}}edit">EDIT</a></td>
 		</tr>
 		{{/each}}
 	</table>
 </div>
 
 <script>
+	//href="/edit?id={{_id}}"
 
-	/*
 	console.log(document.querySelectorAll(".buttonEdit"))
-	let butony1 = document.querySelectorAll(".buttonEdit")
-	for (let i = 0; i < butony1.length; i++) {
-		butony1[i].addEventListener("click", klikamEdit)
-		console.log(butony1[i])
+	let butonyEditowe = document.querySelectorAll(".buttonEdit")
+
+	for (let i = 0; i < butonyEditowe.length; i++) {
+		butonyEditowe[i].addEventListener("click", klikamEdit)
+		console.log(butonyEditowe[i])
 	}
 	function klikamEdit() {
-		console.log("trealalalalal")
-	} // to dziala no ale po co
+		//console.log(this)
+		this.innerText = "UPDATE"
+		this.classList.remove("buttonEdit")
+		this.classList.add("buttonUpdate")
 
-	*/
+		let lepszeId = this.id.substring(0, 1)
+
+		//this.setAttribute("href", "/edit")
+
+		/*
+				fetch('/fetchEdit', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ x: "siu" })
+				})
+					.then(response => response.json())
+					.then(data => {
+						console.log(data)
+					})
+					.catch(error => console.log(error));
+					*/
+
+		let select = `<select id="${this.id.substring(0, 1)}select" name="${lepszeId}select">
+			<option value="NIE">NIE</option>
+			<option value="TAK">TAK</option>
+			</select>`
+
+		//<option value="BRAKDANYCH">BRAKDANYCH</option>
+		//console.log(select)
+
+		console.log(document.getElementById(`${lepszeId}ubezpieczony`))
+
+		let komorkaUbezpieczony = document.getElementById(`${lepszeId}ubezpieczony`)
+		let komorkaBenzyna = document.getElementById(`${lepszeId}benzyna`)
+		let komorkaUszkodzony = document.getElementById(`${lepszeId}uszkodzony`)
+		let komorkaNaped = document.getElementById(`${lepszeId}naped`)
+
+		komorkaUbezpieczony.innerText = ""
+		komorkaUbezpieczony.innerHTML = select
+		komorkaBenzyna.innerText = ""
+		komorkaBenzyna.innerHTML = select
+		komorkaUszkodzony.innerText = ""
+		komorkaUszkodzony.innerHTML = select
+		komorkaNaped.innerText = ""
+		komorkaNaped.innerHTML = select
+
+
+		let bratniGuzik = document.getElementById(`${lepszeId}delete`)
+		bratniGuzik.innerText = "CANCEL"
+		bratniGuzik.classList.remove("buttonDelete")
+		bratniGuzik.classList.add("buttonEdit")
+		bratniGuzik.removeAttribute("href")
+		bratniGuzik.addEventListener("click", klikamCancel)
+
+		this.removeEventListener("click", klikamEdit)
+	}
+
+	function klikamCancel() {
+
+	} //TODO
 
 	/* function fetchPost(klikniete) {
 
