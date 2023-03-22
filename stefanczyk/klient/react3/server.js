@@ -38,6 +38,8 @@ const daneKomentarze = {
     ]
 }
 
+let commentId = 19 // bo ostatnie ID to 18, ale moze tylko rozrozniac ID w srodku watku
+
 const server = http.createServer((req, res) => {
 
     console.log(req.method)
@@ -79,33 +81,36 @@ const server = http.createServer((req, res) => {
 })
 
 function serverResponse(req, res) {
-    let body = "";
-
-    //kiedy przychodzą dane postem, w postaci pakietów
-    //łącza się do jednej zmiennej "body"
+    let body = []; // nie wiem czy to poprawne, ale dziala
 
     req.on("data", function (data) {
         console.log("data: " + data)
-        body += data.toString();
+        body.push(data)
     })
-
-    //kiedy przyjdą już WSZYSTKIE dane, logujemy je, parsujemy je do obiektu
-    //i odsyłamy do przeglądarki
 
     if (req.url === "/odbiorDanych") {
         req.on("end", function (data) {
 
-            console.log("body: ", body)
-
-            // const obj = JSON.parse(body)
-            // console.log("obj: ");
-            // console.log(obj);
-
-            // let finishObj = obj
-
             res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
             res.end(JSON.stringify(daneKomentarze, null, 5));
+        })
+    }
+    else if (req.url === "/nowyKomentarz") {
+        req.on("end", function (data) {
 
+            const przychodzacyObiekt = JSON.parse(body) //* to wazne jest i tez wazne zeby body zostalo
+
+            for (let i = 0; i < daneKomentarze.array.length; i++) {
+                if (przychodzacyObiekt.threadId === daneKomentarze.array[i].id) {
+                    daneKomentarze.array[i].comments.push(
+                        { id: commentId, text: przychodzacyObiekt.text, date: przychodzacyObiekt.date }
+                    )
+                    commentId++
+                }
+            }
+
+            res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
+            res.end(JSON.stringify(przychodzacyObiekt, null, 5));
         })
     }
 

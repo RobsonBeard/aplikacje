@@ -29,7 +29,8 @@
 
 				this.threadArray = []
 			}
-			componentDidMount() {
+
+			odbierzDane = () => {
 				fetch('http://localhost:3000/odbiorDanych', {
 					method: 'post',
 					headers: {
@@ -41,17 +42,8 @@
 						return response.json();
 					})
 					.then((data) => {
-						// console.log(data) // pobrane dane json
-
-						// this.testArray = data.map(elem => {
-						// 	this.i++
-						// 	return <Zone key={this.i} id={this.i} name={elem.value} offset={elem.offset} />
-						// })
-						// this.render()
-						// this.forceUpdate() // jest tez taka mozliwosc i to dziala, ale na stronie jest napisane, zeby unikac
-
 						this.threadArray = data.array.map((elem, i) => {
-							return <Thread threadData={elem} key={i} />
+							return <Thread odbierzDane={this.odbierzDane} threadData={elem} key={i} />
 						})
 
 						this.setState({
@@ -59,6 +51,11 @@
 						})
 					});
 			}
+
+			componentDidMount() {
+				this.odbierzDane()
+			}
+
 			render() {
 				return (
 					<div className="threadContainer">
@@ -71,16 +68,35 @@
 		class Thread extends React.Component {
 			constructor(props) {
 				super()
-				console.log(props.threadData.comments);
+				// console.log(props.threadData.comments);
+				// console.log(props);
+				this.state = {
+					threadName: props.threadData.thread,
+					threadId: props.threadData.id
+				}
 			}
 
 			addComment = (text) => {
-				console.log("siema");
 				this.dzien = new Date().toLocaleDateString()
 				this.godzina = new Date().toLocaleTimeString()
-				this.props.threadData.comments.push({ id: 0, text: text, date: `${this.dzien},${this.godzina}` })
-				this.setState({})
-			} // fetchem to trzeba bylo chyba
+
+				fetch('http://localhost:3000/nowyKomentarz', {
+					method: 'post',
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ text: text, date: `${this.dzien}, ${this.godzina}`, threadId: this.state.threadId })
+				})
+					.then((response) => {
+						return response.json();
+					})
+					.then((data) => {
+						// console.log(data) // pobrane dane json
+						this.props.odbierzDane()
+					});
+
+			}
 
 			render() {
 				// console.log(this.props);
@@ -105,6 +121,7 @@
 
 			getComments = () => {
 				this.commentsArray = []
+
 				this.commentsArray = this.props.commentsData.map((elem, i) => {
 					return <Comment text={elem.text} date={elem.date} id={elem.id} key={i} />
 				})
@@ -140,7 +157,8 @@
 			constructor() {
 				super()
 				this.state = {
-					textareaValue: 'Wpisz tekst...',
+					textareaPlaceholder: 'Wpisz tekst...',
+					textareaValue: '',
 					status: "niewysłane"
 				}
 			}
@@ -152,10 +170,13 @@
 			}
 
 			handleButtonClick = (e) => {
-				this.props.addComment(this.state.textareaValue)
-				this.setState({
-					status: "wysłane"
-				})
+				if (this.state.textareaValue !== '') {
+					this.props.addComment(this.state.textareaValue)
+					this.setState({
+						status: "wysłane",
+						textareaValue: ''
+					})
+				}
 			}
 
 			render() {
@@ -165,9 +186,11 @@
 						<textarea
 							name={`textarea${this.props.idDoElementów}`}
 							id={`textarea${this.props.idDoElementów}`}
-							value={this.state.textareaValue} onChange={this.handleChange}
 							spellCheck="false"
 							maxLength="50"
+							value={this.state.textareaValue}
+							placeholder={this.state.textareaPlaceholder}
+							onChange={this.handleChange}
 						>
 						</textarea>
 						<button className="button3" onClick={this.handleButtonClick}>send</button>
