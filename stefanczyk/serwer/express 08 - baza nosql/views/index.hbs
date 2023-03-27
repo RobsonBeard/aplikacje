@@ -42,47 +42,23 @@
 </div>
 
 <script>
-	//href="/edit?id={{_id}}"
-
-	console.log(document.querySelectorAll(".buttonEdit"))
 	let butonyEditowe = document.querySelectorAll(".buttonEdit")
 
 	for (let i = 0; i < butonyEditowe.length; i++) {
 		butonyEditowe[i].addEventListener("click", klikamEdit)
-		console.log(butonyEditowe[i])
 	}
 	function klikamEdit() {
-		//console.log(this)
 		this.innerText = "UPDATE"
 		this.classList.remove("buttonEdit")
 		this.classList.add("buttonUpdate")
 
 		let lepszeId = this.id.substring(0, 1)
 
-		//this.setAttribute("href", "/edit")
-
-		/*
-				fetch('/fetchEdit', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ x: "siu" })
-				})
-					.then(response => response.json())
-					.then(data => {
-						console.log(data)
-					})
-					.catch(error => console.log(error));
-					*/
-
-		let select = `<select id="${this.id.substring(0, 1)}select" name="${lepszeId}select">
+		let select = `<select class="${lepszeId}select" name="${lepszeId}select">
 			<option value="NIE">NIE</option>
 			<option value="TAK">TAK</option>
+			<option value="BRAKDANYCH">BRAKDANYCH</option>
 			</select>`
-
-		//<option value="BRAKDANYCH">BRAKDANYCH</option>
-		//console.log(select)
-
-		console.log(document.getElementById(`${lepszeId}ubezpieczony`))
 
 		let komorkaUbezpieczony = document.getElementById(`${lepszeId}ubezpieczony`)
 		let komorkaBenzyna = document.getElementById(`${lepszeId}benzyna`)
@@ -107,24 +83,38 @@
 		bratniGuzik.addEventListener("click", klikamCancel)
 
 		this.removeEventListener("click", klikamEdit)
+		this.addEventListener("click", klikamUpdate)
 	}
 
 	function klikamCancel() {
+		location.reload()
+	}
 
-	} //TODO
+	function klikamUpdate() {
+		let lepszeId2 = this.id.substring(0, 1)
+		let tablicaNowychOpcji = []
+		let opcjeSelectow = document.getElementsByClassName(`${lepszeId2}select`)
 
-	/* function fetchPost(klikniete) {
+		for (let i = 0; i < opcjeSelectow.length; i++) {
+			tablicaNowychOpcji.push(opcjeSelectow[i].value)
+		}
 
-	   const body = JSON.stringify({}); // body czyli przesyłane na serwer dane
+		fetch('/fetchEdit', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				id: lepszeId2,
+				ubezpieczony: tablicaNowychOpcji[0],
+				benzyna: tablicaNowychOpcji[1],
+				uszkodzony: tablicaNowychOpcji[2],
+				naped: tablicaNowychOpcji[3]
+			})
+		})
+			.then(response => response.json())
+			.then(data => {
+				location.reload()
+			})
+			.catch(error => console.log(error));
 
-	   const headers = { "Content-Type": "application/json" }; // nagłowek czyli typ danych
-
-	   fetch("/fetch", { method: "post", body, headers }) // fetch
-		   .then(response => response.json())
-		   .then(
-			   data => {
-		   	
-			   } // dane odpowiedzi z serwera
-		   )
-   } */
+	}
 </script>

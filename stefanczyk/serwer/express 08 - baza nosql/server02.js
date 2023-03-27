@@ -77,14 +77,25 @@ app.get('/delete', function (req, res) {
 
 })
 
-// app.get('/edit', function (req, res) {
-//     console.log(req.query);
-
-
-//     res.redirect('/');
-// })
-
 app.post('/fetchEdit', function (req, res) {
+
+    let obj = {
+        _id: parseFloat(req.body.id),
+        ubezpieczony: req.body.ubezpieczony,
+        benzyna: req.body.benzyna,
+        uszkodzony: req.body.uszkodzony,
+        naped: req.body.naped,
+    }
+
+    coll2.update({ _id: obj._id }, { $set: obj }, {}, function (err, numUpdated) {
+        console.log("zaktualizowano " + numUpdated)
+
+        for (let i = 0; i < nowykontekst.nowatabelka.length; i++) {
+            if (nowykontekst.nowatabelka[i]._id === obj._id) {
+                nowykontekst.nowatabelka[i] = obj
+            }
+        }
+    });
 
     res.setHeader('content-type', 'application/json');
     res.send(JSON.stringify(req.body, null, 5));
