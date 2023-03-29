@@ -4,7 +4,7 @@ import Item01 from './Item01'
 let tablicaItemow = []
 
 for (let i = 0; i < 3; i++) {
-  tablicaItemow.push(<Item01 />)
+  tablicaItemow.push(<Item01 key={i} />)
 }
 
 const App1 = () => {
