@@ -19,100 +19,112 @@
 
 	<script type="text/babel">
 
-
-
-		const body = JSON.stringify({})
-		const headers = { "Content-Type": "application/json" }
-
-		fetch("/fetch", { method: "post", body, headers })
-			.then(response => response.json())
-			.then(
-				data => {
-					console.log(data);
-
-					class List extends React.Component {
-						render() {
-
-							return (
-								<div className="box3">
-									{
-										data.items.map(elem => {
-											return <Product
-												title={elem.title}
-												product_url={elem.product_url}
-												price={elem.price}
-												star_url={elem.img_url}
-												category={elem.category}
-												stars={elem.stars}
-												slogan={elem.slogan}
-												key={elem.id}
-											/>
-										})
-									}
-								</div>
-							)
-						}
+		class List extends React.Component {
+			constructor() {
+				super()
+				this.dane = []
+				this.state = {}
+			}
+			odbierzDane = () => {
+				fetch("/fetch", {
+					method: "post",
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						"Content-Type": "application/json"
 					}
+				})
+					.then(response => response.json())
+					.then(
+						data => {
+							console.log(data);
+							this.dane = data.items.map(elem => {
+								return <Product
+									title={elem.title}
+									product_url={elem.product_url}
+									price={elem.price}
+									star_url={elem.img_url}
+									category={elem.category}
+									stars={elem.stars}
+									slogan={elem.slogan}
+									key={elem.id}
+								/>
+							})
 
-					class Product extends React.Component {
-						zrobCene(cena) {
-							return `$${cena}`
+							this.setState({ data: data })
 						}
-						zrobSlogan(slogan) {
-							return slogan.toUpperCase()
-						}
-						render() {
-
-							return (
-								<div className="divProdukt">
-									<img src={this.props.product_url} alt="produkt" className="koszulka"></img>
-									<div className="slogan">
-										<p>{this.zrobSlogan(this.props.slogan)}</p>
-									</div>
-									<p className="name">{this.props.title}</p>
-									<div className="cena">
-										<p className="grubo">{this.zrobCene(this.props.price)}</p>
-										<p className="kategoria">{this.props.category}</p>
-									</div>
-									<Stars star_url={this.props.star_url} stars={this.props.stars} />
-								</div>
-							)
-						}
-					}
-
-					class Stars extends React.Component {
-						zrobRating(rating) {
-							return `Rating(${rating}):`
-						}
-						zrobGwiazdki(gwiazdka, src) {
-							let testArr = []
-							for (let i = 0; i < gwiazdka; i++) {
-								testArr.push(<img src={src} alt="gwiazdka" className="gwiazdka" key={i}></img>)
-							}
-							return testArr
-						}
-						render() {
-							return (
-								<div className="starsDiv">
-									<p className="rating">{this.zrobRating(this.props.stars)}</p>
-									<div className="gwiazdki">
-										{this.zrobGwiazdki(this.props.stars, this.props.star_url)}
-									</div>
-								</div>
-							)
-						}
-					}
-
-					ReactDOM.render(
-						<>
-							<List />
-						</>
-						,
-						document.getElementById("react-app")
 					)
+					.catch(error => console.log(error));
+			}
+
+			componentDidMount() {
+				this.odbierzDane()
+			}
+
+			render() {
+				return (
+					<div className="box3">
+						{this.dane}
+					</div>
+				)
+			}
+		}
+
+		class Product extends React.Component {
+			zrobCene(cena) {
+				return `$${cena}`
+			}
+			zrobSlogan(slogan) {
+				return slogan.toUpperCase()
+			}
+			render() {
+
+				return (
+					<div className="divProdukt">
+						<img src={this.props.product_url} alt="produkt" className="koszulka"></img>
+						<div className="slogan">
+							<p>{this.zrobSlogan(this.props.slogan)}</p>
+						</div>
+						<p className="name">{this.props.title}</p>
+						<div className="cena">
+							<p className="grubo">{this.zrobCene(this.props.price)}</p>
+							<p className="kategoria">{this.props.category}</p>
+						</div>
+						<Stars star_url={this.props.star_url} stars={this.props.stars} />
+					</div>
+				)
+			}
+		}
+
+		class Stars extends React.Component {
+			zrobRating(rating) {
+				return `Rating(${rating}):`
+			}
+			zrobGwiazdki(gwiazdka, src) {
+				let testArr = []
+				for (let i = 0; i < gwiazdka; i++) {
+					testArr.push(<img src={src} alt="gwiazdka" className="gwiazdka" key={i}></img>)
 				}
-			)
-			.catch(error => console.log(error));
+				return testArr
+			}
+			render() {
+				return (
+					<div className="starsDiv">
+						<p className="rating">{this.zrobRating(this.props.stars)}</p>
+						<div className="gwiazdki">
+							{this.zrobGwiazdki(this.props.stars, this.props.star_url)}
+						</div>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<List />
+			</>
+			,
+			document.getElementById("react-app")
+		)
 
 	</script>
 </body>
