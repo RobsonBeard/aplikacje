@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Consolas, monospace;
+}
+
+.naglowek {
+  font-size: 30px;
+}
+
+.mainBoard {
+  background-color: rgb(206, 206, 206);
+  width: -moz-max-content;
+  width: max-content;
+  height: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.boxContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.box {
+  padding: 20px;
+  background-color: rgb(185, 185, 185);
+  color: blue;
+  font-weight: bold;
+  height: -moz-max-content;
+  height: max-content;
+  width: -moz-max-content;
+  width: max-content;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border-style: solid;
+  border-width: 10px;
+}
+
+.button1 {
+  color: blue;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 3px;
+}
+
+.tile {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.numberContainer {
+  width: 100px;
+  height: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.radioContainer {
+  display: flex;
+  gap: 10px;
+  font-weight: bold;
+}
+.radioContainer div {
+  display: flex;
+  gap: 5px;
+  font-size: 18px;
+}/*# sourceMappingURL=style.css.map */
