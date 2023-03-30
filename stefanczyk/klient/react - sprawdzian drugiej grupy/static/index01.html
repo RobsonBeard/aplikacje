@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">sprawdzian React ver E</h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		// this.setState tak jakby wywołuje jeszcze raz render
+
+		class Board extends React.Component {
+
+			constructor() {
+				super();
+				this.state = {
+					tileColor: "black"
+				};
+				this.dane = []
+				this.radios = []
+			}
+
+			odbierzDane = () => {
+				fetch("/fetch", {
+					method: "post",
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						"Content-Type": "application/json"
+					}
+				})
+					.then(response => response.json())
+					.then(
+						data => {
+							console.log(data);
+							this.dane = data.boards.map(elem => {
+								return <Box
+									title={elem.title}
+									color={elem.color}
+									tileColor={this.state.tileColor}
+									number={elem.number}
+									id={elem.id}
+									key={elem.id}
+								/>
+							})
+
+							this.radios = data.boards.map((elem, i) => {
+								return <div key={i}><input type="radio" name="color" value={elem.color} id={elem.id} onChange={this.onRadioChange} /><label htmlFor={elem.id}>{elem.color}</label></div>
+							})
+
+							this.setState({ data: data.boards })
+						}
+					)
+					.catch(error => console.log(error));
+			}
+
+			componentDidMount() {
+				this.odbierzDane()
+			}
+
+			onRadioChange = (e) => {
+				console.log(this.state);
+				this.setState({ tileColor: e.target.value })
+				this.odbierzDane() // tak dziala
+			}
+
+			render() {
+				return (
+					<div className="mainBoard">
+						<h2>boards</h2>
+						<div className="radioContainer">
+							{this.radios}
+						</div>
+						<div className="boxContainer">{this.dane}</div>
+					</div>
+				);
+			}
+		}
+
+		class Box extends React.Component {
+			constructor() {
+				super()
+			}
+
+			render() {
+				console.log("sasa");
+				console.log(this.props);
+				return (
+					<div className="box" style={
+						{
+							borderColor: this.props.color
+						}
+					}>
+						<p>{this.props.title.type}</p>
+						<p>{this.props.title.name}</p>
+						<p>{this.props.id}</p>
+						<div className="numberContainer">
+							{this.props.number.map((elem, i) => {
+								return <Tile numerek={elem} tileColor={this.props.tileColor} key={i} />
+							})}
+						</div>
+						<button className="button1">zapisz</button>
+					</div>
+				)
+			}
+
+		}
+
+		class Tile extends React.Component {
+			constructor() {
+				super()
+			}
+
+			getColor = (numerek) => {
+				let kolor
+				if (numerek == 1) {
+					kolor = this.props.tileColor
+				}
+				else {
+					kolor = "white"
+				}
+				return kolor
+			}
+
+			render() {
+				// console.log(this.props);
+
+				return (
+					<div className="tile" style={
+						{
+							backgroundColor: this.getColor(this.props.numerek)
+						}
+					}>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<>
+				<Board />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+	</script>
+</body>
+
+</html>
