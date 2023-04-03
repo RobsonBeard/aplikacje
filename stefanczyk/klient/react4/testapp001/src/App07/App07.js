@@ -8,10 +8,12 @@ const App7 = () => {
   //wyjściowa tablica
 
   const INIT_LIST = [];
+  let dialogArr = []
 
   //state
 
   const [list, setList] = useState(INIT_LIST)
+  const [dialog, setDialog] = useState(dialogArr)
 
   const addToEnd = () => {
     setList(() => {
@@ -32,15 +34,36 @@ const App7 = () => {
   }
 
   const showDialog = (val) => {
-    // setList(() => {
-    //   return [...list.filter((item, i) => i !== val)]
-    // })
-    <Dialog07 />
+    document.getElementById("overlay").style.display = "block"
+    setDialog(() => {
+      return [val]
+    })
+  }
+
+  const hideDialog = (val) => {
+    document.getElementById("overlay").style.display = "none"
+    setDialog(() => {
+      return []
+    })
+  }
+
+  const delSelected = (val) => {
+    document.getElementById("overlay").style.display = "none"
+    setDialog(() => {
+      return []
+    })
+    setList(() => {
+      return [...list.filter((item, i) => i !== val)]
+    })
   }
 
   return (
     <div>
+      <div id="overlay"></div>
       <h1>07: DIALOG - WYWOŁANIE FUNKCJI W RODZICU</h1>
+      {dialog.map((element, i) => {
+        return <Dialog07 val={element} hideDialog={hideDialog} delSelected={delSelected} key={i} />
+      })}
       <div className='contentBox'>
         <div className='buttonContainer'>
           <button className='button1' onClick={() => addToEnd()}>dodaj na koniec</button>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="body">
+	<h1 class="naglowek">Sprawdzian - opinie na allegro</h1>
+	<div id="react-app"></div>
+
+	<script type="text/babel">
+
+		let data = [
+			[
+				"1 - Bardzo źle",
+				"2 - źle",
+				"3 - średnio",
+				"4 - dobrze",
+				"5 - bardzo dobrze"
+			],
+			[
+				"Zgodność z opisem",
+				"czas wysyłki",
+				"koszt wysyłki",
+				"obsługa kupującego"
+			],
+			[
+				"https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/800px-Five-pointed_star.svg.png",
+				"https://static4.depositphotos.com/1026550/376/i/950/depositphotos_3763236-stock-photo-gold-star.jpg"
+			],
+			[
+				[3, 4, 5, 2],
+				[2, 5, 3, 2]
+			]
+		]
+
+		class App extends React.Component {
+			constructor() {
+				super()
+				this.state = {
+					data: data
+				}
+
+			}
+			dodajOpinie = () => {
+
+				data[3].push([3, 3, 3, 3])
+				this.setState({
+					data: data
+				})
+			}
+
+			usunOpinie = (id) => {
+				console.log(id);
+				data[3].splice(id, 1)
+				this.setState({
+
+				})
+			}
+
+			render() {
+				// this.state.data.map((elem) => {
+
+				// })
+
+				return (
+					<div>
+						<button onClick={this.dodajOpinie}>Dodaj opinię</button>
+						<div className="opinionsContainer">
+							{
+								this.state.data[3].map((elem, i) => {
+									return <Opinion data={this.state.data} iloscGwiazdek={this.state.data[3][i]} id={`button${i}`} usunOpinie={this.usunOpinie} key={i} />
+								})
+							}
+
+						</div>
+					</div>
+				)
+			}
+		}
+
+		class Opinion extends React.Component {
+			constructor() {
+				super()
+
+			}
+
+			usunOpinie2 = (e) => {
+				console.log(e.target.id);
+				this.props.usunOpinie(parseFloat(e.target.id.substring(6, 7)))
+			}
+
+			render() {
+				// console.log(this.props);
+
+
+				return (
+					<div className="opinion">
+						{this.props.data[1].map((elem, i) => {
+							return <SingleOpinion title={elem} oceny={this.props.data[0]} iloscGwiazdek2={this.props.iloscGwiazdek[i]} key={i} />
+						})}
+
+					</div>
+				)
+			}
+
+		}
+		// <button id={this.props.id} onClick={this.usunOpinie2}>Usun opinie</button>
+		class SingleOpinion extends React.Component {
+			constructor(props) {
+				super()
+				this.state = {
+					oceny: props.oceny,
+					ileGwiazdek: props.iloscGwiazdek2
+				}
+				// this.tablicaGwiazdek = []
+				// console.log(props);
+			}
+			// parseFloat(this.state.ocena.substring(0, 1)))
+			ileGwiazdek = (ilosc) => {
+				// console.log(typeof ilosc);
+				this.tablicaGwiazdek = []
+
+				for (let i = 0; i < ilosc; i++) {
+					// this.tablicaGwiazdek.push(<div key={i} className="starDiv checkedStar"></div>)
+					this.tablicaGwiazdek.push(<img id={i} key={i} src={data[2][1]} onClick={this.klikamGwiazdke} />)
+				}
+				for (let i = 0; i < 5 - ilosc; i++) {
+					// this.tablicaGwiazdek.push(<div key={i + ilosc} className="starDiv"></div>)
+					this.tablicaGwiazdek.push(<img id={i + ilosc} key={i + ilosc} src={data[2][0]} onClick={this.klikamGwiazdke} />)
+				}
+				return this.tablicaGwiazdek
+			}
+
+			klikamGwiazdke = (e) => {
+				// console.log(e.target.id);
+				this.setState({
+					ileGwiazdek: parseFloat(e.target.id) + 1
+				})
+			}
+
+			render() {
+				// console.log(this.props);
+				return (
+					<div>
+						<h3>
+							{this.props.title}
+						</h3>
+						<div className="starContainer">
+							{this.ileGwiazdek(this.state.ileGwiazdek)}
+						</div>
+						<p>
+							{this.state.oceny[this.state.ileGwiazdek - 1]}
+						</p>
+					</div>
+				)
+			}
+
+		}
+
+
+		ReactDOM.render(
+			<>
+				<App />
+			</>
+			,
+			document.getElementById("react-app")
+		)
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+.contentBox {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}
+
+.form-component {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 6px 6px 10px -11px rgba(66, 68, 90, 1);
+    width: 300px;
+    height: max-content;
+}
+
+.select-component {
+    border: 2px solid rgb(80, 32, 32);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+}
+
+.select-component select {
+    width: 80%;
+    border: 2px solid rgb(80, 32, 32);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-red {
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(80, 32, 32);
+    border: none;
+    padding: 5px 10px;
+    box-shadow: 6px 6px 10px -11px rgba(66, 68, 90, 1);
+    width: max-content;
+    height: max-content;
+    font-size: 14px;
+}
+
+.sending-text-box {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    width: max-content;
+    gap: 5px;
+}

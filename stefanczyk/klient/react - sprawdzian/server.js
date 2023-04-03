@@ -1,0 +1,28 @@
+const express = require("express");
+const app = express();
+const PORT = 3000;
+const path = require("path");
+
+app.use(express.static("static"));
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true
+    })
+);
+
+// const data = require("./data/data.json")
+const data = ["aaaaaa"]
+
+// app.get("/", function (req, res) {
+//     res.sendFile(path.join(__dirname + "/static/index01.html"))
+// })
+
+app.post("/fetch", function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.send(JSON.stringify(data, null, 5))
+})
+
+app.listen(PORT, function () {
+    console.log("start serwera na porcie " + PORT);
+});
