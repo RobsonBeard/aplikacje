@@ -1,5 +1,4 @@
 const Item07 = (props) => {
-    // console.log(props);
 
     const showDialog = () => {
         props.showDialog(props.id)

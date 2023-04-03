@@ -8,13 +8,14 @@ import './index.css';
 // import App4 from './App04/App04';
 // import App5 from './App05/App05';
 // import App6 from './App06/App06';
-import App7 from './App07/App07';
+// import App7 from './App07/App07';
+import App8 from './App08/App08';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App7 />
+    <App8 />
   </React.StrictMode>
 );
 

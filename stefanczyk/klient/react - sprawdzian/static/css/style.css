@@ -1,0 +1,35 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Consolas, monospace;
+}
+
+.opinion {
+	display: flex;
+	gap: 15px;
+}
+
+.opinionsContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.starDiv {
+	width: 30px;
+	height: 30px;
+	border: 1px solid black;
+}
+
+.checkedStar {
+	background-color: gold;
+}
+
+.starContainer {
+	display: flex;
+}
+
+img {
+	width: 30px;
+	height: 30px;
+}
