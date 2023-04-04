@@ -3,4 +3,53 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Consolas, monospace;
+}
+
+.topic {
+  text-decoration: underline;
+  color: red;
+  margin: 10px;
+}
+
+.button-container {
+  margin: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  border: 2px solid;
+  width: 200px;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 3px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.button-red {
+  border-color: red;
+  color: red;
+}
+
+.button-blue {
+  border-color: blue;
+  color: blue;
+}
+
+.graph-box {
+  background-color: rgb(231, 231, 231);
+  width: 500px;
+  height: 300px;
+  margin: 10px;
+  display: flex;
+  gap: 5px;
+  padding: 10px;
+  align-items: flex-end;
+}
+.graph-box .bar {
+  width: 10px;
+  height: 100px;
+  background-color: rgb(55, 55, 175);
 }/*# sourceMappingURL=style.css.map */

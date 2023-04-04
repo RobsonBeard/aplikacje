@@ -10,7 +10,6 @@ const Datastore = require('nedb')
 const server = http.createServer((req, res) => {
 })
 
-
 const coll1 = new Datastore({
 	filename: 'kolekcja2.db',
 	autoload: true
