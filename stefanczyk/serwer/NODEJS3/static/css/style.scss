@@ -27,6 +27,12 @@
     font-size: 16px;
 }
 
+.button:disabled {
+    border-color: rgb(99, 99, 99);
+    color: rgb(99, 99, 99);
+    background-color: rgb(170, 170, 170);
+}
+
 .button-red {
     border-color: red;
     color: red;
@@ -46,12 +52,33 @@
     gap: 5px;
     padding: 10px;
     align-items: flex-end;
+    justify-content: end;
     // flex-wrap: wrap-reverse;
+    position: relative;
 
     .bar {
         width: 10px;
         height: 100px;
         background-color: rgb(55, 55, 175);
+    }
 
+    .max-used-line {
+        background-color: red;
+        width: 350px;
+        height: 3px;
+        position: absolute;
+    }
+
+    .max-used-box {
+        background-color: red;
+        color: white;
+        height: 30px;
+        width: 100px;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        right: 360px;
     }
 }
