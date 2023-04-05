@@ -10,6 +10,18 @@ const os = require("os");
 const { resolve } = require("path");
 const { fileURLToPath } = require("url");
 
+const coll1 = new Datastore({
+	filename: 'kolekcja3.db',
+	autoload: true
+});
+
+coll1.remove({}, { multi: true }, function (err, numRemoved) {
+	console.log("usunięto wszystkie dokumenty: ", numRemoved)
+});
+
+let i = 0
+let interval = null
+
 const server = http.createServer((req, res) => {
 
 	console.log(req.method)
@@ -59,43 +71,36 @@ function serverResponse(req, res) {
 		body.push(data);
 	})
 
-	req.on("end", function (data) {
-		// console.log("i: ", i); // dziala
+	if (req.url === "/fetchData") {
+		req.on("end", function (data) {
+			// console.log("i: ", i); // dziala
 
-		coll1.find({ id: { $gte: i - 20 } }, function (err, docs) {
-			res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
-			res.end(JSON.stringify(docs, null, 5));
+			coll1.find({ id: { $gte: i - 20 } }, function (err, docs) {
+				res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
+				res.end(JSON.stringify(docs, null, 5));
+			})
 		})
-
-	})
-
-}
-
-const coll1 = new Datastore({
-	filename: 'kolekcja3.db',
-	autoload: true
-});
-
-coll1.remove({}, { multi: true }, function (err, numRemoved) {
-	console.log("usunięto wszystkie dokumenty: ", numRemoved)
-});
-
-let i = 0
-let interval = setInterval(() => {
-	let obj = {
-		id: i,
-		time: new Date().valueOf(),
-		used: process.memoryUsage().heapUsed,
-		total: process.memoryUsage().heapTotal
 	}
-	coll1.insert(obj, function (err, newDoc) {
-		console.log(newDoc)
-	});
-	i++
-}, 1000);
+	else if (req.url === "/startRecordingData") {
+		if (interval === null) {
+			interval = setInterval(() => {
+				let obj = {
+					id: i,
+					time: new Date().valueOf(),
+					used: process.memoryUsage().heapUsed,
+					total: process.memoryUsage().heapTotal
+				}
+				coll1.insert(obj, function (err, newDoc) {
+					console.log(newDoc)
+				});
+				i++
+			}, 1000);
+		}
 
-const used = process.memoryUsage().heapUsed / 1024 / 1024;
-console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
+		res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
+		res.end(JSON.stringify({ comment: "start zapisu powiodl sie" }, null, 5));
+	}
+}
 
 server.listen(PORT, () => {
 	console.log(`serwer startuje na porcie ${PORT}`)
