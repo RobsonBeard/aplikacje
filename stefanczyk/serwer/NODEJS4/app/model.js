@@ -1,10 +1,17 @@
-// dane dla aplikacji
+//* dane dla aplikacji
 
 class Animal {
-    constructor(name, color) {
+    constructor(name = "koza", color = "zielona") {
 
         this.name = name;
         this.color = color;
+
+        if (this.name === "") {
+            this.name = "koza"
+        }
+        if (this.color === "") {
+            this.color = "zielona"
+        }
     }
 
     //     ... inne potrzebne funkcje

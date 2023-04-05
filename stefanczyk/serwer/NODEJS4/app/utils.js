@@ -1,4 +1,4 @@
-// funkcje pomocnicze
+//* funkcje pomocnicze
 
 // funkcja parsująca dane z posta
 getRequestData = async (req) => {
@@ -23,4 +23,4 @@ getRequestData = async (req) => {
     })
 
 }
-module.exports = getRequestData
+module.exports = { getRequestData }

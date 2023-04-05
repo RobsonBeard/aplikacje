@@ -1,6 +1,7 @@
 const http = require('http');
 const router = require("./app/router")
+const PORT = 3000;
 
 http
     .createServer((req, res) => router(req, res))
-    .listen(3000, () => console.log("listen on 3000"))
+    .listen(PORT, () => { console.log(`serwer startuje na porcie ${PORT}`) })

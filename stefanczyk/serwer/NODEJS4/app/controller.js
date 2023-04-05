@@ -1,11 +1,15 @@
-// funkcje do pracy z aplikacją
+//* funkcje do pracy z aplikacją
 
-const animalData = require("./model.js") // załącz klasę Animal i tablicę zwierząt
+const model = require("./model") // załącz klasę Animal i tablicę zwierząt
+
+let animalsArray = model.animalsArray
 
 module.exports = {
-    add: () => {
+    add: (animal, color) => {
         // utwórz obiekt klasy Animal
         // dodaj do animalsArray
+        animalsArray.push(new model.Animal(animal, color))
+        // console.log(animalsArray);
     },
     delete: (id) => {
         // usuwanie po id z animalsArray
@@ -16,5 +20,4 @@ module.exports = {
     getall: () => {
         return animalsArray
     }
-
 }
