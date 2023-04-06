@@ -1,14 +1,11 @@
 //* endpointy aplikacji get/post
 
-// załącz controller, utils , tablicę zwierząt
-
 const path = require("path");
 const mime = require('mime-types');
 const fs = require("fs");
 
 const controller = require("./controller")
 const utils = require("./utils")
-const model = require("./model")
 
 const router = async (req, res) => {
 
@@ -46,19 +43,27 @@ const router = async (req, res) => {
                 controller.add(parsedData.animal, parsedData.color)
 
                 res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
-                res.end(JSON.stringify(model.animalsArray, null, 5));
+                res.end(JSON.stringify(controller.getall(), null, 5));
             }
             else if (req.url == "/getall") {
-                //  pobierz dane z tablicy zwierząt i odpowiedz do klienta
-
                 res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
-                res.end(JSON.stringify(model.animalsArray, null, 5));
+                res.end(JSON.stringify(controller.getall(), null, 5));
             }
             else if (req.url == "/delete") {
-                //  usuń dane z tablicy zwierząt i odpowiedz do klienta
+                let data = await utils.getRequestData(req);
+                let parsedData = JSON.parse(data)
+                controller.delete(parsedData.id)
+
+                res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
+                res.end(JSON.stringify(controller.getall(), null, 5));
             }
             else if (req.url == "/update") {
-                //  updatuj danye z tablicy zwierząt i odpowiedz do klienta
+                let data = await utils.getRequestData(req);
+                let parsedData = JSON.parse(data)
+                controller.update(parsedData.id)
+
+                res.writeHead(200, { "Content-type": "application/json;charset=utf-8" });
+                res.end(JSON.stringify(controller.getall(), null, 5));
             }
 
             break;
