@@ -13,7 +13,7 @@ getRequestData = async (req) => {
             });
 
             req.on("end", () => {
-                // mamy dane i zwracamy z promisy
+                // mamy dane i zwracamy z promisa
                 resolve(body);
             });
 
