@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    * {
+        font-family: monospace;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: blue;
+    }
+
+    button,select {
+        border-radius: 0%;
+        border: 1px solid gray;
+        padding: 5px;
+        text-align: center;
+    }
+
+    div > p {
+        font-size: 22px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .center {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .opcja {
+        height: 75px;
+        width: 400px;
+        padding: 25px;
+        border: 2px solid white;
+        background: blue;
+        color: white;
+        position: relative;
+    }
+</style>
+
+<script src="../jq.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        let n = $("#select").val(); // utworzenie zmiennej na wartość selecta
+
+        $("#select").on("change", function() { // gdy zmienimy selecta to przypisze daną wartość do n
+            n = $("#select").val();
+        })
+
+
+        $("#btn1").on("click", function () { // gdy klikniemy btn1 (UTWÓRZ MENU)
+            $("#menu").empty()
+            for (let i = 1; i <= n; i++) { // pętla wykona się tyle razy ile zaznaczyliśmy w selekcie
+                let op = $(`<div class=\"opcja\"><p>${ i }</p></div>`) // tworzy zmienną, która przechowuje "szablon" opcji w menu
+                $("#menu").append(op); // append dopisuje zmienną op (czyli opcję) do diva menu, który jest containerem dla tych opcji
+                op.on("click", function () { // gdy klikniemy którąś opcję
+                    if (confirm("Czy chcesz usunąć?")) { // wyświetla się okno dialogowe czy chcemy usunąć opcję
+                        $(this).remove() // usuwa klikniętą opcję
+                    }
+                })
+            }
+        })
+
+        $("#btn2").on("click", function () { // gdy klikniemy btn2 (USUŃ MENU)
+                $("#menu").empty() // wyczyści całe menu
+        })
+    })
+
+
+</script>
+
+<body>
+    <h1>T: Pętla for, dynamiczne tworzenie i usuwanie html-a, cz1</h1>
+    <button id="btn1">UTWÓRZ MENU</button>
+    <button id="btn2">USUŃ MENU</button>
+    <select name="" id="select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <div id="menu" class="center"></div>
+</body>
+
+</html>
