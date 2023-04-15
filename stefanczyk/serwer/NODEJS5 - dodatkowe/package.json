@@ -5,19 +5,19 @@
   "main": "index.js",
   "dependencies": {
     "async": "^0.2.10",
-    "colors": "^1.4.0",
     "binary-search-tree": "^0.2.5",
+    "colors": "^1.4.0",
     "dateformat": "^4.5.1",
     "immediate": "^3.0.6",
     "lie": "^3.1.1",
+    "localforage": "^1.10.0",
     "mime-db": "^1.52.0",
     "mime-types": "^2.1.35",
-    "localforage": "^1.10.0",
     "minimist": "^1.2.8",
     "mkdirp": "^1.0.4",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "tracer": "^1.1.6"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,5 +1,5 @@
 //* funkcje pomocnicze
-
+const logger = require('tracer').colorConsole();
 const path = require("path");
 const fs = require("fs");
 
@@ -40,7 +40,7 @@ removeAllFiles = () => {
             })
         }
 
-        console.log("usunięto pliki");
+        logger.info("usunięto pliki");
     })
 }
 

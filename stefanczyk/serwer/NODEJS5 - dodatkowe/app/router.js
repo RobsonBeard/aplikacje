@@ -1,11 +1,11 @@
 //* endpointy aplikacji get/post
 
 const path = require("path");
-// const mime = require('mime-types');
 const fs = require("fs");
+const logger = require('tracer').colorConsole();
 
 const controller = require("./controller")
-const utils = require("./utils")
+const utils = require("./utils");
 const dirpath = path.join(__dirname, "files")
 // console.log(dirpath);
 
@@ -13,31 +13,17 @@ utils.removeAllFiles()
 
 const router = async (req, res) => {
 
-    // let taskList = controller.getall()
-
     // pobranie wszystkich tasków
     if (req.url == "/api/tasks" && req.method == "GET") {
         let statusCode = 200
 
-        res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" }); //* tutaj się pisze HTTP status
-        res.end(JSON.stringify(taskList, null, 5));
-    }
+        let getallResponse = await controller.getall(dirpath)
 
-    // pobranie jednego wg id
-    else if (req.url.match(/\/api\/tasks\/([0-9]+)/) && req.method == "GET") {
-        let statusCode = 200
-
-        let taskID = req.url.split('/')
-        taskID = parseFloat(taskID[taskID.length - 1])
-
-        let selectedTask = taskList.filter((elem) => elem.id === taskID)[0]
-
-        let returnedObj
-
-        if (selectedTask !== undefined) {
+        if (getallResponse.success) {
             returnedObj = {
                 status: statusCode,
-                task: selectedTask
+                message: getallResponse.message,
+                files: getallResponse.result
             }
             res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
             res.end(JSON.stringify(returnedObj, null, 5));
@@ -46,7 +32,36 @@ const router = async (req, res) => {
             statusCode = 404
             returnedObj = {
                 status: statusCode,
-                message: `task with id: ${taskID} not found`
+                message: getallResponse.message
+            }
+            res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+            res.end(JSON.stringify(returnedObj, null, 5));
+        }
+    }
+
+    // pobranie jednego taska wg id
+    else if (req.url.match(/\/api\/tasks\/([0-9]+)/) && req.method == "GET") {
+        let statusCode = 200
+
+        let taskID = req.url.split('/')
+        taskID = parseFloat(taskID[taskID.length - 1])
+
+        let getoneResponse = await controller.getone(taskID, dirpath)
+
+        if (getoneResponse.success) {
+            returnedObj = {
+                status: statusCode,
+                message: getoneResponse.message,
+                file: getoneResponse.result
+            }
+            res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+            res.end(JSON.stringify(returnedObj, null, 5));
+        }
+        else {
+            statusCode = 404
+            returnedObj = {
+                status: statusCode,
+                message: getoneResponse.message
             }
             res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
             res.end(JSON.stringify(returnedObj, null, 5));
@@ -60,17 +75,26 @@ const router = async (req, res) => {
         let data = await utils.getRequestData(req);
         let parsedData = JSON.parse(data)
 
-        controller.add(parsedData, dirpath)
+        let addResponse = await controller.add(parsedData, dirpath)
 
-        let returnedObj = {
-            status: statusCode,
-            message: `file successfully created`
+        if (addResponse.success) {
+            let returnedObj = {
+                status: statusCode,
+                message: addResponse.message
+            }
+            res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+            res.end(JSON.stringify(returnedObj, null, 5));
         }
-
-        res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
-        res.end(JSON.stringify(returnedObj, null, 5));
+        else {
+            statusCode = 403
+            let returnedObj = {
+                status: statusCode,
+                message: addResponse.message
+            }
+            res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+            res.end(JSON.stringify(returnedObj, null, 5));
+        }
     }
-
     // usunięcie jednego taska wg id
     else if (req.url.match(/\/api\/tasks\/([0-9]+)/) && req.method == "DELETE") {
         let statusCode = 202
@@ -78,24 +102,21 @@ const router = async (req, res) => {
         let taskID = req.url.split('/')
         taskID = parseFloat(taskID[taskID.length - 1])
 
-        let selectedTask = taskList.filter((elem) => elem.id === taskID)[0]
+        let deleteResponse = await controller.delete(taskID, dirpath)
 
-        let returnedObj
-
-        if (selectedTask !== undefined) {
-            controller.delete(taskID)
-            returnedObj = {
+        if (deleteResponse.success) {
+            let returnedObj = {
                 status: statusCode,
-                message: `task with id: ${taskID} deleted successfully`
+                message: deleteResponse.message
             }
             res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
             res.end(JSON.stringify(returnedObj, null, 5));
         }
         else {
             statusCode = 404
-            returnedObj = {
+            let returnedObj = {
                 status: statusCode,
-                message: `task with id: ${taskID} not found`
+                message: deleteResponse.message
             }
             res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
             res.end(JSON.stringify(returnedObj, null, 5));
@@ -109,30 +130,26 @@ const router = async (req, res) => {
         let data = await utils.getRequestData(req);
         let parsedData = JSON.parse(data)
 
-        let responseTask = controller.update(parsedData);
+        let updateResponse = await controller.update(parsedData, dirpath)
 
-        let returnedObj
-
-        if (responseTask !== false) {
-            returnedObj = {
+        if (updateResponse.success) {
+            let returnedObj = {
                 status: statusCode,
-                task: responseTask
+                message: updateResponse.message
             }
             res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
             res.end(JSON.stringify(returnedObj, null, 5));
         }
         else {
             statusCode = 404
-            returnedObj = {
+            let returnedObj = {
                 status: statusCode,
-                message: `task with id: ${parsedData.id} not found`
+                message: updateResponse.message
             }
             res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
             res.end(JSON.stringify(returnedObj, null, 5));
         }
     }
-
-
 }
 
 module.exports = router
