@@ -1,11 +1,11 @@
 //* endpointy aplikacji get/post
 
 const path = require("path");
-// const mime = require('mime-types');
 const fs = require("fs");
+const logger = require('tracer').colorConsole();
 
 const controller = require("./controller")
-const utils = require("./utils")
+const utils = require("./utils");
 const dirpath = path.join(__dirname, "files")
 // console.log(dirpath);
 
@@ -109,27 +109,33 @@ const router = async (req, res) => {
         let data = await utils.getRequestData(req);
         let parsedData = JSON.parse(data)
 
-        let responseTask = controller.update(parsedData);
+        // let responseTask = controller.update(parsedData);
 
-        let returnedObj
+        let updateResponse = await controller.update(parsedData, dirpath)
+        logger.log(updateResponse)
 
-        if (responseTask !== false) {
-            returnedObj = {
-                status: statusCode,
-                task: responseTask
-            }
-            res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
-            res.end(JSON.stringify(returnedObj, null, 5));
-        }
-        else {
-            statusCode = 404
-            returnedObj = {
-                status: statusCode,
-                message: `task with id: ${parsedData.id} not found`
-            }
-            res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
-            res.end(JSON.stringify(returnedObj, null, 5));
-        }
+        // let returnedObj
+
+        res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+        res.end(JSON.stringify(parsedData, null, 5));
+
+        // if (responseTask !== false) {
+        //     returnedObj = {
+        //         status: statusCode,
+        //         task: responseTask
+        //     }
+        //     res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+        //     res.end(JSON.stringify(returnedObj, null, 5));
+        // }
+        // else {
+        //     statusCode = 404
+        //     returnedObj = {
+        //         status: statusCode,
+        //         message: `task with id: ${parsedData.id} not found`
+        //     }
+        //     res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+        //     res.end(JSON.stringify(returnedObj, null, 5));
+        // }
     }
 
 

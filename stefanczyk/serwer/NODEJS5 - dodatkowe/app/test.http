@@ -5,8 +5,8 @@ content-type: application/json
 {
     "title": "zadanie",
     "description": "bardzo trudne"
-}   
-// title - nazwa pliku, description - zawartość pliku
+}
+# title - nazwa pliku, description - zawartość pliku
 
 ### GET - pobierz wszystkie dane
 GET http://localhost:3000/api/tasks HTTP/1.1
@@ -25,7 +25,6 @@ PATCH http://localhost:3000/api/tasks HTTP/1.1
 content-type: application/json
 
 {
-    "a": 111111,
-    "b": 222222,
-    "id": 12
+    "id": 223,
+    "description": "zmodyfikowane zadanie"
 }

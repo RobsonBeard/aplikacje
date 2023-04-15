@@ -1,0 +1,39 @@
+div.header {
+    width: 80%;
+    height: 40px;
+    color: white;
+    background-color: black;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.link-container {
+    width: 80%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+    padding: 10px;
+    font-weight: bold;
+    background-color: rgb(240, 240, 240);
+}
+
+div.body-center {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.title-div {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: rgb(139, 139, 139);
+}
