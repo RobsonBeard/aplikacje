@@ -17,7 +17,7 @@ GET http://localhost:3000/api/tasks/1 HTTP/1.1
 
 
 ### DELETE - usuń wg id
-DELETE http://localhost:3000/api/tasks/10 HTTP/1.1
+DELETE http://localhost:3000/api/tasks/2 HTTP/1.1
 
 
 ### PATCH - updatuj wg id
@@ -25,6 +25,6 @@ PATCH http://localhost:3000/api/tasks HTTP/1.1
 content-type: application/json
 
 {
-    "id": 223,
+    "id": 2,
     "description": "zmodyfikowane zadanie"
 }

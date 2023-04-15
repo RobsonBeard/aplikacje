@@ -5,5 +5,5 @@ const PORT = 3000;
 
 http
     .createServer((req, res) => router(req, res))
-    .listen(PORT, () => { logger.info(`serwer startuje na porcie ${PORT}`) })
+    .listen(PORT, () => { logger.warn(`serwer startuje na porcie ${PORT}`) })
 
