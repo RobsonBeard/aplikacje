@@ -1,0 +1,1 @@
+//* modyfikacje samych plików (zapis/usunięcie/inne)
