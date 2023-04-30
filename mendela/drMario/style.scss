@@ -10,6 +10,7 @@ $bok-pola: 20px;
 #divMain {
     display: flex;
     flex-wrap: wrap;
+    margin: 10px;
     width: calc($bok-pola * 8);
     height: calc($bok-pola * 16);
 }

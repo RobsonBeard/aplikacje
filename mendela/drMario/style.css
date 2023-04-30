@@ -8,6 +8,7 @@
 #divMain {
   display: flex;
   flex-wrap: wrap;
+  margin: 10px;
   width: 160px;
   height: 320px;
 }
