@@ -1,17 +1,15 @@
-### post image i nazwy albumu
-
 POST http://localhost:3000/api/photos HTTP/1.1
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
 
 ------FormBoundary1234
-Content-Disposition: form-data; name="file"; filename="input.jpg"
-Content-Type: image/jpeg
+Content-Disposition: form-data; name="file"; filename="input.png"
+Content-Type: image/png
 
-< ./input.jpg
+< ./input.png
 
 ------FormBoundary1234
 Content-Disposition: form-data; name="album"
 Content-Type: text/plain
 
-nazwa_albumu
+nazwa_albumu2222
 ------FormBoundary1234

@@ -3,8 +3,9 @@
 const path = require("path");
 const fs = require("fs");
 const logger = require('tracer').colorConsole();
+const formidable = require("formidable");
 
-const controller = require("./controller")
+const controller = require("./fileController")
 const utils = require("./utils");
 const dirpath = path.join(__dirname, "files")
 // console.log(dirpath);
@@ -72,28 +73,29 @@ const router = async (req, res) => {
     else if (req.url == "/api/photos" && req.method == "POST") {
         let statusCode = 201
 
-        let data = await utils.getRequestData(req);
-        let parsedData = JSON.parse(data)
+        controller.add(req)
 
-        let addResponse = await controller.add(parsedData, dirpath)
 
-        if (addResponse.success) {
-            let returnedObj = {
-                status: statusCode,
-                message: addResponse.message
-            }
-            res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
-            res.end(JSON.stringify(returnedObj, null, 5));
-        }
-        else {
-            statusCode = 403
-            let returnedObj = {
-                status: statusCode,
-                message: addResponse.message
-            }
-            res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
-            res.end(JSON.stringify(returnedObj, null, 5));
-        }
+
+        // let addResponse = await controller.add(parsedData, dirpath)
+
+        // if (addResponse.success) {
+        //     let returnedObj = {
+        //         status: statusCode,
+        //         message: addResponse.message
+        //     }
+        //     res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+        //     res.end(JSON.stringify(returnedObj, null, 5));
+        // }
+        // else {
+        //     statusCode = 403
+        //     let returnedObj = {
+        //         status: statusCode,
+        //         message: addResponse.message
+        //     }
+        //     res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+        //     res.end(JSON.stringify(returnedObj, null, 5));
+        // }
     }
     // usunięcie jednego taska wg id
     else if (req.url.match(/\/api\/photos\/([0-9]+)/) && req.method == "DELETE") {

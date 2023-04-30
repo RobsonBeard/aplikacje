@@ -59,7 +59,7 @@ class Game {
                         //     // console.log(this.rzad1);
                         // }
                         break;
-                    case "KeyA":
+                    case "KeyA": //TODO: licznik rotacji i obracanie, a potem lepszy warunek w spadaniu
                         if (this.kolumna1 > 0 && ui.plansza[this.rzad1][this.kolumna1 - 1] == 0) {
                             ui.plansza[this.rzad1][this.kolumna1] = 0;
                             ui.plansza[this.rzad2][this.kolumna2] = 0;
@@ -82,12 +82,11 @@ class Game {
                         }
                         break;
                     case "KeyW":
-                        ui.plansza[this.rzad1][this.kolumna1] = 0;
-                        ui.plansza[this.rzad2][this.kolumna2] = 0;
-                        this.rzad1++;
-                        this.kolumna2--;
-                        ui.plansza[this.rzad1][this.kolumna1] = this.kolor1;
-                        ui.plansza[this.rzad2][this.kolumna2] = this.kolor2;
+                        this.licznikObrotu++;
+                        if (this.licznikObrotu == 4) {
+                            this.licznikObrotu = 0;
+                        }
+                        this.obracaj(this.licznikObrotu);
                         this.koloruj();
                         break;
                     default:
@@ -139,6 +138,22 @@ class Game {
                 }
             }
         };
+        this.obracaj = (licznikObrotu) => {
+            if (licznikObrotu == 0) {
+            }
+            else if (licznikObrotu == 1) {
+                ui.plansza[this.rzad1][this.kolumna1] = 0;
+                ui.plansza[this.rzad2][this.kolumna2] = 0;
+                this.rzad1++;
+                this.kolumna2--;
+                ui.plansza[this.rzad1][this.kolumna1] = this.kolor1;
+                ui.plansza[this.rzad2][this.kolumna2] = this.kolor2;
+            }
+            else if (licznikObrotu == 2) {
+            }
+            else if (licznikObrotu == 3) {
+            }
+        };
         this.getRndInteger = (min, max) => {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         };
@@ -147,6 +162,7 @@ class Game {
         this.kolumna1 = 3;
         this.kolumna2 = 4;
         this.rotacja = 1;
+        this.licznikObrotu = 0;
         this.zacznijGre();
     }
 }

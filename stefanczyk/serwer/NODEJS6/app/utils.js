@@ -27,20 +27,35 @@ getRequestData = async (req) => {
 
 }
 
-// funkcja usuwająca pliki przy starcie serwera
+// funkcja usuwająca pliki i katalogi przy starcie serwera
 removeAllFiles = () => {
-    const filepath = path.join(__dirname, "files")
+    const filepath = path.join(__dirname, "upload")
     fs.readdir(filepath, (err, files) => {
         if (err) throw err
         // console.log(files);
 
-        for (let i = 0; i < files.length; i++) {
-            fs.unlink(path.join(filepath, files[i]), (err) => {
+        files.forEach((file) => {
+            fs.lstat(path.join(filepath, file), (err, stats) => {
                 if (err) throw err
-            })
-        }
+                if (stats.isDirectory()) {
+                    fs.readdir(path.join(filepath, file), (err, files2) => {
+                        if (err) throw err
 
-        logger.info("usunięto pliki");
+                        for (let i = 0; i < files2.length; i++) {
+                            fs.unlinkSync(path.join(filepath, file, files2[i]))
+                            console.log("czas 1: " + new Date().getMilliseconds());
+                        }
+                        fs.rmdirSync(path.join(filepath, file)) //* moga byc z tym problemy
+                    })
+                }
+                else {
+                    fs.unlink(path.join(filepath, file), (err) => {
+                        if (err) throw err
+                    })
+                }
+            })
+        })
+        logger.info("usunięto pliki i katalogi");
     })
 }
 

@@ -52,6 +52,7 @@ class Game {
     kolor1: number;
     kolor2: number;
     rotacja: number;
+    licznikObrotu: number;
     ruszanieKlawiszami: (e: KeyboardEvent) => any;
 
     constructor() {
@@ -60,6 +61,7 @@ class Game {
         this.kolumna1 = 3
         this.kolumna2 = 4
         this.rotacja = 1
+        this.licznikObrotu = 0
         this.zacznijGre()
     }
 
@@ -87,7 +89,7 @@ class Game {
                     //     // console.log(this.rzad1);
                     // }
                     break;
-                case "KeyA":
+                case "KeyA": //TODO: licznik rotacji i obracanie, a potem lepszy warunek w spadaniu
                     if (this.kolumna1 > 0 && ui.plansza[this.rzad1][this.kolumna1 - 1] == 0) {
                         ui.plansza[this.rzad1][this.kolumna1] = 0
                         ui.plansza[this.rzad2][this.kolumna2] = 0
@@ -110,13 +112,12 @@ class Game {
                     }
                     break;
                 case "KeyW":
+                    this.licznikObrotu++
+                    if (this.licznikObrotu == 4) {
+                        this.licznikObrotu = 0
+                    }
+                    this.obracaj(this.licznikObrotu)
 
-                    ui.plansza[this.rzad1][this.kolumna1] = 0
-                    ui.plansza[this.rzad2][this.kolumna2] = 0
-                    this.rzad1++
-                    this.kolumna2--
-                    ui.plansza[this.rzad1][this.kolumna1] = this.kolor1
-                    ui.plansza[this.rzad2][this.kolumna2] = this.kolor2
                     this.koloruj()
                     break;
                 default:
@@ -172,6 +173,26 @@ class Game {
                     divek.style.backgroundColor = "white"
                 }
             }
+        }
+    }
+
+    obracaj = (licznikObrotu: number) => {
+        if (licznikObrotu == 0) {
+
+        }
+        else if (licznikObrotu == 1) {
+            ui.plansza[this.rzad1][this.kolumna1] = 0
+            ui.plansza[this.rzad2][this.kolumna2] = 0
+            this.rzad1++
+            this.kolumna2--
+            ui.plansza[this.rzad1][this.kolumna1] = this.kolor1
+            ui.plansza[this.rzad2][this.kolumna2] = this.kolor2
+        }
+        else if (licznikObrotu == 2) {
+
+        }
+        else if (licznikObrotu == 3) {
+
         }
     }
 
