@@ -43,7 +43,6 @@ removeAllFiles = () => {
 
                         for (let i = 0; i < files2.length; i++) {
                             fs.unlinkSync(path.join(filepath, file, files2[i]))
-                            console.log("czas 1: " + new Date().getMilliseconds());
                         }
                         fs.rmdirSync(path.join(filepath, file)) //* moga byc z tym problemy
                     })

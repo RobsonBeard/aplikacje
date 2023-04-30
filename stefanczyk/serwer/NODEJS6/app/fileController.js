@@ -9,7 +9,7 @@ const formidable = require("formidable");
 
 const imagesArr = require("./model")
 
-let taskID = 0
+let fileID = 0
 
 module.exports = {
     getall: (dirpath) => {
@@ -97,36 +97,61 @@ module.exports = {
         //     }
         // })
 
-        let form = formidable({})
-        form.multiples = true;
-        form.keepExtensions = true;
-        form.uploadDir = __dirname //* bez tego jest błąd polegający na tym, że nie da się robić rename pomiędzy dyskami
+        return new Promise((resolve, reject) => {
+            try {
+                let form = formidable({})
+                form.multiples = true;
+                form.keepExtensions = true;
+                form.uploadDir = __dirname //* bez tego jest błąd polegający na tym, że nie da się robić rename pomiędzy dyskami
 
-        form.parse(req, function (err, fields, files) {
-            const pathname = path.join(__dirname, "/upload", `/${fields.album}`)
-            let filename = files.file.path.split("\\")
-            filename = filename[filename.length - 1]
-
-            let renameFile = () => {
-                fs.rename(files.file.path, path.join(pathname, `/${filename}`), (err => {
+                form.parse(req, (err, fields, files) => {
                     if (err) throw err
-                    logger.log(`stworzono plik o nazwie ${filename} w katalogu ${fields.album}`)
-                }))
-            }
+                    const pathname = path.join(__dirname, "/upload", `/${fields.album}`)
+                    let filename = files.file.path.split("\\")
+                    filename = filename[filename.length - 1]
 
-            if (!fs.existsSync(pathname)) {
-                fs.mkdir(pathname, (err) => {
-                    if (err) throw err
-                    renameFile()
-                })
-            }
-            else {
-                renameFile()
-                logger.warn(`katalog ${fields.album} już istnieje`)
-            }
+                    let renameFile = () => {
+                        fs.rename(files.file.path, path.join(pathname, `/${filename}`), (err => {
+                            if (err) throw err
+                            logger.log(`\nstworzono plik o nazwie ${filename} w katalogu ${fields.album}\n`)
+                        }))
+                    }
 
-        });
+                    if (!fs.existsSync(pathname)) {
+                        fs.mkdir(pathname, (err) => {
+                            if (err) throw err
+                            renameFile()
+                        })
+                    }
+                    else {
+                        renameFile()
+                        logger.warn(`katalog ${fields.album} już istnieje`)
+                    }
 
+                    let fileData = {
+                        id: fileID,
+                        album: fields.album,
+                        originalname: files.file.name,
+                        url: path.join(pathname, `/${filename}`),
+                        lastChange: "original",
+                        history: [
+                            {
+                                status: "original",
+                                timestamp: files.file.lastModifiedDate
+                            }
+                        ]
+                    }
+                    imagesArr.push(fileData)
+                    fileID++
+
+                    resolve({ success: true, message: "stworzono plik", file: fileData })
+                });
+                //* uważać na asynchroniczność, ten form.parse sie dlugo robi
+            }
+            catch (error) {
+                reject(error)
+            }
+        })
 
     },
     delete: (selectedID, dirpath) => {

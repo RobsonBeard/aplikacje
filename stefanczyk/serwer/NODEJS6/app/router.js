@@ -72,31 +72,28 @@ const router = async (req, res) => {
     // utworzenie nowego taska - pliku tekstowego
     else if (req.url == "/api/photos" && req.method == "POST") {
         let statusCode = 201
+        let returnedObj
 
-        controller.add(req)
+        let addResponse = await controller.add(req)
 
-
-
-        // let addResponse = await controller.add(parsedData, dirpath)
-
-        // if (addResponse.success) {
-        //     let returnedObj = {
-        //         status: statusCode,
-        //         message: addResponse.message
-        //     }
-        //     res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
-        //     res.end(JSON.stringify(returnedObj, null, 5));
-        // }
-        // else {
-        //     statusCode = 403
-        //     let returnedObj = {
-        //         status: statusCode,
-        //         message: addResponse.message
-        //     }
-        //     res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
-        //     res.end(JSON.stringify(returnedObj, null, 5));
-        // }
+        if (addResponse.success) {
+            returnedObj = {
+                status: statusCode,
+                message: addResponse.message,
+                file: addResponse.file
+            }
+        }
+        else {
+            statusCode = 400
+            returnedObj = {
+                status: statusCode,
+                message: "błąd"
+            }
+        }
+        res.writeHead(statusCode, { "Content-type": "application/json;charset=utf-8" });
+        res.end(JSON.stringify(returnedObj, null, 5));
     }
+
     // usunięcie jednego taska wg id
     else if (req.url.match(/\/api\/photos\/([0-9]+)/) && req.method == "DELETE") {
         let statusCode = 202

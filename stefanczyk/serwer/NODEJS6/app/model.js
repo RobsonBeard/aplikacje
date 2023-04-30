@@ -2,4 +2,4 @@
 
 const images = []
 
-module.exports = { images };
+module.exports = images;
