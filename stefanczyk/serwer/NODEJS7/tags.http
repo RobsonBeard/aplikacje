@@ -1,0 +1,25 @@
+### pobranie wszystkich tagów bez konwersji na obiekty
+GET /api/tags/raw 
+
+### pobranie wszystkich tagów z konwersją na obiekty
+GET /api/tags 
+
+
+### pobranie jednego taga
+GET /api/tags/1 
+
+
+### utworzenie nowego taga
+POST /api/tags 
+
+
+### aktualizacja danych zdjęcia o nowy tag
+PATCH /api/photos/tags
+
+
+### aktualizacja danych zdjęcia o tablicę nowych tag-ów
+PATCH /api/photos/tags/mass 
+
+
+### pobranie tagów danego zdjęcia
+GET /api/photos/tags/12345 

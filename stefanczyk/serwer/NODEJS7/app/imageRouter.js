@@ -1,4 +1,5 @@
 //* endpointy aplikacji get/post/patch/delete
+//* router tylko do api imagów 
 
 const logger = require('tracer').colorConsole();
 
@@ -9,7 +10,7 @@ const utils = require("./utils");
 
 utils.removeAllFiles()
 
-const router = async (req, res) => {
+const imageRouter = async (req, res) => {
 
     // get jsona wszystkich zdjęć
     if (req.url == "/api/photos" && req.method == "GET") {
@@ -150,4 +151,4 @@ const router = async (req, res) => {
     }
 }
 
-module.exports = router
+module.exports = imageRouter
