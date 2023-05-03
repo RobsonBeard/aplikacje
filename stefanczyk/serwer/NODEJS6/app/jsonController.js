@@ -2,12 +2,12 @@
 //---
 //* modyfikacje jsona opisującego stan plików
 
-let imagesArr = require("./model")
 const logger = require('tracer').colorConsole();
+
+let imagesArr = require('./model')
 
 module.exports = {
     getall: () => {
-        console.log(imagesArr)
         return new Promise((resolve, reject) => {
             try {
                 if (imagesArr.length != 0) {

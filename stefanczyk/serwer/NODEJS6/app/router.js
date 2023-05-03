@@ -4,6 +4,7 @@ const logger = require('tracer').colorConsole();
 
 const fileController = require("./fileController")
 const jsonController = require("./jsonController")
+
 const utils = require("./utils");
 
 utils.removeAllFiles()
@@ -101,13 +102,10 @@ const router = async (req, res) => {
 
         let deleteResponse = await fileController.delete(taskID)
 
-        // logger.log(deleteResponse)
-
         if (deleteResponse.success) {
             returnedObj = {
                 status: statusCode,
-                message: deleteResponse.message,
-                files: deleteResponse.files
+                message: deleteResponse.message
             }
         }
         else {

@@ -12,7 +12,7 @@ Content-Type: image/png
 Content-Disposition: form-data; name="album"
 Content-Type: text/plain
 
-nazwa_albumu55
+nazwa_albumu5
 ------FormBoundary1234
 
 
@@ -21,7 +21,7 @@ GET http://localhost:3000/api/photos HTTP/1.1
 
 
 ### get jsona jednego zdjęcia
-GET http://localhost:3000/api/photos/2 HTTP/1.1
+GET http://localhost:3000/api/photos/0 HTTP/1.1
 
 
 ### patch jsona
@@ -29,8 +29,8 @@ PATCH http://localhost:3000/api/photos HTTP/1.1
 content-type: application/json
 
 {
-    "id": 2,
-    "status": "zmienione 22"
+    "id": 0,
+    "status": "zmienione 252"
 }
 
 

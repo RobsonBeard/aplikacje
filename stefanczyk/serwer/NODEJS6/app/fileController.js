@@ -7,11 +7,9 @@ const fs = require("fs");
 const logger = require('tracer').colorConsole();
 const formidable = require("formidable");
 
-let imagesArr = require("./model")
-
-//TODO: TE IMAGES ARR Z DWOCH CONTROLLEROW SIE NIE LACZA, METODY Z NICH ZE SOBA NIE WSPOLPRACUJA
-
 let fileID = 0
+
+let imagesArr = require("./model")
 
 module.exports = {
     add: (req) => {
@@ -61,7 +59,6 @@ module.exports = {
                     }
                     imagesArr.push(fileData)
                     fileID++
-                    console.log(imagesArr);
 
                     resolve({ success: true, message: "stworzono plik", file: fileData })
                 });
@@ -79,18 +76,22 @@ module.exports = {
                     let selectedImage = imagesArr.filter((elem) => elem.id === selectedID) //* wyjdzie tablica
                     if (selectedImage.length === 1) {
 
-                        // logger.log(imagesArr)
-
                         fs.unlinkSync(selectedImage[0].url)
-                        // let filename = selectedImage[0].url.split("\\")
-                        // filename = filename[filename.length - 1]
-                        // logger.log(`\nusunięto plik o nazwie ${filename} z katalogu ${selectedImage[0].album}\n`)
+                        let filename = selectedImage[0].url.split("\\")
+                        filename = filename[filename.length - 1]
+                        logger.log(`\nusunięto plik o nazwie ${filename} z katalogu ${selectedImage[0].album}\n`)
 
-                        imagesArr = imagesArr.filter((elem) => elem.id !== selectedID)
+                        // imagesArr = imagesArr.filter((elem) => elem.id !== selectedID)
+                        // let pom = imagesArr.filter((elem) => elem.id !== selectedID)
+                        // imagesArr = pom //! ten filter po prostu nie działa, map tak samo
 
-                        // logger.log(imagesArr)
+                        for (let i = 0; i < imagesArr.length; i++) {
+                            if (imagesArr[i].id === selectedID) {
+                                imagesArr.splice(i, 1)
+                            }
+                        }
 
-                        resolve({ success: true, message: "usunięto plik", files: imagesArr })
+                        resolve({ success: true, message: "usunięto plik" })
                     }
                     else {
                         if (selectedImage.length != 0) {
@@ -104,10 +105,6 @@ module.exports = {
                 else {
                     resolve({ success: false, message: "nie zapisano żadnych plików lub tablica danych jest pusta" })
                 }
-
-
-
-
             }
             catch (err) {
                 reject(err)
