@@ -29,7 +29,15 @@ div.body-center {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin-top: 10px;
+}
+
+div.child-center {
+    width: 80%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
 }
 
 .title-div {
@@ -38,4 +46,24 @@ div.body-center {
     justify-content: center;
     font-size: 40px;
     color: rgb(139, 139, 139);
+}
+
+.button-container {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.param-button {
+    border-radius: 5px;
+    color: rgb(230, 230, 230);
+    background-color: rgb(109, 17, 44);
+    border: none;
+    padding: 5px 10px;
+    box-shadow: 6px 6px 10px -11px rgba(66, 68, 90, 1);
+    width: max-content;
+    height: max-content;
+    font-size: 14px;
 }

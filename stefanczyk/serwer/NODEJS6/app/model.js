@@ -1,5 +1,9 @@
 //* dane dla aplikacji
 
-const images = []
+let images = []
+
+// setInterval(() => {
+//     console.log(images);
+// }, 1000);
 
 module.exports = images;
