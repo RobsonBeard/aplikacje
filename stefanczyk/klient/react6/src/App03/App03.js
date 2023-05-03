@@ -7,7 +7,17 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 
-const App3 = () => {
+const App = () => {
+  const stworzLinki = () => {
+    let tablicaLinkow = []
+    for (let i = 0; i < 50; i++) {
+      let linkPath = `/${i}`
+      tablicaLinkow.push(<Link to={linkPath} key={i}>PARAM = {i}</Link>)
+      tablicaLinkow.push(" ")
+    }
+    return tablicaLinkow
+  }
+
   return (
     <div>
       <h1>03: REACT ROUTER - PARAMS IN URL - DYNAMIC LINKS  </h1>
@@ -15,16 +25,14 @@ const App3 = () => {
       <Router>
         <div className='body-center'>
           <div className='header'>
-            My Application
-
+            My Application&nbsp;<Link to="/">MAIN</Link>
           </div>
           <div className='link-container'>
-            <Link to="/1">PARAM = 1</Link>
-            <Link to="/2">PARAM = 2</Link>
-            <Link to="/3">PARAM = 3</Link>
+            {stworzLinki()}
           </div>
           <Routes>
             <Route path="/:id" element={<Child />} />
+            <Route path="*" element={<h2>Path not found</h2>} />
           </Routes>
         </div>
       </Router>
@@ -51,4 +59,4 @@ const App3 = () => {
 // element <Routes> działa jak switch w js - szuka pierwszego elementu który pasuje do url-a, resztę pomija
 // dlatego ważna jest kolejność Route
 
-export default App3;
+export default App;

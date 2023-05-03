@@ -1,5 +1,5 @@
 //* dane dla aplikacji
 
-const images = []
+let images = []
 
-module.exports = { images };
+module.exports = images;
