@@ -2,7 +2,7 @@
 
 let images = []
 
-let tagsArr = [
+let tags = [
     '#love',
     '#instagood',
     '#fashion',
@@ -35,4 +35,4 @@ let tagsArr = [
     '#photo'
 ];
 
-module.exports = images;
+module.exports = { images, tags };

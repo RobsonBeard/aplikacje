@@ -9,7 +9,8 @@ const formidable = require("formidable");
 
 let fileID = 0
 
-let imagesArr = require("./model")
+const model = require("./model")
+let imagesArr = model.images
 
 module.exports = {
     add: (req) => {
