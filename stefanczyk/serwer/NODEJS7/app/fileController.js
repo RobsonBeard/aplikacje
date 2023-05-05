@@ -7,10 +7,7 @@ const fs = require("fs");
 const logger = require('tracer').colorConsole();
 const formidable = require("formidable");
 
-let fileID = 0
-
-const model = require("./model")
-let imagesArr = model.images
+let { imagesArr, fileID } = require("./model")
 
 module.exports = {
     add: (req) => {

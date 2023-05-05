@@ -43,10 +43,10 @@ const imageRouter = async (req, res) => {
         let statusCode = 200
         let returnedObj
 
-        let fileID = req.url.split('/')
-        fileID = parseInt(fileID[fileID.length - 1])
+        let selectedID = req.url.split('/')
+        selectedID = parseInt(selectedID[selectedID.length - 1])
 
-        let getoneResponse = await jsonController.getone(fileID)
+        let getoneResponse = await jsonController.getone(selectedID)
 
         if (getoneResponse.success) {
             returnedObj = {
@@ -98,10 +98,10 @@ const imageRouter = async (req, res) => {
         let statusCode = 202
         let returnedObj
 
-        let taskID = req.url.split('/')
-        taskID = parseFloat(taskID[taskID.length - 1])
+        let selectedID = req.url.split('/')
+        selectedID = parseFloat(selectedID[selectedID.length - 1])
 
-        let deleteResponse = await fileController.delete(taskID)
+        let deleteResponse = await fileController.delete(selectedID)
 
         if (deleteResponse.success) {
             returnedObj = {

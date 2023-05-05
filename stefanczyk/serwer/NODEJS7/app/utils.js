@@ -3,8 +3,10 @@ const logger = require('tracer').colorConsole();
 const path = require("path");
 const fs = require("fs");
 
+let { convertedTagsArr, rawTagsArr, tagID } = require("./model");
+
 // funkcja parsująca dane z posta
-getRequestData = async (req) => {
+let getRequestData = async (req) => {
 
     return new Promise((resolve, reject) => {
         try {
@@ -28,7 +30,7 @@ getRequestData = async (req) => {
 }
 
 // funkcja usuwająca pliki i katalogi przy starcie serwera
-removeAllFiles = () => {
+let removeAllFiles = () => {
     const filepath = path.join(__dirname, "upload")
     fs.readdir(filepath, (err, files) => {
         if (err) throw err
@@ -58,4 +60,23 @@ removeAllFiles = () => {
     })
 }
 
-module.exports = { getRequestData, removeAllFiles }
+let getRndInteger = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+let convertTagsToObjects = () => {
+    // convertedTagsArr = [] //! przypisywanie wartości po prostu nie działa, wszystkie pushe itp są okej, ale to nie, tak samo filter, nie wiem czemu
+    for (let i = 0; i < rawTagsArr.length; i++) {
+        let newTag = {
+            id: tagID,
+            name: rawTagsArr[i],
+            popularity: getRndInteger(1, 500),
+        }
+        convertedTagsArr.push(newTag)
+        tagID++
+    }
+    logger.info("zmieniono surowe tagi na obiekty");
+}
+
+module.exports = { getRequestData, removeAllFiles, convertTagsToObjects }

@@ -1,8 +1,10 @@
 //* dane dla aplikacji
 
-let images = []
+let fileID = 0
+let imagesArr = []
 
-let tags = [
+let tagID = 0
+let rawTagsArr = [
     '#love',
     '#instagood',
     '#fashion',
@@ -34,5 +36,6 @@ let tags = [
     '#fun',
     '#photo'
 ];
+let convertedTagsArr = []
 
-module.exports = { images, tags };
+module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr };

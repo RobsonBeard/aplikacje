@@ -4,8 +4,7 @@
 
 const logger = require('tracer').colorConsole();
 
-const model = require('./model')
-let imagesArr = model.images
+let { imagesArr } = require('./model')
 
 module.exports = {
     getall: () => {
