@@ -19,8 +19,16 @@ POST http://localhost:3000/api/tags HTTP/1.1
 }
 
 
-### aktualizacja danych zdjęcia o nowy tag
+### aktualizacja danych zdjęcia o nowy tag, id to id zdjęcia
 PATCH http://localhost:3000/api/photos/tags HTTP/1.1
+
+{
+  "id": 2,
+  "tag": {
+      "name": "#nowytagdlazdjęcia",
+      "popularity": 997
+  }
+}
 
 
 ### aktualizacja danych zdjęcia o tablicę nowych tag-ów

@@ -1,41 +1,49 @@
 //* dane dla aplikacji
 
-let fileID = 0
-let imagesArr = []
+const fileID = 0
+const imagesArr = []
 
 let tagID = 0
-let rawTagsArr = [
-    '#love',
-    '#instagood',
-    '#fashion',
-    '#photooftheday',
-    '#art',
-    '#photography',
-    '#instagram',
-    '#beautiful',
-    '#picoftheday',
-    '#nature',
-    '#happy',
-    '#cute',
-    '#travel',
-    '#style',
-    '#followme',
-    '#tbt',
-    '#instadaily',
-    '#repost',
-    '#like4like',
-    '#summer',
-    '#beauty',
-    '#fitness',
-    '#food',
-    '#selfie',
-    '#me',
-    '#instalike',
-    '#girl',
-    '#friends',
-    '#fun',
-    '#photo'
-];
-let convertedTagsArr = []
+const rawTagsArr = [
+  '#love',
+  '#instagood',
+  '#fashion',
+  '#photooftheday',
+  '#art',
+  '#photography',
+  '#instagram',
+  '#beautiful',
+  '#picoftheday',
+  '#nature',
+  '#happy',
+  '#cute',
+  '#travel',
+  '#style',
+  '#followme',
+  '#tbt',
+  '#instadaily',
+  '#repost',
+  '#like4like',
+  '#summer',
+  '#beauty',
+  '#fitness',
+  '#food',
+  '#selfie',
+  '#me',
+  '#instalike',
+  '#girl',
+  '#friends',
+  '#fun',
+  '#photo'
+]
+const convertedTagsArr = []
 
-module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr };
+const getTagID = () => {
+  return tagID
+}
+
+const setTagID = (noweID) => {
+  tagID = noweID
+} //! dzięki tym funkcjom jestem w stanie dynamicznie przydzielać i odczytywać wartość tagID
+
+module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr, getTagID, setTagID }
