@@ -29,15 +29,15 @@ const getRequestData = async (req) => {
 // funkcja usuwająca pliki i katalogi przy starcie serwera
 const removeAllFiles = () => {
   const filepath = path.join(__dirname, 'upload')
-  fs.readdir(filepath, (err, files) => {
-    if (err) throw err
+  fs.readdir(filepath, (error, files) => {
+    if (error) throw error
 
     files.forEach((file) => {
-      fs.lstat(path.join(filepath, file), (err, stats) => {
-        if (err) throw err
+      fs.lstat(path.join(filepath, file), (error, stats) => {
+        if (error) throw error
         if (stats.isDirectory()) {
-          fs.readdir(path.join(filepath, file), (err, files2) => {
-            if (err) throw err
+          fs.readdir(path.join(filepath, file), (error, files2) => {
+            if (error) throw error
 
             for (let i = 0; i < files2.length; i++) {
               fs.unlinkSync(path.join(filepath, file, files2[i]))
@@ -45,8 +45,8 @@ const removeAllFiles = () => {
             fs.rmdirSync(path.join(filepath, file)) //* moga byc z tym problemy
           })
         } else {
-          fs.unlink(path.join(filepath, file), (err) => {
-            if (err) throw err
+          fs.unlink(path.join(filepath, file), (error) => {
+            if (error) throw error
           })
         }
       })

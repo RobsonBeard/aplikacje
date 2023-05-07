@@ -1,6 +1,6 @@
 //* dane dla aplikacji
 
-const fileID = 0
+let fileID = 0
 const imagesArr = []
 
 let tagID = 0
@@ -46,4 +46,12 @@ const setTagID = (noweID) => {
   tagID = noweID
 } //! dzięki tym funkcjom jestem w stanie dynamicznie przydzielać i odczytywać wartość tagID
 
-module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr, getTagID, setTagID }
+const getFileID = () => {
+  return fileID
+}
+
+const setFileID = (noweID) => {
+  fileID = noweID
+}
+
+module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr, getTagID, setTagID, getFileID, setFileID }
