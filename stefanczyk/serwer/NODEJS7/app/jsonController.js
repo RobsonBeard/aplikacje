@@ -63,7 +63,7 @@ const update = async (modificationData) => {
     }
   })
 }
-// TODO: opcjonalnie przerobic duzo tych filterów na findy
+// TODO: opcjonalnie przerobic duzo tych filterów z innych metod na findy
 const addTag = async (modificationData) => {
   const gotImageJSON = await getone(modificationData.id)
   return new Promise((resolve, reject) => {
