@@ -92,11 +92,11 @@ const deleteImg = (selectedID) => {
           if (selectedImage.length !== 0) {
             resolve({ success: false, message: 'jest więcej niż 1 plik o danym ID' })
           } else {
-            resolve({ success: false, message: 'nie ma pliku o podanym id' })
+            resolve({ success: false, message: 'nie ma zdjęcia o podanym id' })
           }
         }
       } else {
-        resolve({ success: false, message: 'nie zapisano żadnych plików lub tablica danych jest pusta' })
+        resolve({ success: false, message: 'nie zapisano żadnych zdjęć lub tablica danych jest pusta' })
       }
     } catch (error) {
       reject(error)
