@@ -7,7 +7,12 @@ PATCH http://localhost:3000/api/filters
 
 {
   "id": 3,
-  "status": "tint"
+  "status": "tint",
+  "params": {
+    "red": 255, 
+    "green": 0, 
+    "blue": 0
+  }
 }
 
 

@@ -45,7 +45,7 @@ const filtersRouter = async (req, res) => {
         result: makeFilteredImage.result
       }
     } else {
-      statusCode = 404
+      statusCode = 400
       returnedObj = {
         status: statusCode,
         message: makeFilteredImage.message
