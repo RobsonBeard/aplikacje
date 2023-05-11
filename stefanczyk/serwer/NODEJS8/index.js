@@ -2,6 +2,7 @@ const logger = require('tracer').colorConsole()
 const http = require('http')
 const imageRouter = require('./app/imageRouter')
 const tagsRouter = require('./app/tagsRouter')
+const filtersRouter = require('./app/filtersRouter')
 const PORT = 3000
 
 http
@@ -10,6 +11,8 @@ http
       await imageRouter(req, res)
     } else if (req.url.search('/api/tags') !== -1) { // tags
       await tagsRouter(req, res)
+    } else if (req.url.search("/api/filters") != -1) { // filters
+      await filtersRouter(req, res)
     }
   })
 
