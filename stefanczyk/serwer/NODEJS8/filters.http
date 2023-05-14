@@ -1,0 +1,85 @@
+### dane o zdjęciu, potrzebne do jego obróbki (metadata: width, height itp.)
+GET http://localhost:3000/api/filters/metadata/1
+
+
+### użycie konkretnego filtra, dane o nim przekazujemy w jsonie, łącznie 9 testowanych: tint, rotate, crop, flip, flop, grayscale, resize, reformat, negate 
+PATCH http://localhost:3000/api/filters 
+
+# {
+#   "id": 3,
+#   "status": "tint",
+#   "params": {
+#     "red": 255, 
+#     "green": 0, 
+#     "blue": 0
+#   }
+# }
+
+# {
+#   "id": 3,
+#   "status": "rotate",
+#   "params": {
+#     "degrees": 90
+#   }
+# }
+
+# {
+#   "id": 3,
+#   "status": "resize",
+#   "params": {
+#     "width": 150,
+#     "height": 97
+#   }
+# }
+
+# {
+#   "id": 3,
+#   "status": "reformat",
+#   "params": {
+#     "newFormat": "jpg"
+#   }
+# }
+
+# {
+#   "id": 3,
+#   "status": "crop",
+#   "params": {
+#     "width": 300,
+#     "height": 200,
+#     "left": 50,
+#     "top": 200
+#   }
+# }
+
+# {
+#   "id": 3,
+#   "status": "grayscale"
+# }
+
+# {
+#   "id": 3,
+#   "status": "flip"
+# }
+
+# {
+#   "id": 3,
+#   "status": "flop"
+# }
+
+{
+  "id": 3,
+  "status": "negate"
+}
+
+# poniższe adresy do dyskusji (?)
+
+### get image file by id
+GET http://localhost:3000/api/getfile/1
+
+
+### dane json zdjęć z wybranego folderu
+GET http://localhost:3000/api/photos/folder_name 
+
+
+### zmienione zdjęcie by id
+GET http://localhost:3000/api/getfile/1/filtername
