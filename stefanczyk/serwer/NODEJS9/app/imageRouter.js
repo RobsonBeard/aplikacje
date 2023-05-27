@@ -230,9 +230,10 @@ const imageRouter = async (req, res) => {
 
     res.writeHead(statusCode, { 'Content-type': 'application/json;charset=utf-8' })
     res.end(JSON.stringify(returnedObj, null, 5))
-  } else if (req.url.match(/\/api\/photos\/([a-zA-Z0-9]+)/) && req.method === 'GET') { // get jsonów zdjęć z wybranego folderu
-    // TODO: zrobic taki regex, zeby przyjmowal wszystkie znaki oprocz białych znaków i "/"
-    // https://stackoverflow.com/questions/2788112/what-is-the-regular-expression-for-not-whitespace-and-not-a-hyphen tu z łącznikiem
+  } else if (req.url.match(/\/api\/photos\/([^\/\s]+)/) && req.method === 'GET') { // get jsonów zdjęć z wybranego folderu
+    // regex przyjmuje wszystkie znaki oprocz białych znaków i "/"
+    // req.url.match(/\/api\/photos\/([a-zA-Z0-9]+)/)
+
     let statusCode = 200
     let returnedObj
 

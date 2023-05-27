@@ -1,0 +1,29 @@
+### rejestracja usera, potrzebne jest name, lastName, email i password
+POST http://localhost:3000/api/user/register HTTP/1.1
+
+{
+  "name": "name",
+  "lastName": "lastName",
+  "email": "name@email.pl",
+  "password": "password"
+}
+
+# TODO: dorobic te http ze speca i dzialac dalej, mozna usunac z apki te testy, przenioslem na dysk google, ale wrzucic je tez na githuba, sprawdzic czesc z filtrami i robic nowy ruter i kontroler
+
+### user potwierdza rejestrację konta z użyciem tokena
+GET http://localhost:3000/api/user/confirm/<token> HTTP/1.1
+
+
+### logowanie z odesłaniem tokena po zalogowaniu - od tej pory każde żądanie zawiera token
+POST http://localhost:3000/api/user/login HTTP/1.1
+
+{ 
+  "email": "email",
+  "password": "password"
+}
+
+
+###  pobranie jsona wszystkich userow - funkcja pomocnicza dla testów 
+GET http://localhost:3000/api/tags/5 HTTP/1.1
+
+
