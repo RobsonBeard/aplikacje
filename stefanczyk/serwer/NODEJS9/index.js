@@ -4,7 +4,8 @@ const imageRouter = require('./app/imageRouter')
 const tagsRouter = require('./app/tagsRouter')
 const filtersRouter = require('./app/filtersRouter')
 const getfileRouter = require('./app/getfileRouter')
-const PORT = 3000
+const usersRouter = require('./app/userRouter')
+require('dotenv').config() // teraz używam pliku .env
 
 http
   .createServer(async (req, res) => {
@@ -16,7 +17,9 @@ http
       await filtersRouter(req, res)
     } else if (req.url.search("/api/getfile") != -1) { // getfile
       await getfileRouter(req, res)
+    } else if (req.url.search("/api/user") != -1) { // users
+      await usersRouter(req, res)
     }
   })
 
-  .listen(PORT, () => { logger.warn(`serwer startuje na porcie ${PORT}`) })
+  .listen(process.env.APP_PORT, () => { logger.warn(`serwer startuje na porcie ${process.env.APP_PORT}`) })

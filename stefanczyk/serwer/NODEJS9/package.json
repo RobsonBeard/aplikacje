@@ -1,0 +1,32 @@
+{
+  "name": "nodejs7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^0.2.10",
+    "bcryptjs": "^2.4.3",
+    "binary-search-tree": "^0.2.6",
+    "colors": "^1.4.0",
+    "dateformat": "^4.6.3",
+    "dotenv": "^16.0.3",
+    "formidable": "^1.2.6",
+    "immediate": "^3.3.0",
+    "jsonwebtoken": "^9.0.0",
+    "lie": "^3.3.0",
+    "localforage": "^1.10.0",
+    "mime-db": "^1.52.0",
+    "mime-types": "^2.1.35",
+    "minimist": "^1.2.8",
+    "mkdirp": "^1.0.4",
+    "sharp": "^0.32.1",
+    "tinytim": "^0.1.1",
+    "tracer": "^1.1.6",
+    "underscore": "^1.4.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
