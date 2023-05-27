@@ -4,16 +4,16 @@ const pass = "moje tajne hasło"
 
 const encryptPass = async (password) => {
 
-    let encryptedPassword = await bcrypt.hash(password, 10);
-    console.log({ encryptedPassword: encryptedPassword });
+  let encryptedPassword = await bcrypt.hash(password, 10);
+  console.log({ encryptedPassword: encryptedPassword });
 }
 
 encryptPass(pass)
 
 const decryptPass = async (userpass, encrypted) => {
 
-    let decrypted = await bcrypt.compare(userpass, encrypted)
-    console.log(decrypted);
+  let decrypted = await bcrypt.compare(userpass, encrypted)
+  console.log(decrypted);
 
 }
 
