@@ -43,9 +43,9 @@ const getone = (selectedID) => {
           resolve({ success: true, message: 'operacja powiodła się', result: selectedTag[0] })
         } else {
           if (selectedTag.length !== 0) {
-            resolve({ success: false, message: 'jest więcej niż 1 tag o danym ID' })
+            resolve({ success: false, message: 'jest więcej niż 1 tag o danym ID' }) // znowu nie wiem czy to potrzebne
           } else {
-            resolve({ success: false, message: 'nie ma taguo podanym id' })
+            resolve({ success: false, message: 'nie ma tagu o podanym id' })
           }
         }
       } else {

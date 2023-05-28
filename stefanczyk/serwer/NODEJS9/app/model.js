@@ -67,7 +67,7 @@ const setUserID = (newID) => {
 
 const confirmUserAccount = (ID) => {
   const selectedUser = usersArr.find(elem => elem.id === ID)
-  selectedUser.confirmed = true
+  selectedUser.confirmed = true // w tym pliku to powinno zadziałać
   return selectedUser
 }
 

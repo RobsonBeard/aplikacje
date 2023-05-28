@@ -11,7 +11,7 @@ const getfileRouter = async (req, res) => {
     let statusCode = 200
     let returnedObj
 
-    const splitURL = req.url.split('/') //* zrobic tak w innych routerach
+    const splitURL = req.url.split('/')
     const selectedID = parseInt(splitURL[splitURL.length - 2])
     const selectedFilterName = splitURL[splitURL.length - 1]
 

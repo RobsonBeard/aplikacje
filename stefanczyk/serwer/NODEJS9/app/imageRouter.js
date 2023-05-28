@@ -38,8 +38,8 @@ const imageRouter = async (req, res) => {
     let statusCode = 200
     let returnedObj
 
-    let selectedID = req.url.split('/')
-    selectedID = parseInt(selectedID[selectedID.length - 1])
+    const splitURL = req.url.split('/')
+    const selectedID = parseInt(splitURL[splitURL.length - 1])
 
     const getoneResponse = await jsonController.getone(selectedID)
 
@@ -85,8 +85,8 @@ const imageRouter = async (req, res) => {
     let statusCode = 202
     let returnedObj
 
-    let selectedID = req.url.split('/')
-    selectedID = parseFloat(selectedID[selectedID.length - 1])
+    const splitURL = req.url.split('/')
+    const selectedID = parseInt(splitURL[splitURL.length - 1])
 
     const deleteResponse = await fileController.deleteImg(selectedID)
 
@@ -209,8 +209,8 @@ const imageRouter = async (req, res) => {
     let statusCode = 200
     let returnedObj
 
-    let selectedID = req.url.split('/')
-    selectedID = parseInt(selectedID[selectedID.length - 1])
+    const splitURL = req.url.split('/')
+    const selectedID = parseInt(splitURL[splitURL.length - 1])
 
     const getImgTagsResponse = await jsonController.getImgTags(selectedID)
 

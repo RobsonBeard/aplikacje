@@ -68,13 +68,11 @@ const convertTagsToObjects = () => {
       popularity: getRndInteger(1, 500)
     }
     convertedTagsArr.push(newTag)
-    setTagID(getTagID() + 1) // działa tak samo jak tagID++, tylko że w przeciwieństwie do tego właśnie działa
+    setTagID(getTagID() + 1)
   }
   logger.info('zmieniono surowe tagi na obiekty')
 }
 
-// const clearUserData = () => {
-//   usersArr.length = 0
-// } // nie wiem czy to jest potrzebne, bo na start serwera i tak sie resetuja userzy
+// na start serwera sie resetuja userzy
 
 module.exports = { getRequestData, removeAllFiles, convertTagsToObjects }

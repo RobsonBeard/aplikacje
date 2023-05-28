@@ -105,7 +105,6 @@ const usersRouter = async (req, res) => {
     res.end(JSON.stringify(returnedObj, null, 5))
   }
 }
-// TODO: zrobic logowanie a potem zastosowac sie do proponowanych statusow ze speca
 // ([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_\-\+\/=]*) // jwt regex
 
 module.exports = usersRouter

@@ -30,7 +30,7 @@ const getone = (selectedID) => {
           resolve({ success: true, message: 'operacja powiodła się', result: selectedImage[0] })
         } else {
           if (selectedImage.length !== 0) {
-            resolve({ success: false, message: 'jest więcej niż 1 zdjęcie o danym ID' })
+            resolve({ success: false, message: 'jest więcej niż 1 zdjęcie o danym ID' }) // w sumie to nie wiem, czy to jest potrzebne, moze zamiast filtera zrobic find i usunac te linijke
           } else {
             resolve({ success: false, message: 'nie ma zdjęcia o podanym id' })
           }
@@ -48,7 +48,6 @@ const update = async (modificationData) => {
   const gotImageJSON = await getone(modificationData.id)
   return new Promise((resolve, reject) => {
     try {
-      // logger.log(gotImageJSON.result)
       if (gotImageJSON.success) {
         const selectedImage = gotImageJSON.result
         selectedImage.history.push({ status: modificationData.status, timestamp: new Date().getTime() })
@@ -63,7 +62,6 @@ const update = async (modificationData) => {
     }
   })
 }
-// TODO: opcjonalnie przerobic duzo tych filterów z innych metod na findy
 const addTag = async (modificationData) => {
   const gotImageJSON = await getone(modificationData.id)
   return new Promise((resolve, reject) => {

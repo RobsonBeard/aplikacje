@@ -29,7 +29,7 @@ const getImageWithFilterByID = async (selectedID, selectedFilterName) => {
     try {
       if (gotImageJSON.success) {
         const selectedImage = gotImageJSON.result
-        const filterData = selectedImage.history.filter((elem) => elem.status === selectedFilterName) // wyjdzie tablica
+        const filterData = selectedImage.history.filter((elem) => elem.status === selectedFilterName) // wyjdzie tablica, mozna zrobic findem, jesli zalozenia sie nie zmienia(todo ponizej)
         if (filterData.length !== 0) {
           resolve({ success: true, message: 'operacja powiodła się', result: filterData[0].url }) // TODO: tu znowu zakładamy że jest tylko jedna wersja z danym filtrem, może przerobic w przyszlosci
         } else {

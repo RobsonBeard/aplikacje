@@ -2,7 +2,7 @@
 // ---
 //* modyfikacje zdjęć
 
-const sharp = require('sharp') // metody stosowania na https://www.npmjs.com/package/sharp
+const sharp = require('sharp') // https://www.npmjs.com/package/sharp
 const logger = require('tracer').colorConsole()
 
 const jsonController = require('./jsonController')
@@ -18,7 +18,7 @@ const getMetadata = async (selectedID) => {
           .metadata()
           .then((data) => {
             resolve({ success: true, message: 'operacja powiodła się', result: data })
-          }) // robię tak, żeby nie było asynca w środku promisa
+          }) // robię tak, żeby nie było asynca w środku promisa, bo standard sie o to denerwuje
       } else {
         resolve(gotImageJSON) // wtedy nie znalazł zdjęcia
       }
