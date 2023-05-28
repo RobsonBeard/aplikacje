@@ -5,6 +5,8 @@ const tagsRouter = require('./app/tagsRouter')
 const filtersRouter = require('./app/filtersRouter')
 const getfileRouter = require('./app/getfileRouter')
 const usersRouter = require('./app/userRouter')
+const profilesRouter = require('./app/profilesRouter')
+const logoutRouter = require('./app/logoutRouter')
 require('dotenv').config() // teraz używam pliku .env
 
 http
@@ -19,6 +21,10 @@ http
       await getfileRouter(req, res)
     } else if (req.url.search('/api/user') !== -1) { // users
       await usersRouter(req, res)
+    } else if (req.url.search('/api/profile') !== -1) { // profiles
+      await profilesRouter(req, res)
+    } else if (req.url.search('/api/logout') !== -1) { // logout
+      await logoutRouter(req, res)
     }
   })
 
