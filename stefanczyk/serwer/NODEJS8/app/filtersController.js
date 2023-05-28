@@ -68,7 +68,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'rotate':
@@ -82,7 +82,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'resize':
@@ -96,7 +96,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'reformat':
@@ -112,7 +112,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'crop':
@@ -126,7 +126,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'grayscale':

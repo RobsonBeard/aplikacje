@@ -8,22 +8,20 @@ POST http://localhost:3000/api/user/register HTTP/1.1
   "password": "password"
 }
 
-# TODO: dorobic te http ze speca i dzialac dalej, mozna usunac z apki te testy, przenioslem na dysk google, ale wrzucic je tez na githuba, sprawdzic czesc z filtrami i robic nowy ruter i kontroler
 
-### user potwierdza rejestrację konta z użyciem tokena
-GET http://localhost:3000/api/user/confirm/<token> HTTP/1.1
+### user potwierdza rejestrację konta z użyciem tokena, po confirm jest token
+GET http://localhost:3000/api/user/confirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6Im5hbWUiLCJsYXN0TmFtZSI6Imxhc3ROYW1lIiwiZW1haWwiOiJuYW1lQGVtYWlsLnBsIiwicGFzc3dvcmQiOiIkMmEkMTAkV1hqV2xMeU94aVRYZ1BBdEpGT1Y4LmNlL3dTV09pUTNEd0pmaGUxTzJPc2ZXUVM2M01UNWUiLCJjb25maXJtZWQiOmZhbHNlLCJpYXQiOjE2ODUyNjE1NzgsImV4cCI6MTY4NTI2MTYzOH0.TSaFF1IEbbGUDNjA8_lOLY4nKV6AhUq8NwK2lVYHWG8 HTTP/1.1
 
 
 ### logowanie z odesłaniem tokena po zalogowaniu - od tej pory każde żądanie zawiera token
 POST http://localhost:3000/api/user/login HTTP/1.1
 
 { 
-  "email": "email",
+  "email": "name@email.pl",
   "password": "password"
 }
 
 
 ###  pobranie jsona wszystkich userow - funkcja pomocnicza dla testów 
-GET http://localhost:3000/api/tags/5 HTTP/1.1
-
+GET http://localhost:3000/api/user HTTP/1.1
 

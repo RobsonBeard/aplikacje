@@ -13,11 +13,11 @@ http
       await imageRouter(req, res)
     } else if (req.url.search('/api/tags') !== -1) { // tags
       await tagsRouter(req, res)
-    } else if (req.url.search("/api/filters") != -1) { // filters
+    } else if (req.url.search('/api/filters') !== -1) { // filters
       await filtersRouter(req, res)
-    } else if (req.url.search("/api/getfile") != -1) { // getfile
+    } else if (req.url.search('/api/getfile') !== -1) { // getfile
       await getfileRouter(req, res)
-    } else if (req.url.search("/api/user") != -1) { // users
+    } else if (req.url.search('/api/user') !== -1) { // users
       await usersRouter(req, res)
     }
   })

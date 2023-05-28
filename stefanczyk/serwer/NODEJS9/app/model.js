@@ -65,4 +65,10 @@ const setUserID = (newID) => {
   userID = newID
 }
 
-module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr, usersArr, getTagID, setTagID, getFileID, setFileID, getUserID, setUserID }
+const confirmUserAccount = (ID) => {
+  const selectedUser = usersArr.find(elem => elem.id === ID)
+  selectedUser.confirmed = true
+  return selectedUser
+}
+
+module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr, usersArr, getTagID, setTagID, getFileID, setFileID, getUserID, setUserID, confirmUserAccount }

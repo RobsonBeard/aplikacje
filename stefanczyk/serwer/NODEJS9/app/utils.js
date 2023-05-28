@@ -3,7 +3,7 @@ const logger = require('tracer').colorConsole()
 const path = require('path')
 const fs = require('fs')
 
-const { convertedTagsArr, rawTagsArr, usersArr, getTagID, setTagID } = require('./model')
+const { convertedTagsArr, rawTagsArr, getTagID, setTagID } = require('./model')
 
 // funkcja parsująca dane z posta
 const getRequestData = async (req) => {

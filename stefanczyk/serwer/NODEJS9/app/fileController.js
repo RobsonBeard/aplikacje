@@ -77,10 +77,6 @@ const deleteImg = (selectedID) => {
           filename = filename[filename.length - 1]
           logger.log(`\nusunięto plik o nazwie ${filename} z katalogu ${selectedImage[0].album}\n`)
 
-          // imagesArr = imagesArr.filter((elem) => elem.id !== selectedID)
-          // let pom = imagesArr.filter((elem) => elem.id !== selectedID)
-          // imagesArr = pom //! ten filter po prostu nie działa, map tak samo
-
           for (let i = 0; i < imagesArr.length; i++) {
             if (imagesArr[i].id === selectedID) {
               imagesArr.splice(i, 1)

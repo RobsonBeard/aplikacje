@@ -1,8 +1,8 @@
 //* router tylko do api getfile
 
-const logger = require('tracer').colorConsole()
+// const logger = require('tracer').colorConsole()
 const fs = require('fs')
-const mime = require('mime-types');
+const mime = require('mime-types')
 
 const getfileController = require('./getfileController')
 
@@ -11,7 +11,7 @@ const getfileRouter = async (req, res) => {
     let statusCode = 200
     let returnedObj
 
-    let splitURL = req.url.split('/') //* zrobic tak w innych routerach
+    const splitURL = req.url.split('/') //* zrobic tak w innych routerach
     const selectedID = parseInt(splitURL[splitURL.length - 2])
     const selectedFilterName = splitURL[splitURL.length - 1]
 
@@ -37,7 +37,7 @@ const getfileRouter = async (req, res) => {
     let statusCode = 200
     let returnedObj
 
-    let splitURL = req.url.split('/')
+    const splitURL = req.url.split('/')
     const selectedID = parseInt(splitURL[splitURL.length - 1])
 
     const getImageByIDResponse = await getfileController.getImageByID(selectedID)
