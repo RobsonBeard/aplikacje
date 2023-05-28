@@ -236,7 +236,7 @@ const imageRouter = async (req, res) => {
     let statusCode = 200
     let returnedObj
 
-    let splitURL = req.url.split('/')
+    const splitURL = req.url.split('/')
     const selectedDirectoryName = splitURL[splitURL.length - 1]
 
     const getallFromDirectoryResponse = await jsonController.getallFromDirectory(selectedDirectoryName)

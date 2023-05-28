@@ -2,7 +2,7 @@
 // ---
 //* modyfikacje jsona opisującego stan plików
 
-const logger = require('tracer').colorConsole()
+// const logger = require('tracer').colorConsole()
 
 const { imagesArr, convertedTagsArr } = require('./model')
 
@@ -149,8 +149,7 @@ const getallFromDirectory = async (selectedDirectoryName) => {
 
         if (imagesFromDirectory.length !== 0) {
           resolve({ success: true, message: 'operacja powiodła się', result: imagesFromDirectory })
-        }
-        else {
+        } else {
           resolve({ success: false, message: 'w podanym albumie nie znajdują się żadne zdjęcia lub ścieżka jest zła' })
         }
       } else {

@@ -230,14 +230,15 @@ const imageRouter = async (req, res) => {
 
     res.writeHead(statusCode, { 'Content-type': 'application/json;charset=utf-8' })
     res.end(JSON.stringify(returnedObj, null, 5))
-  } else if (req.url.match(/\/api\/photos\/([^\/\s]+)/) && req.method === 'GET') { // get jsonów zdjęć z wybranego folderu
+  } else if (req.url.match(/\/api\/photos\/\S+/) && req.method === 'GET') { // get jsonów zdjęć z wybranego folderu
     // regex przyjmuje wszystkie znaki oprocz białych znaków i "/"
     // req.url.match(/\/api\/photos\/([a-zA-Z0-9]+)/)
+    // req.url.match(/\/api\/photos\/([^\s]+)/)
 
     let statusCode = 200
     let returnedObj
 
-    let splitURL = req.url.split('/')
+    const splitURL = req.url.split('/')
     const selectedDirectoryName = splitURL[splitURL.length - 1]
 
     const getallFromDirectoryResponse = await jsonController.getallFromDirectory(selectedDirectoryName)

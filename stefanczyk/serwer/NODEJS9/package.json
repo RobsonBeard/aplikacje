@@ -20,6 +20,7 @@
     "minimist": "^1.2.8",
     "mkdirp": "^1.0.4",
     "sharp": "^0.32.1",
+    "standard": "^17.0.0",
     "tinytim": "^0.1.1",
     "tracer": "^1.1.6",
     "underscore": "^1.4.4"

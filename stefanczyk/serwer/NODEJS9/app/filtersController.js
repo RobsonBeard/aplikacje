@@ -14,16 +14,11 @@ const getMetadata = async (selectedID) => {
       if (gotImageJSON.success) {
         const selectedImage = gotImageJSON.result
 
-        // const meta = await sharp(selectedImage.url)
-        //   .metadata()
-
-        // resolve({ success: true, message: 'test', result: meta }) //* probuje zrobic tak, zeby nie bylo asynca w srodku promisa, jeśli nie będzie działać, to wtedy nie robić promise, tylko na asynchronicznych funkcjach robić if/else
-
         sharp(selectedImage.url)
           .metadata()
           .then((data) => {
             resolve({ success: true, message: 'operacja powiodła się', result: data })
-          })
+          }) // robię tak, żeby nie było asynca w środku promisa
       } else {
         resolve(gotImageJSON) // wtedy nie znalazł zdjęcia
       }
@@ -35,7 +30,7 @@ const getMetadata = async (selectedID) => {
 
 const makeFilteredImage = async (modificationData) => {
   const gotImageJSON = await jsonController.getone(modificationData.id)
-  return new Promise((resolve, reject) => { // TODO: sprawdzac czy zmienne zostaly ustawione
+  return new Promise((resolve, reject) => {
     try {
       if (gotImageJSON.success) {
         const selectedImage = gotImageJSON.result
@@ -68,7 +63,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'rotate':
@@ -82,7 +77,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'resize':
@@ -96,7 +91,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'reformat':
@@ -112,7 +107,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'crop':
@@ -126,7 +121,7 @@ const makeFilteredImage = async (modificationData) => {
                 })
                 .catch(error => logger.log(error))
             } else {
-              resolve({ success: false, message: `proszę wprowadzić odpowiednie dane` })
+              resolve({ success: false, message: 'proszę wprowadzić odpowiednie dane' })
             }
             break
           case 'grayscale':
