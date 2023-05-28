@@ -1,0 +1,27 @@
+### rejestracja usera, potrzebne jest name, lastName, email i password
+POST http://localhost:3000/api/user/register HTTP/1.1
+
+{
+  "name": "name",
+  "lastName": "lastName",
+  "email": "name2@email.pl",
+  "password": "password"
+}
+
+
+### user potwierdza rejestrację konta z użyciem tokena, po confirm jest token
+GET http://localhost:3000/api/user/confirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6Im5hbWUiLCJsYXN0TmFtZSI6Imxhc3ROYW1lIiwiZW1haWwiOiJuYW1lQGVtYWlsLnBsIiwicGFzc3dvcmQiOiIkMmEkMTAkdFNieGpxMFJCYXUxNHhBMU0uRTdTLldiU1VHQ2QvejZ5MXNTaU1paC8yd284L3VCTFRkMHkiLCJjb25maXJtZWQiOmZhbHNlLCJpYXQiOjE2ODUyNjQzMDAsImV4cCI6MTY4NTI2NDM2MH0.pE5feHbxx82AMFl7Lm8bb-BSQCocE0xjaYqmftUBJHw HTTP/1.1
+
+
+### logowanie z odesłaniem tokena po zalogowaniu - od tej pory każde żądanie zawiera token
+POST http://localhost:3000/api/user/login HTTP/1.1
+
+{ 
+  "email": "name2@email.pl",
+  "password": "password"
+}
+
+
+###  pobranie jsona wszystkich userow - funkcja pomocnicza dla testów 
+GET http://localhost:3000/api/user HTTP/1.1
+
