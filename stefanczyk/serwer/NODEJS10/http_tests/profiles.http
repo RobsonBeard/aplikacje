@@ -1,0 +1,31 @@
+### pobranie danych usera do wyświetlenia w profilu
+GET http://localhost:3000/api/profile HTTP/1.1
+Authorization: Bearer <token>
+
+
+### aktualizacja danych usera w jego profilu
+PATCH http://localhost:3000/api/profile HTTP/1.1
+Authorization: Bearer <token>
+
+{ 
+  "name": "name2",
+  "lastname": "lastname2"
+}
+
+### wysłanie zdjęcia profilowego
+POST http://localhost:3000/api/user/register HTTP/1.1
+Authorization: Bearer <token>
+Content-Type: multipart/form-data; boundary=----FormBoundary1234
+
+------FormBoundary1234
+Content-Disposition: form-data; name="file"; filename="input.png"
+Content-Type: image/png
+
+< ./input.png
+
+------FormBoundary1234
+Content-Disposition: form-data; name="album"
+Content-Type: text/plain
+
+album123
+------FormBoundary1234

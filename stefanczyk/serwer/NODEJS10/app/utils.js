@@ -2,6 +2,8 @@
 const logger = require('tracer').colorConsole()
 const path = require('path')
 const fs = require('fs')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const { convertedTagsArr, rawTagsArr, getTagID, setTagID } = require('./model')
 
@@ -75,4 +77,18 @@ const convertTagsToObjects = () => {
 
 // na start serwera sie resetuja userzy
 
-module.exports = { getRequestData, removeAllFiles, convertTagsToObjects }
+const verifyToken = (token) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const decoded = jwt.verify(token, process.env.SECRET_KEY)
+
+      resolve({ success: true, message: 'Token został potwierdzony', result: decoded })
+    } catch (error) {
+      logger.log(error.message)
+      resolve({ success: false, message: error.message })
+      // reject(error) //* nie wiem czy to jest zgodne z założeniami promise'a, żeby nie było rejecta, ale ten resolve dziala jak reject w zasadzie
+    }
+  })
+}
+
+module.exports = { getRequestData, removeAllFiles, convertTagsToObjects, verifyToken }
