@@ -2,12 +2,13 @@
 // ---
 //* użytkownicy
 
-const logger = require('tracer').colorConsole()
+// const logger = require('tracer').colorConsole()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const { usersArr, getUserID, setUserID, confirmUserAccount } = require('./model')
+const utils = require('./utils')
 
 // TODO: można wprowadzić statusy responsów ze speca z NODEJS9, dowiedzieć się, czy trzeba i czy są potrzebne
 
@@ -48,18 +49,19 @@ const register = (userData) => {
   })
 }
 
-const confirmUser = (token) => {
+const confirmUser = async (token) => {
+  const decoded = await utils.verifyToken(token)
   return new Promise((resolve, reject) => {
     try {
-      const decoded = jwt.verify(token, process.env.SECRET_KEY)
+      if (decoded.success) {
+        const userAccount = confirmUserAccount(decoded.result.id) // TODO: można potwierdzić to samo konto więcej niż 1 raz, można to poprawić
 
-      const userAccount = confirmUserAccount(decoded.id)
-
-      resolve({ success: true, message: 'Konto zostało potwierdzone', result: userAccount })
+        resolve({ success: true, message: 'Konto zostało potwierdzone', result: userAccount })
+      } else {
+        resolve(decoded) // wtedy jest coś nie tak z tokenem
+      }
     } catch (error) {
-      logger.log(error.message)
-      resolve({ success: false, message: error.message })
-      // reject(error) //* nie wiem czy to jest zgodne z założeniami promise'a, żeby nie było rejecta, ale ten resolve dziala jak reject w zasadzie
+      reject(error)
     }
   })
 }
@@ -74,8 +76,9 @@ const login = (loginData) => {
             const decryptedPassword = bcrypt.compareSync(loginData.password, user.password)
             if (decryptedPassword) {
               // TODO: o co chodzi z tym tworzeniem tokena w tym miejscu? czekam na odpowiedz antka
+              // chyba ze w profilach juz cały czas korzystac z tokena
               const expireTime = '5m'
-              const token = jwt.sign(loginData, process.env.SECRET_KEY, { expiresIn: expireTime })
+              const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: expireTime }) // ? tutaj logindata w tokenie?
               resolve({ success: true, message: 'zalogwano się', result: token })
             } else {
               resolve({ success: false, message: 'podano złe hasło' })
