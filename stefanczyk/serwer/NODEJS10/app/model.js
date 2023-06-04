@@ -71,4 +71,13 @@ const confirmUserAccount = (ID) => {
   return selectedUser
 }
 
-module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr, usersArr, getTagID, setTagID, getFileID, setFileID, getUserID, setUserID, confirmUserAccount }
+const modifyUserAccount = (modifyData) => {
+  const selectedUser = usersArr.find(elem => elem.id === modifyData.id)
+  selectedUser.name = modifyData.name
+  selectedUser.lastName = modifyData.lastName
+  return selectedUser
+}
+
+const tokenBlacklist = []
+
+module.exports = { imagesArr, rawTagsArr, fileID, tagID, convertedTagsArr, usersArr, tokenBlacklist, getTagID, setTagID, getFileID, setFileID, getUserID, setUserID, confirmUserAccount, modifyUserAccount }

@@ -12,9 +12,9 @@ Content-Type: image/png
 Content-Disposition: form-data; name="album"
 Content-Type: text/plain
 
-album123
+album
 ------FormBoundary1234
-
+# tu wyzej jest nazwa albumu, nazwa albumu === id usera
 
 ### get jsona wszystkich zdjęć
 GET http://localhost:3000/api/photos HTTP/1.1

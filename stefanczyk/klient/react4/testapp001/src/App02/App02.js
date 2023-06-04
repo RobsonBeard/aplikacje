@@ -3,20 +3,20 @@ import Item02 from './Item02'
 
 const data = [
   {
-    title: "REACTJS",
-    info: "easy"
+    title: 'REACTJS',
+    info: 'easy'
   },
   {
-    title: "EXPRESSJS",
-    info: "lightweight"
+    title: 'EXPRESSJS',
+    info: 'lightweight'
   },
   {
-    title: "NEXTJS",
-    info: "serverside"
+    title: 'NEXTJS',
+    info: 'serverside'
   }
 ]
 
-let itemki = data.map((elem, i) => {
+const itemki = data.map((elem, i) => {
   return <Item02 title={elem.title} info={elem.info} key={i} />
 })
 
@@ -28,7 +28,7 @@ const App2 = () => {
         {itemki}
       </div>
     </div>
-  );
+  )
 }
 
-export default App2;
+export default App2

@@ -8,20 +8,20 @@ const logger = require('tracer').colorConsole()
 const formidable = require('formidable')
 
 const { imagesArr, getFileID, setFileID } = require('./model')
+const jsonController = require('./jsonController')
 
 const addImg = (req) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => { // TODO: można zmienić przesył plików tak, żeby też nie wymagał podania nazwy albumu. wtedy będziemy brać nazwę albumu zawsze z tokena (id usera)
     try {
       const form = formidable({})
       form.multiples = true
       form.keepExtensions = true
       form.uploadDir = __dirname //* bez tego jest błąd polegający na tym, że nie da się robić rename pomiędzy dyskami
-
       form.parse(req, (error, fields, files) => {
         if (error) throw error
         const pathname = path.join(__dirname, '/upload', `/${fields.album}`)
-        let filename = files.file.path.split('\\')
-        filename = filename[filename.length - 1]
+        const splitURL = files.file.path.split('\\')
+        const filename = splitURL[splitURL.length - 1]
 
         const renameFile = () => {
           fs.rename(files.file.path, path.join(pathname, `/${filename}`), error => {
@@ -37,7 +37,7 @@ const addImg = (req) => {
           })
         } else {
           renameFile()
-          logger.info(`katalog ${fields.album} już istnieje`)
+          // logger.info(`katalog ${fields.album} już istnieje`)
         }
 
         const fileData = {
@@ -66,33 +66,27 @@ const addImg = (req) => {
   })
 }
 
-const deleteImg = (selectedID) => {
+const deleteImg = async (selectedID) => {
+  const gotImageJSON = await jsonController.getone(selectedID)
   return new Promise((resolve, reject) => {
     try {
-      if (imagesArr.length !== 0) {
-        const selectedImage = imagesArr.filter((elem) => elem.id === selectedID) //* wyjdzie tablica
-        if (selectedImage.length === 1) {
-          fs.unlinkSync(selectedImage[0].url)
-          let filename = selectedImage[0].url.split('\\')
-          filename = filename[filename.length - 1]
-          logger.log(`\nusunięto plik o nazwie ${filename} z katalogu ${selectedImage[0].album}\n`)
+      if (gotImageJSON.success) {
+        const selectedImage = gotImageJSON.result
 
-          for (let i = 0; i < imagesArr.length; i++) {
-            if (imagesArr[i].id === selectedID) {
-              imagesArr.splice(i, 1)
-            }
-          }
+        fs.unlinkSync(selectedImage.url)
+        const splitURL = selectedImage.url.split('\\')
+        const filename = splitURL[splitURL.length - 1]
+        logger.log(`\nusunięto plik o nazwie ${filename} z katalogu ${selectedImage.album}\n`)
 
-          resolve({ success: true, message: 'usunięto plik' })
-        } else {
-          if (selectedImage.length !== 0) {
-            resolve({ success: false, message: 'jest więcej niż 1 plik o danym ID' })
-          } else {
-            resolve({ success: false, message: 'nie ma zdjęcia o podanym id' })
+        for (let i = 0; i < imagesArr.length; i++) {
+          if (imagesArr[i].id === selectedID) {
+            imagesArr.splice(i, 1)
           }
         }
+
+        resolve({ success: true, message: 'usunięto plik' })
       } else {
-        resolve({ success: false, message: 'nie zapisano żadnych zdjęć lub tablica danych jest pusta' })
+        resolve(gotImageJSON)
       }
     } catch (error) {
       reject(error)

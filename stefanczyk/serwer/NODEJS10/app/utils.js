@@ -4,8 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-
-const { convertedTagsArr, rawTagsArr, getTagID, setTagID } = require('./model')
+const { convertedTagsArr, rawTagsArr, tokenBlacklist, getTagID, setTagID } = require('./model')
 
 // funkcja parsująca dane z posta
 const getRequestData = async (req) => {
@@ -74,15 +73,17 @@ const convertTagsToObjects = () => {
   }
   logger.info('zmieniono surowe tagi na obiekty')
 }
-
 // na start serwera sie resetuja userzy
 
 const verifyToken = (token) => {
   return new Promise((resolve, reject) => {
     try {
       const decoded = jwt.verify(token, process.env.SECRET_KEY)
-
-      resolve({ success: true, message: 'Token został potwierdzony', result: decoded })
+      if (tokenBlacklist.find(elem => elem === token) === undefined) {
+        resolve({ success: true, message: 'Token został potwierdzony', result: decoded })
+      } else {
+        resolve({ success: false, message: 'Token jest na czarnej liście' })
+      }
     } catch (error) {
       logger.log(error.message)
       resolve({ success: false, message: error.message })
