@@ -31,12 +31,12 @@ const register = (userData) => {
           usersArr.push(userObj)
           setUserID(getUserID() + 1)
 
-          const expireTime = '1m' //! uwaga - po resecie serwera token nadal może być aktywny, zawierać ID i potwierdzić konto nieprawidłowego użytkownika, więc uważać na expire time
+          const expireTime = '10m' //! uwaga - po resecie serwera token nadal może być aktywny, zawierać ID i potwierdzić konto nieprawidłowego użytkownika, więc uważać na expire time
           const token = jwt.sign(userObj, process.env.SECRET_KEY, { expiresIn: expireTime })
 
           // TODO: chciałbym, żeby po wygaśnięciu tokena można było podjąć próbę rejestracji jeszcze raz, może przerobić to tak, żeby od razu nie dodawać do usersArr, tylko dopiero po potwierdzeniu, przemyśleć
 
-          resolve({ success: true, message: `Pomyślnie zarejestrowano się! Skopiuj poniższy link do przeglądarki w celu potwierdzenia konta: http://localhost:${process.env.APP_PORT}/api/user/confirm/${token} Uwaga: link jest ważny przez ${expireTime}`, result: userObj })
+          resolve({ success: true, message: `Pomyślnie zarejestrowano się! Skopiuj poniższy link do przeglądarki w celu potwierdzenia konta. Uwaga! Link jest ważny przez ${expireTime}.`, link: `http://localhost:${process.env.APP_PORT}/api/user/confirm/${token}`, result: userObj })
         } else {
           resolve({ success: false, message: 'podano powtarzający się mail' })
         }

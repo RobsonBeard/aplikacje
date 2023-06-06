@@ -18,7 +18,8 @@ const usersRouter = async (req, res) => {
       returnedObj = {
         status: statusCode,
         message: registerResponse.message,
-        result: registerResponse.result
+        result: registerResponse.result,
+        link: registerResponse.link
       }
     } else {
       statusCode = 400

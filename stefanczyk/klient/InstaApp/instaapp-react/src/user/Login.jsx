@@ -1,37 +1,34 @@
 import { useState } from 'react'
-import { Input, InputGroup, InputRightElement, Button, Alert, AlertIcon, AlertTitle, AlertDescription, CloseButton, Link } from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { Input, InputGroup, InputRightElement, Button, Alert, AlertIcon, AlertTitle, AlertDescription, CloseButton } from '@chakra-ui/react'
+
 // event.preventDefault()
 
-const Register = () => {
-  const [name, setName] = useState('')
-  const [lastName, setLastName] = useState('')
+const Login = ({ setToken }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const [showPass, setShowPass] = useState(false)
 
-  const [success, setSuccess] = useState('')
+  // const [success, setSuccess] = useState('') // nie wiem czy tego na razie uzywac, bo chce przekierowac do innej strony
   const [error, setError] = useState('')
 
-  const [confirmLink, setConfirmLink] = useState('')
-
-  const registerUser = async (e) => {
+  const loginUser = async (e) => {
     e.preventDefault()
     const body = JSON.stringify({
-      name, lastName, email, password
+      email, password
     })
     try {
       const headers = { 'Content-Type': 'application/json' }
-      const response = await fetch('http://localhost:5000/api/user/register', { method: 'POST', headers, body }) // tu ma być nasze IP z cmd
+      const response = await fetch('http://localhost:5000/api/user/login', { method: 'POST', headers, body }) // tu ma być nasze IP z cmd
       const result = await response.json()
       console.log(result)
       if (result.status.toString()[0] === '4') { // jeśli status zaczyna się na 4, to wyświetl błąd
-        setSuccess('')
+        // setSuccess('')
         setError(result.message)
       } else {
-        setSuccess(result.message)
-        setConfirmLink(result.link)
+        // setSuccess(result.message)
+        // setConfirmLink(result.link)
+        setToken(result.result) // tu potem dac maxage z serwera?
         setError('')
       }
     } catch (error) {
@@ -41,9 +38,7 @@ const Register = () => {
 
   return (
     <>
-      <form onSubmit={(e) => registerUser(e)}>
-        <Input required placeholder='Name' onChange={(e) => setName(e.target.value)} />
-        <Input required placeholder='Last Name' onChange={(e) => setLastName(e.target.value)} />
+      <form onSubmit={(e) => loginUser(e)}>
         <Input type='email' required placeholder='E-mail' onChange={(e) => setEmail(e.target.value)} />
         <InputGroup>
           <Input type={showPass ? 'text' : 'password'} required placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
@@ -57,21 +52,6 @@ const Register = () => {
         </InputGroup>
         <Button type='submit'>Submit</Button>
       </form>
-      {
-        success !== '' && (
-          <Alert status='success'>
-            <AlertIcon />
-            <AlertTitle>Successfully registered!</AlertTitle>
-            <AlertDescription>
-              <p>{success}</p>
-              <Link href={confirmLink} isExternal>
-                Click <ExternalLinkIcon />
-              </Link>
-            </AlertDescription>
-            <CloseButton onClick={() => { setSuccess('') }} />
-          </Alert>
-        )
-      }
       {
         error !== '' && (
           <Alert status='error'>
@@ -88,4 +68,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Login

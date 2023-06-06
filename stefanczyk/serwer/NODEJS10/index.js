@@ -11,10 +11,16 @@ require('dotenv').config() // teraz używam pliku .env
 
 http
   .createServer(async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // const origin = req.headers.origin ? req.headers.origin : '*'
+
+    res.setHeader('Access-Control-Allow-Origin', '*'); // origin
     res.setHeader('Access-Control-Request-Method', '*');
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PATCH, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*'); // X-Requested-With,content-type
+    // res.setHeader('Access-Control-Allow-Credentials', true)
+
+    // logger.log(req.headers)
 
     if (req.method === 'OPTIONS') {
       res.writeHead(200);
