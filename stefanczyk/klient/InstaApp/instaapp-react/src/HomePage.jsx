@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import Publication from './Publication'
+import { Heading, Stack } from '@chakra-ui/react'
 
 const HomePage = () => {
   const [imagesArr, setImagesArr] = useState([])
@@ -19,7 +21,12 @@ const HomePage = () => {
   }, [])
 
   return (
-    <>{imagesArr && imagesArr.map((elem, i) => { return <img src={`http://localhost:3000/api/getfile/${elem.id}`} key={i} /> })}</>
+    <Stack direction='column' gap='15px'>
+      {imagesArr
+        ? imagesArr.map((elem, i) => { return <Publication imgSrc={`http://localhost:3000/api/getfile/${elem.id}`} key={i} /> })
+
+        : <Heading>We're waiting for your uploads!</Heading>}
+    </Stack>
   )
 }
 

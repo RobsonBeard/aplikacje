@@ -11,6 +11,7 @@ const utils = require('./app/utils')
 require('dotenv').config()
 
 // TODO: poprawić nesting w projekcie, szczególnie controllery: przykład dobrego poprawienia jest w usercontroller
+// TODO: profilówki w osobnym folderze? żeby nie pojawiały się na home page'u
 
 http
   .createServer(async (req, res) => {
