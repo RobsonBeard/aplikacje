@@ -1,8 +1,10 @@
-import { Flex, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react'
+import { Flex, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useDisclosure } from '@chakra-ui/react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './HomePage'
+import PostImage from './actions/PostImage'
 
 const MainPage = ({ logout }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
       <Flex width='100%' height='10%' justify='center'>
@@ -11,7 +13,7 @@ const MainPage = ({ logout }) => {
             <BreadcrumbLink href='/'>Home</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <BreadcrumbLink>Upload an image</BreadcrumbLink>
+            <BreadcrumbLink onClick={onOpen}>Upload an image</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbItem>
             <BreadcrumbLink href='/account'>Account</BreadcrumbLink>
@@ -31,6 +33,8 @@ const MainPage = ({ logout }) => {
           <Route path='*' element={<p>Page not found</p>} />
         </Routes>
       </Router>
+
+      <PostImage open={isOpen} close={onClose} />
 
     </>
   )
