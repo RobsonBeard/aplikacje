@@ -10,7 +10,8 @@ const utils = require('./utils')
 
 utils.removeAllFiles()
 
-const imageRouter = async (req, res) => {
+const imageRouter = async (req, res, token) => {
+
   // get jsona wszystkich zdjęć
   if (req.url === '/api/photos' && req.method === 'GET') {
     let statusCode = 200

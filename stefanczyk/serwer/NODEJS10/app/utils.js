@@ -80,9 +80,9 @@ const verifyToken = (token) => {
     try {
       const decoded = jwt.verify(token, process.env.SECRET_KEY)
       if (tokenBlacklist.find(elem => elem === token) === undefined) {
-        resolve({ success: true, message: 'Token został potwierdzony', result: decoded })
+        resolve({ success: true, message: 'Token verified', result: decoded })
       } else {
-        resolve({ success: false, message: 'Token jest na czarnej liście' })
+        resolve({ success: false, message: 'Token is on the blacklist' })
       }
     } catch (error) {
       logger.log(error.message)
@@ -92,4 +92,16 @@ const verifyToken = (token) => {
   })
 }
 
-module.exports = { getRequestData, removeAllFiles, convertTagsToObjects, verifyToken }
+const decodeCookie = (req) => {
+  const parsedCookie = {}
+  if (req.headers.cookie) {
+    req.headers.cookie.split('; ').forEach(elem => { // pomiędzy kilkoma cookies jest średnik i spacja
+      const [cookieKey, cookieValue] = elem.split('=')
+      parsedCookie[cookieKey] = cookieValue
+    })
+  }
+  // logger.log(parsedCookie) // wychodzi obiekt, klucz to nazwa cookie, a wartosc to wartosc cookie
+  return parsedCookie
+}
+
+module.exports = { getRequestData, removeAllFiles, convertTagsToObjects, verifyToken, decodeCookie }

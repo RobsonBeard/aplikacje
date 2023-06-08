@@ -19,7 +19,7 @@ const Login = ({ setToken }) => {
     })
     try {
       const headers = { 'Content-Type': 'application/json' }
-      const response = await fetch('http://localhost:5000/api/user/login', { method: 'POST', headers, body }) // tu ma być nasze IP z cmd
+      const response = await fetch('http://localhost:3000/api/user/login', { method: 'POST', headers, body }) // tu ma być nasze IP z cmd
       const result = await response.json()
       console.log(result)
       if (result.status.toString()[0] === '4') { // jeśli status zaczyna się na 4, to wyświetl błąd
@@ -28,7 +28,7 @@ const Login = ({ setToken }) => {
       } else {
         // setSuccess(result.message)
         // setConfirmLink(result.link)
-        setToken(result.result) // tu potem dac maxage z serwera?
+        setToken(result.result, result.expireTimeInMiliseconds) // tu potem dac maxage z serwera?
         setError('')
       }
     } catch (error) {
@@ -38,7 +38,7 @@ const Login = ({ setToken }) => {
 
   return (
     <>
-      <form onSubmit={(e) => loginUser(e)}>
+      <form onSubmit={(e) => loginUser(e)} id='loginForm' name='loginForm'>
         <Input type='email' required placeholder='E-mail' onChange={(e) => setEmail(e.target.value)} />
         <InputGroup>
           <Input type={showPass ? 'text' : 'password'} required placeholder='Password' onChange={(e) => setPassword(e.target.value)} />

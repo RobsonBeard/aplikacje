@@ -2,9 +2,10 @@
 // ---
 //* użytkownicy
 
-// const logger = require('tracer').colorConsole()
+const logger = require('tracer').colorConsole()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const ms = require('ms')
 require('dotenv').config()
 
 const { usersArr, getUserID, setUserID, confirmUserAccount } = require('./model')
@@ -75,11 +76,11 @@ const login = (loginData) => {
           if (user.confirmed) {
             const decryptedPassword = bcrypt.compareSync(loginData.password, user.password)
             if (decryptedPassword) {
-              // TODO: o co chodzi z tym tworzeniem tokena w tym miejscu? czekam na odpowiedz antka
-              // chyba ze w profilach juz cały czas korzystac z tokena
-              const expireTime = '5m'
+              const expireTime = '10m'
+              // logger.log(typeof ms(expireTime)) // number
+
               const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: expireTime }) // ? tutaj logindata w tokenie?
-              resolve({ success: true, message: 'zalogwano się', result: token })
+              resolve({ success: true, message: 'zalogwano się', result: token, expireTimeInMiliseconds: ms(expireTime) })
             } else {
               resolve({ success: false, message: 'podano złe hasło' })
             }
@@ -98,18 +99,18 @@ const login = (loginData) => {
   })
 }
 
-const getUsers = () => {
-  return new Promise((resolve, reject) => {
-    try {
-      if (usersArr.length !== 0) {
-        resolve({ success: true, message: 'operacja powiodła się', result: usersArr })
-      } else {
-        resolve({ success: false, message: 'tablica userów jest pusta' })
-      }
-    } catch (error) {
-      reject(error)
-    }
-  })
-}
+// const getUsers = () => { // to była tylko testowa funkcja, powinna byc w miejscu, gdzie wymagany jest token - tutaj nie jest
+//   return new Promise((resolve, reject) => {
+//     try {
+//       if (usersArr.length !== 0) {
+//         resolve({ success: true, message: 'operacja powiodła się', result: usersArr })
+//       } else {
+//         resolve({ success: false, message: 'tablica userów jest pusta' })
+//       }
+//     } catch (error) {
+//       reject(error)
+//     }
+//   })
+// }
 
-module.exports = { register, confirmUser, login, getUsers }
+module.exports = { register, confirmUser, login }

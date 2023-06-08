@@ -1,5 +1,6 @@
 ### post image i nazwy albumu
-POST http://localhost:5000/api/photos HTTP/1.1
+POST http://localhost:3000/api/photos HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
 
 ------FormBoundary1234
@@ -18,14 +19,15 @@ album
 
 ### get jsona wszystkich zdjęć
 GET http://localhost:3000/api/photos HTTP/1.1
-
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
 
 ### get jsona jednego zdjęcia
 GET http://localhost:3000/api/photos/2 HTTP/1.1
-
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
 
 ### patch jsona
 PATCH http://localhost:3000/api/photos HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
 content-type: application/json
 
 {
@@ -36,10 +38,12 @@ content-type: application/json
 
 ### delete image i jsona
 DELETE http://localhost:3000/api/photos/4 HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
 
 
 ### aktualizacja danych zdjęcia o nowy tag, id to id zdjęcia, tag to istniejący tag
 PATCH http://localhost:3000/api/photos/tags HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
 
 {
   "id": 1,
@@ -51,6 +55,7 @@ PATCH http://localhost:3000/api/photos/tags HTTP/1.1
 
 ### aktualizacja danych zdjęcia o tablicę nowych tag-ów
 PATCH http://localhost:3000/api/photos/tags/mass HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
 
 {
   "id": 5,

@@ -9,11 +9,11 @@ function App () {
   const logout = () => {
     removeCookie('token')
   }
-  const setToken = (token, maxAge = 600) => {
-    setCookie('token', token, { maxAge })
+  const setToken = (token, maxAge) => {
+    setCookie('token', token, { maxAge: maxAge / 1000, sameSite: 'lax' })
     setTimeout(() => {
       logout()
-    }, maxAge * 1000) // po uplynieciu czasu cookie sie usunie, potem przesylac maxage z serwera?
+    }, maxAge) // po uplynieciu czasu cookie sie usunie, potem przesylac maxage z serwera?
   }
   return (
     <>
