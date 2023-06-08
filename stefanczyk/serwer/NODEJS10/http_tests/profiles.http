@@ -1,31 +1,26 @@
 ### pobranie danych usera do wyświetlenia w profilu
 GET http://localhost:3000/api/profile HTTP/1.1
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6Im5hbWUiLCJsYXN0TmFtZSI6Imxhc3ROYW1lIiwiZW1haWwiOiJuYW1lM0BlbWFpbC5wbCIsInBhc3N3b3JkIjoiJDJhJDEwJEgwRFFSbXBPUkpIa0lPRVJUZzhEaXVGUHk1NldpS3paR1ROcDlhR0F0Y0tlLlVkM1cvREl1IiwiY29uZmlybWVkIjp0cnVlLCJpYXQiOjE2ODU1MzEzMDgsImV4cCI6MTY4NTUzMTYwOH0.UgKGrs7kCdSijGHGxDnUYLwtGD8jf0FRQ7CVDrlhYks
 
 
 ### aktualizacja danych usera w jego profilu
 PATCH http://localhost:3000/api/profile HTTP/1.1
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6Im5hbWUiLCJsYXN0TmFtZSI6Imxhc3ROYW1lIiwiZW1haWwiOiJuYW1lM0BlbWFpbC5wbCIsInBhc3N3b3JkIjoiJDJhJDEwJEgwRFFSbXBPUkpIa0lPRVJUZzhEaXVGUHk1NldpS3paR1ROcDlhR0F0Y0tlLlVkM1cvREl1IiwiY29uZmlybWVkIjp0cnVlLCJpYXQiOjE2ODU1MzE0NzgsImV4cCI6MTY4NTUzMTc3OH0.3M9WqNTyVVDxsez1sw-7S8udxa5Jwv18_LrVq-HBJQg
 
 { 
-  "name": "name2",
-  "lastname": "lastname2"
+  "name": "name60",
+  "lastName": "lastName60"
 }
 
-### wysłanie zdjęcia profilowego
-POST http://localhost:3000/api/user/register HTTP/1.1
-Authorization: Bearer <token>
+### wysłanie zdjęcia profilowego, kolejność nagłówków jest tutaj ważna
+POST http://localhost:3000/api/profile HTTP/1.1
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJsYXN0TmFtZSI6Imxhc3ROYW1lIiwiZW1haWwiOiJuYW1lM0BlbWFpbC5wbCIsInBhc3N3b3JkIjoiJDJhJDEwJHNSVlN5QVJKZi9Zc2NLY0gwYVR0ai5CeVpKbTVpcjBSdVMxV2NVTmNJUTlZOC92YlZZcE1DIiwiY29uZmlybWVkIjp0cnVlLCJpYXQiOjE2ODU1MjY4OTEsImV4cCI6MTY4NTUyNzE5MX0.WsjqrA8jrpZ-aCx40rZXJQvDFrAZdyA06o13A70xESY
 
 ------FormBoundary1234
 Content-Disposition: form-data; name="file"; filename="input.png"
 Content-Type: image/png
 
-< ./input.png
+< ./input2.png
 
-------FormBoundary1234
-Content-Disposition: form-data; name="album"
-Content-Type: text/plain
-
-album123
 ------FormBoundary1234

@@ -3,8 +3,6 @@ import Item03 from './Item03'
 import { useState } from 'react' //*
 
 const App3 = () => {
-
-
   // visible - wartość do zmieniania za pomocą useState()
   // setVisible - funkcja dokonująca zmiany
   // true - początkowa wartość visible
@@ -28,7 +26,7 @@ const App3 = () => {
         <Item03 visible={visible} />
       </div>
     </div>
-  );
+  )
 }
 
-export default App3;
+export default App3

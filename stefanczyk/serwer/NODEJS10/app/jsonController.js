@@ -20,7 +20,6 @@ const getall = () => {
   }
   )
 }
-
 const getone = (selectedID) => {
   return new Promise((resolve, reject) => {
     try {

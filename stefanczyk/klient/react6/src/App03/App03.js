@@ -3,17 +3,16 @@ import Child from './Child'
 // import Details from './Details';
 // import Home from './Home';
 
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 const App = () => {
   const stworzLinki = () => {
-    let tablicaLinkow = []
+    const tablicaLinkow = []
     for (let i = 0; i < 50; i++) {
-      let linkPath = `/${i}`
+      const linkPath = `/${i}`
       tablicaLinkow.push(<Link to={linkPath} key={i}>PARAM = {i}</Link>)
-      tablicaLinkow.push(" ")
+      tablicaLinkow.push(' ')
     }
     return tablicaLinkow
   }
@@ -25,14 +24,14 @@ const App = () => {
       <Router>
         <div className='body-center'>
           <div className='header'>
-            My Application&nbsp;<Link to="/">MAIN</Link>
+            My Application&nbsp;<Link to='/'>MAIN</Link>
           </div>
           <div className='link-container'>
             {stworzLinki()}
           </div>
           <Routes>
-            <Route path="/:id" element={<Child />} />
-            <Route path="*" element={<h2>Path not found</h2>} />
+            <Route path='/:id' element={<Child />} />
+            <Route path='*' element={<h2>Path not found</h2>} />
           </Routes>
         </div>
       </Router>
@@ -44,7 +43,6 @@ const App = () => {
         <Link to="/details/1">Details/1</Link>
         <Link to="/details/2">Details/2</Link>
 
-
         <Routes>
           <Route path="/details/:id" element={<Details />} />
           <Route path="/details" element={<Details />} />
@@ -54,9 +52,9 @@ const App = () => {
       </Router> test - nic sie chyba nie stalo, dziwne */}
 
     </div>
-  );
+  )
 }
 // element <Routes> działa jak switch w js - szuka pierwszego elementu który pasuje do url-a, resztę pomija
 // dlatego ważna jest kolejność Route
 
-export default App;
+export default App
