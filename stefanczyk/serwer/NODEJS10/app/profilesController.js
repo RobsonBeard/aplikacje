@@ -33,14 +33,13 @@ const updateProfileData = async (userData, updateData) => {
 
       const userAccount = modifyUserAccount({ id: userData.id, ...updateData })
       resolve({ success: true, message: 'Pomyślnie zaktualizowano dane usera', result: userAccount })
-
     } catch (error) {
       reject(error)
     }
   })
 }
 
-const addProfilePicture = async (req, userData) => { //* teraz można dodawać ile zdjęć się chce do swojego folderu
+const addProfilePicture = async (req, userData) => {
   return new Promise((resolve, reject) => {
     try {
       const form = formidable({})
@@ -60,6 +59,7 @@ const addProfilePicture = async (req, userData) => { //* teraz można dodawać i
             logger.log(`\nstworzono plik o nazwie ${filename} w katalogu usera o ID ${userData.id}\n`)
           })
         }
+
         if (!fs.existsSync(pathname)) {
           fs.mkdir(pathname, (error) => {
             if (error) throw error
@@ -67,7 +67,6 @@ const addProfilePicture = async (req, userData) => { //* teraz można dodawać i
           })
         } else {
           renameFile()
-          // logger.info(`katalog ${fields.album} już istnieje`)
         }
 
         const fileData = {
@@ -89,7 +88,6 @@ const addProfilePicture = async (req, userData) => { //* teraz można dodawać i
 
         resolve({ success: true, message: 'stworzono plik', result: fileData })
       })
-
       //* uważać na asynchroniczność, ten form.parse sie dlugo robi
     } catch (error) {
       reject(error)

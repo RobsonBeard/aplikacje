@@ -10,23 +10,24 @@ const formidable = require('formidable')
 const { imagesArr, getFileID, setFileID } = require('./model')
 const jsonController = require('./jsonController')
 
-const addImg = (req) => {
-  return new Promise((resolve, reject) => { // TODO: można zmienić przesył plików tak, żeby też nie wymagał podania nazwy albumu. wtedy będziemy brać nazwę albumu zawsze z tokena (id usera)
+const addImg = (req, userData) => {
+  return new Promise((resolve, reject) => {
     try {
       const form = formidable({})
       form.multiples = true
       form.keepExtensions = true
       form.uploadDir = __dirname //* bez tego jest błąd polegający na tym, że nie da się robić rename pomiędzy dyskami
+
       form.parse(req, (error, fields, files) => {
         if (error) throw error
-        const pathname = path.join(__dirname, '/upload', `/${fields.album}`)
+        const pathname = path.join(__dirname, '/upload', `/${userData.id}`)
         const splitURL = files.file.path.split('\\')
         const filename = splitURL[splitURL.length - 1]
 
         const renameFile = () => {
           fs.rename(files.file.path, path.join(pathname, `/${filename}`), error => {
             if (error) throw error
-            logger.log(`\nstworzono plik o nazwie ${filename} w katalogu ${fields.album}\n`)
+            logger.log(`\nstworzono plik o nazwie ${filename} w katalogu usera o id ${userData.id}\n`)
           })
         }
 
@@ -37,12 +38,11 @@ const addImg = (req) => {
           })
         } else {
           renameFile()
-          // logger.info(`katalog ${fields.album} już istnieje`)
         }
 
         const fileData = {
           id: getFileID(),
-          album: fields.album,
+          album: userData.id,
           originalname: files.file.name,
           url: path.join(pathname, `/${filename}`),
           lastChange: 'original',

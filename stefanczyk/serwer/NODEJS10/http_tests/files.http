@@ -1,21 +1,15 @@
 ### post image i nazwy albumu
 POST http://localhost:3000/api/photos HTTP/1.1
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEiLCJsYXN0TmFtZSI6IjEiLCJlbWFpbCI6IjFAMSIsInBhc3N3b3JkIjoiJDJhJDEwJHg3cFJaMTQuTi91T2VpSFpTQ1luT3VqQnhvNTF6SmFaZGI3RnNqUnc0dlI3amVkcTZuZHA2IiwiY29uZmlybWVkIjp0cnVlLCJpYXQiOjE2ODYyMjYwNDksImV4cCI6MTY4NjIyNjY0OX0.WWhvItJlG9s83QyNBgRKi2ZwnYjsVy9VuONN-eel93s
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
 
 ------FormBoundary1234
 Content-Disposition: form-data; name="file"; filename="input.png"
 Content-Type: image/png
 
-< ./input.png
+< ../input.png
 
 ------FormBoundary1234
-Content-Disposition: form-data; name="album"
-Content-Type: text/plain
-
-album
-------FormBoundary1234
-# tu wyzej jest nazwa albumu, nazwa albumu === id usera
 
 ### get jsona wszystkich zdjęć
 GET http://localhost:3000/api/photos HTTP/1.1

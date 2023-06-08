@@ -10,8 +10,7 @@ const utils = require('./utils')
 
 utils.removeAllFiles()
 
-const imageRouter = async (req, res, token) => {
-
+const imageRouter = async (req, res, userData) => {
   // get jsona wszystkich zdjęć
   if (req.url === '/api/photos' && req.method === 'GET') {
     let statusCode = 200
@@ -64,7 +63,7 @@ const imageRouter = async (req, res, token) => {
     let statusCode = 201
     let returnedObj
 
-    const addResponse = await fileController.addImg(req)
+    const addResponse = await fileController.addImg(req, userData)
 
     if (addResponse.success) {
       returnedObj = {

@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { Input, InputGroup, InputRightElement, Button, Alert, AlertIcon, AlertTitle, AlertDescription, CloseButton } from '@chakra-ui/react'
 
-// event.preventDefault()
-
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -13,7 +11,7 @@ const Login = ({ setToken }) => {
   const [error, setError] = useState('')
 
   const loginUser = async (e) => {
-    e.preventDefault()
+    e.preventDefault() //* to wazne
     const body = JSON.stringify({
       email, password
     })
@@ -28,7 +26,7 @@ const Login = ({ setToken }) => {
       } else {
         // setSuccess(result.message)
         // setConfirmLink(result.link)
-        setToken(result.result, result.expireTimeInMiliseconds) // tu potem dac maxage z serwera?
+        setToken(result.result, result.expireTimeInMiliseconds)
         setError('')
       }
     } catch (error) {
@@ -39,9 +37,9 @@ const Login = ({ setToken }) => {
   return (
     <>
       <form onSubmit={(e) => loginUser(e)} id='loginForm' name='loginForm'>
-        <Input type='email' required placeholder='E-mail' onChange={(e) => setEmail(e.target.value)} />
+        <Input type='email' required placeholder='E-mail' name='email' id='email' autoComplete='email' onChange={(e) => setEmail(e.target.value)} />
         <InputGroup>
-          <Input type={showPass ? 'text' : 'password'} required placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+          <Input type={showPass ? 'text' : 'password'} required placeholder='Password' name='password' id='password' autoComplete='current-password' onChange={(e) => setPassword(e.target.value)} />
           <InputRightElement>
             <Button onClick={() => setShowPass(!showPass)}>
               {showPass ? 'Hide' : 'Show'}
@@ -56,7 +54,7 @@ const Login = ({ setToken }) => {
         error !== '' && (
           <Alert status='error'>
             <AlertIcon />
-            <AlertTitle>Failed to register</AlertTitle>
+            <AlertTitle>Failed to log in:</AlertTitle>
             <AlertDescription>{error}
 
             </AlertDescription>

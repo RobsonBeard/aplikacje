@@ -13,7 +13,7 @@ function App () {
     setCookie('token', token, { maxAge: maxAge / 1000, sameSite: 'lax' })
     setTimeout(() => {
       logout()
-    }, maxAge) // po uplynieciu czasu cookie sie usunie, potem przesylac maxage z serwera?
+    }, maxAge)
   }
   return (
     <>

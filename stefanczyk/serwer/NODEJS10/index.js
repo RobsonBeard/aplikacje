@@ -10,6 +10,8 @@ const profilesRouter = require('./app/profilesRouter')
 const utils = require('./app/utils')
 require('dotenv').config()
 
+// TODO: poprawić nesting w projekcie, szczególnie controllery: przykład dobrego poprawienia jest w usercontroller
+
 http
   .createServer(async (req, res) => {
     const origin = req.headers.origin ? req.headers.origin : '*'
@@ -57,7 +59,7 @@ http
       } else {
         // nie potrzebuje danych usera tam, gdzie ich nie używam, więc przekazuję zmienną tylko do wybranych ruterów, a potem controllerów
         if (req.url.search('/api/photos') !== -1) { // images
-          await imageRouter(req, res)
+          await imageRouter(req, res, decodedToken.result)
         } else if (req.url.search('/api/tags') !== -1) { // tags
           await tagsRouter(req, res)
         } else if (req.url.search('/api/filters') !== -1) { // filters
