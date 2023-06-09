@@ -95,18 +95,4 @@ const login = (loginData) => {
   })
 }
 
-// const getUsers = () => { // to była tylko testowa funkcja, powinna byc w miejscu, gdzie wymagany jest token - tutaj nie jest
-//   return new Promise((resolve, reject) => {
-//     try {
-//       if (usersArr.length !== 0) {
-//         resolve({ success: true, message: 'operacja powiodła się', result: usersArr })
-//       } else {
-//         resolve({ success: false, message: 'tablica userów jest pusta' })
-//       }
-//     } catch (error) {
-//       reject(error)
-//     }
-//   })
-// }
-
 module.exports = { register, confirmUser, login }

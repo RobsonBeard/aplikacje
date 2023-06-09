@@ -1,9 +1,11 @@
 ### dane o zdjęciu, potrzebne do jego obróbki (metadata: width, height itp.)
 GET http://localhost:3000/api/filters/metadata/1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEiLCJsYXN0TmFtZSI6IjEiLCJlbWFpbCI6IjFAMSIsInBhc3N3b3JkIjoiJDJhJDEwJHg3cFJaMTQuTi91T2VpSFpTQ1luT3VqQnhvNTF6SmFaZGI3RnNqUnc0dlI3amVkcTZuZHA2IiwiY29uZmlybWVkIjp0cnVlLCJpYXQiOjE2ODYyMjYwNDksImV4cCI6MTY4NjIyNjY0OX0.WWhvItJlG9s83QyNBgRKi2ZwnYjsVy9VuONN-eel93s
 
 
 ### użycie konkretnego filtra, dane o nim przekazujemy w jsonie, łącznie 9 testowanych: tint, rotate, crop, flip, flop, grayscale, resize, reformat, negate 
 PATCH http://localhost:3000/api/filters 
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEiLCJsYXN0TmFtZSI6IjEiLCJlbWFpbCI6IjFAMSIsInBhc3N3b3JkIjoiJDJhJDEwJHg3cFJaMTQuTi91T2VpSFpTQ1luT3VqQnhvNTF6SmFaZGI3RnNqUnc0dlI3amVkcTZuZHA2IiwiY29uZmlybWVkIjp0cnVlLCJpYXQiOjE2ODYyMjYwNDksImV4cCI6MTY4NjIyNjY0OX0.WWhvItJlG9s83QyNBgRKi2ZwnYjsVy9VuONN-eel93s
 
 # {
 #   "id": 1,

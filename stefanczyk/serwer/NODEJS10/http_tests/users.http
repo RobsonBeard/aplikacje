@@ -20,8 +20,3 @@ POST http://localhost:3000/api/user/login HTTP/1.1
   "email": "name3@email.pl",
   "password": "password"
 }
-
-
-###  pobranie jsona wszystkich userow - funkcja pomocnicza dla testów 
-GET http://localhost:3000/api/user HTTP/1.1
-

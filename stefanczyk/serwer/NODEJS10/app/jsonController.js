@@ -20,6 +20,7 @@ const getall = () => {
   }
   )
 }
+
 const getone = (selectedID) => {
   return new Promise((resolve, reject) => {
     try {
@@ -61,6 +62,7 @@ const update = async (modificationData) => {
     }
   })
 }
+
 const addTag = async (modificationData) => {
   const gotImageJSON = await getone(modificationData.id)
   return new Promise((resolve, reject) => {
@@ -88,6 +90,7 @@ const addTag = async (modificationData) => {
     }
   })
 }
+
 const addTagsArr = async (modificationData) => {
   const gotImageJSON = await getone(modificationData.id)
   return new Promise((resolve, reject) => {
