@@ -30,7 +30,7 @@ const getone = (selectedID) => {
       if (selectedImage === undefined) {
         resolve({ success: false, message: 'nie ma zdjęcia o podanym id' })
       }
-      resolve({ success: true, message: 'operacja powiodła się', result: selectedImage[0] })
+      resolve({ success: true, message: 'operacja powiodła się', result: selectedImage })
     } catch (error) {
       reject(error)
     }
