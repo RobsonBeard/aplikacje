@@ -70,24 +70,22 @@ const deleteImg = async (selectedID) => {
   const gotImageJSON = await jsonController.getone(selectedID)
   return new Promise((resolve, reject) => {
     try {
-      if (gotImageJSON.success) {
-        const selectedImage = gotImageJSON.result
-
-        fs.unlinkSync(selectedImage.url)
-        const splitURL = selectedImage.url.split('\\')
-        const filename = splitURL[splitURL.length - 1]
-        logger.log(`\nusunięto plik o nazwie ${filename} z katalogu ${selectedImage.album}\n`)
-
-        for (let i = 0; i < imagesArr.length; i++) {
-          if (imagesArr[i].id === selectedID) {
-            imagesArr.splice(i, 1)
-          }
-        }
-
-        resolve({ success: true, message: 'usunięto plik' })
-      } else {
+      if (!gotImageJSON.success) {
         resolve(gotImageJSON)
       }
+      const selectedImage = gotImageJSON.result
+
+      fs.unlinkSync(selectedImage.url)
+      const splitURL = selectedImage.url.split('\\')
+      const filename = splitURL[splitURL.length - 1]
+      logger.log(`\nusunięto plik o nazwie ${filename} z katalogu ${selectedImage.album}\n`)
+
+      for (let i = 0; i < imagesArr.length; i++) {
+        if (imagesArr[i].id === selectedID) {
+          imagesArr.splice(i, 1)
+        }
+      }
+      resolve({ success: true, message: 'usunięto plik' })
     } catch (error) {
       reject(error)
     }

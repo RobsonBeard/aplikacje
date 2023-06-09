@@ -12,9 +12,9 @@ Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEiLCJsY
   "lastName": "lastName60"
 }
 
-### wysłanie zdjęcia profilowego, kolejność nagłówków jest tutaj ważna
+### wysłanie zdjęcia profilowego
 POST http://localhost:3000/api/profile HTTP/1.1
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEiLCJsYXN0TmFtZSI6IjEiLCJlbWFpbCI6IjFAMSIsInBhc3N3b3JkIjoiJDJhJDEwJHg3cFJaMTQuTi91T2VpSFpTQ1luT3VqQnhvNTF6SmFaZGI3RnNqUnc0dlI3amVkcTZuZHA2IiwiY29uZmlybWVkIjp0cnVlLCJpYXQiOjE2ODYyMjYwNDksImV4cCI6MTY4NjIyNjY0OX0.WWhvItJlG9s83QyNBgRKi2ZwnYjsVy9VuONN-eel93s
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkbmZpZTFPU3U3NXRLeldiU3k4WEZidUx2Tm84VUQ2dko2bGpnd24ydUpHL2NRRVRtZHMvclciLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjMxODQzNiwiZXhwIjoxNjg2MzE5MDM2fQ.IjVAK1Fi2aV65lLe3osuLA4CF_8BSu0O0KLkFhP-njY
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
 
 ------FormBoundary1234

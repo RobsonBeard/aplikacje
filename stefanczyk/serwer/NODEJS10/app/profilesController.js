@@ -49,14 +49,14 @@ const addProfilePicture = async (req, userData) => {
 
       form.parse(req, (error, fields, files) => {
         if (error) throw error
-        const pathname = path.join(__dirname, '/upload', `/${userData.id}`)
+        const pathname = path.join(__dirname, '/profilepictures', `/${userData.id}`)
         const splitURL = files.file.path.split('\\')
         const filename = splitURL[splitURL.length - 1]
 
         const renameFile = () => {
           fs.rename(files.file.path, path.join(pathname, `/${filename}`), error => {
             if (error) throw error
-            logger.log(`\nstworzono plik o nazwie ${filename} w katalogu usera o ID ${userData.id}\n`)
+            logger.log(`\nwstawiono zdjęcie profilowe o nazwie ${filename} w katalogu usera o ID ${userData.id}\n`)
           })
         }
 

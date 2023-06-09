@@ -79,11 +79,10 @@ const verifyToken = (token) => {
   return new Promise((resolve, reject) => {
     try {
       const decoded = jwt.verify(token, process.env.SECRET_KEY)
-      if (tokenBlacklist.find(elem => elem === token) === undefined) {
-        resolve({ success: true, message: 'Token verified', result: decoded })
-      } else {
+      if (tokenBlacklist.find(elem => elem === token) !== undefined) {
         resolve({ success: false, message: 'Token is on the blacklist' })
       }
+      resolve({ success: true, message: 'Token verified', result: decoded })
     } catch (error) {
       logger.log(error.message)
       resolve({ success: false, message: error.message })
