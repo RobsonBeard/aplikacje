@@ -1,27 +1,29 @@
 ### dane o zdjęciu, potrzebne do jego obróbki (metadata: width, height itp.)
 GET http://localhost:3000/api/filters/metadata/1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkd2FXSTFaMzVpcFBHejNmb0tuWXh1ZWtjNmdLRWxsV3JTeklJaTlwRks1VTBwbzhQSTg1YWUiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjMxNzE1MywiZXhwIjoxNjg2MzE3NzUzfQ.QZvPugZzWUjRTHN5zlQBpPtm1zyQyIN9x9sil-GPwVg
 
 
 ### użycie konkretnego filtra, dane o nim przekazujemy w jsonie, łącznie 9 testowanych: tint, rotate, crop, flip, flop, grayscale, resize, reformat, negate 
 PATCH http://localhost:3000/api/filters 
-
-# {
-#   "id": 1,
-#   "status": "tint",
-#   "params": {
-#     "red": 255, 
-#     "green": 0, 
-#     "blue": 0
-#   }
-# }
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkd2FXSTFaMzVpcFBHejNmb0tuWXh1ZWtjNmdLRWxsV3JTeklJaTlwRks1VTBwbzhQSTg1YWUiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjMxNzE1MywiZXhwIjoxNjg2MzE3NzUzfQ.QZvPugZzWUjRTHN5zlQBpPtm1zyQyIN9x9sil-GPwVg
 
 {
   "id": 1,
-  "status": "rotate",
+  "status": "tint",
   "params": {
-    "degrees": 90
+    "red": 255, 
+    "green": 0, 
+    "blue": 0
   }
 }
+
+# {
+#   "id": 1,
+#   "status": "rotate",
+#   "params": {
+#     "degrees": 90
+#   }
+# }
 
 # {
 #   "id": 3,

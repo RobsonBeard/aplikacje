@@ -84,29 +84,6 @@ const usersRouter = async (req, res) => {
     res.writeHead(statusCode, { 'Content-type': 'application/json;charset=utf-8' })
     res.end(JSON.stringify(returnedObj, null, 5))
   }
-  // else if (req.url === '/api/user' && req.method === 'GET') { // pobranie jsona tablicy userow
-  //   let statusCode = 200 // TODO: przeniesc to do jakiegos innego pliku wymagajacego tokena
-  //   let returnedObj
-
-  //   const getUsersResponse = await userController.getUsers()
-
-  //   if (getUsersResponse.success) {
-  //     returnedObj = {
-  //       status: statusCode,
-  //       message: getUsersResponse.message,
-  //       result: getUsersResponse.result
-  //     }
-  //   } else {
-  //     statusCode = 404
-  //     returnedObj = {
-  //       status: statusCode,
-  //       message: getUsersResponse.message
-  //     }
-  //   }
-
-  //   res.writeHead(statusCode, { 'Content-type': 'application/json;charset=utf-8' })
-  //   res.end(JSON.stringify(returnedObj, null, 5))
-  // }
 }
 // ([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_\-\+\/=]*) // jwt regex
 

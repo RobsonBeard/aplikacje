@@ -6,18 +6,21 @@ const filtersRouter = require('./app/filtersRouter')
 const getfileRouter = require('./app/getfileRouter')
 const usersRouter = require('./app/userRouter')
 const profilesRouter = require('./app/profilesRouter')
-// const logoutRouter = require('./app/logoutRouter')
+const userdataRouter = require('./app/userdataRouter')
 const utils = require('./app/utils')
 require('dotenv').config()
+
+// TODO: komunikaty przetłumaczyć na angielski
+// TODO: może zrobić tak, żeby było tylko jedno zdjęcie profilowe w folderze z id
 
 http
   .createServer(async (req, res) => {
     const origin = req.headers.origin ? req.headers.origin : '*'
 
-    res.setHeader('Access-Control-Allow-Origin', origin) // origin || '*', bez origin wywala CORS nie wiem czemu
+    res.setHeader('Access-Control-Allow-Origin', origin) // origin || '*', z gwiazdką wywala CORS nie wiem czemu
     res.setHeader('Access-Control-Request-Method', '*')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PATCH, PUT, DELETE')
-    res.setHeader('Access-Control-Allow-Headers', '*') // X-Requested-With,content-type
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type') // 'X-Requested-With,content-type' || '*' , z gwiazdką wywala CORS nie wiem czemu
     res.setHeader('Access-Control-Allow-Credentials', true)
 
     // logger.log(req.headers)
@@ -57,7 +60,7 @@ http
       } else {
         // nie potrzebuje danych usera tam, gdzie ich nie używam, więc przekazuję zmienną tylko do wybranych ruterów, a potem controllerów
         if (req.url.search('/api/photos') !== -1) { // images
-          await imageRouter(req, res)
+          await imageRouter(req, res, decodedToken.result)
         } else if (req.url.search('/api/tags') !== -1) { // tags
           await tagsRouter(req, res)
         } else if (req.url.search('/api/filters') !== -1) { // filters
@@ -66,14 +69,9 @@ http
           await getfileRouter(req, res)
         } else if (req.url.search('/api/profile') !== -1) { // profiles
           await profilesRouter(req, res, decodedToken.result)
-        } // eslint-disable-line brace-style
-        // else if (req.url.search('/api/user') !== -1) { // users
-        // await usersRouter(req, res)
-        // } // funkcje nie będą potrzebować tokena
-        // else if (req.url.search('/api/logout') !== -1) { // logout
-        // await logoutRouter(req, res, token)
-        // } // usuwam token jako cookie z klienta, wiec niepotrzebne
-        else {
+        } else if (req.url.search('/api/userdata') !== -1) { // userdata
+          await userdataRouter(req, res)
+        } else {
           res.writeHead(404, { 'Content-type': 'text/plain;charset=utf-8' })
           res.end('url not found')
         }

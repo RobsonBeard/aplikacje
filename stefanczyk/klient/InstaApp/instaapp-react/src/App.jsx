@@ -13,11 +13,11 @@ function App () {
     setCookie('token', token, { maxAge: maxAge / 1000, sameSite: 'lax' })
     setTimeout(() => {
       logout()
-    }, maxAge) // po uplynieciu czasu cookie sie usunie, potem przesylac maxage z serwera?
+    }, maxAge)
   }
   return (
     <>
-      {cookies.token ? <MainPage logout={logout} /> : <UserValidation setToken={setToken} />}
+      {cookies.token ? <MainPage logout={logout} setToken={setToken} /> : <UserValidation setToken={setToken} />}
     </>
   )
 }

@@ -10,7 +10,7 @@ POST http://localhost:3000/api/user/register HTTP/1.1
 
 
 ### user potwierdza rejestrację konta z użyciem tokena, po confirm jest token
-GET http://localhost:3000/api/user/confirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6Im5hbWUiLCJsYXN0TmFtZSI6Imxhc3ROYW1lIiwiZW1haWwiOiJuYW1lQGVtYWlsLnBsIiwicGFzc3dvcmQiOiIkMmEkMTAkdFNieGpxMFJCYXUxNHhBMU0uRTdTLldiU1VHQ2QvejZ5MXNTaU1paC8yd284L3VCTFRkMHkiLCJjb25maXJtZWQiOmZhbHNlLCJpYXQiOjE2ODUyNjQzMDAsImV4cCI6MTY4NTI2NDM2MH0.pE5feHbxx82AMFl7Lm8bb-BSQCocE0xjaYqmftUBJHw HTTP/1.1
+GET http://localhost:3000/api/user/confirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJsYXN0TmFtZSI6Imxhc3ROYW1lIiwiZW1haWwiOiJuYW1lM0BlbWFpbC5wbCIsInBhc3N3b3JkIjoiJDJhJDEwJC9Bby5wUmkxOVNZUlNlMjZhNTg5Y09TcTM0RUsxZmJPM1ZXNmFyZDhINExlNjBPR1BPMFEyIiwiY29uZmlybWVkIjpmYWxzZSwiaWF0IjoxNjg2MjIzMDU3LCJleHAiOjE2ODYyMjM2NTd9.gC0hGo8vbboSLB7InQWw-trMHvnl7QvO6du4KJjkGic HTTP/1.1
 
 
 ### logowanie z odesłaniem tokena po zalogowaniu - od tej pory każde żądanie zawiera token
@@ -20,8 +20,3 @@ POST http://localhost:3000/api/user/login HTTP/1.1
   "email": "name3@email.pl",
   "password": "password"
 }
-
-
-###  pobranie jsona wszystkich userow - funkcja pomocnicza dla testów 
-GET http://localhost:3000/api/user HTTP/1.1
-

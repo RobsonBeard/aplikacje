@@ -2,7 +2,7 @@
 
 const profilesController = require('./profilesController')
 const utils = require('./utils')
-const logger = require('tracer').colorConsole()
+// const logger = require('tracer').colorConsole()
 
 const profilesRouter = async (req, res, userData) => {
   if (req.url === '/api/profile' && req.method === 'GET') { // pobranie jsona tablicy userow
@@ -27,7 +27,6 @@ const profilesRouter = async (req, res, userData) => {
 
     res.writeHead(statusCode, { 'Content-type': 'application/json;charset=utf-8' })
     res.end(JSON.stringify(returnedObj, null, 5))
-
   } else if (req.url === '/api/profile' && req.method === 'PATCH') { // aktualizacja danych usera
     let statusCode = 200
     let returnedObj
@@ -53,7 +52,6 @@ const profilesRouter = async (req, res, userData) => {
 
     res.writeHead(statusCode, { 'Content-type': 'application/json;charset=utf-8' })
     res.end(JSON.stringify(returnedObj, null, 5))
-
   } else if (req.url === '/api/profile' && req.method === 'POST') { // wysłanie zdjęcia profilowego
     let statusCode = 201
     let returnedObj

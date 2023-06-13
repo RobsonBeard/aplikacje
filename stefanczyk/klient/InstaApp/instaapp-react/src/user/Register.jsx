@@ -41,21 +41,21 @@ const Register = () => {
 
   return (
     <>
-      <form onSubmit={(e) => registerUser(e)} id='registerForm' name='registerForm'>
-        <Input required placeholder='Name' onChange={(e) => setName(e.target.value)} />
-        <Input required placeholder='Last Name' onChange={(e) => setLastName(e.target.value)} />
-        <Input type='email' required placeholder='E-mail' onChange={(e) => setEmail(e.target.value)} />
+      <form id='registerForm' name='registerForm' onSubmit={(e) => registerUser(e)}>
+        <Input required placeholder='Name' name='name' id='name' autoComplete='given-name' onChange={(e) => setName(e.target.value)} />
+        <Input required placeholder='Last Name' name='lastname' id='lastname' autoComplete='family-name' onChange={(e) => setLastName(e.target.value)} />
+        <Input type='email' required placeholder='E-mail' name='register-email' id='register-email' autoComplete='email' onChange={(e) => setEmail(e.target.value)} />
         <InputGroup>
-          <Input type={showPass ? 'text' : 'password'} required placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+          <Input type={showPass ? 'text' : 'password'} required placeholder='Password' name='register-password' id='register-password' autoComplete='new-password' onChange={(e) => setPassword(e.target.value)} />
           <InputRightElement>
-            <Button onClick={() => setShowPass(!showPass)}>
+            <Button id='showpass-button' name='showpass-button' onClick={() => setShowPass(!showPass)}>
               {showPass ? 'Hide' : 'Show'}
               {/* jeśli showPass jest false, to pokazuje Show, jest showPass jest true, to pokazuje Hide */}
               {/* tak samo jest type password, jesli show jest false, a typem text, gdy show jest true */}
             </Button>
           </InputRightElement>
         </InputGroup>
-        <Button type='submit'>Submit</Button>
+        <Button name='register-submit' id='register-submit' type='submit'>Submit</Button>
       </form>
       {
         success !== '' && (
@@ -76,7 +76,7 @@ const Register = () => {
         error !== '' && (
           <Alert status='error'>
             <AlertIcon />
-            <AlertTitle>Failed to register</AlertTitle>
+            <AlertTitle>Failed to register:</AlertTitle>
             <AlertDescription>{error}
 
             </AlertDescription>
