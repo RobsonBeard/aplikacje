@@ -26,6 +26,7 @@ const Login = ({ setToken }) => {
       } else {
         // setSuccess(result.message)
         // setConfirmLink(result.link)
+        console.log(result.result)
         setToken(result.result, result.expireTimeInMiliseconds)
         setError('')
       }

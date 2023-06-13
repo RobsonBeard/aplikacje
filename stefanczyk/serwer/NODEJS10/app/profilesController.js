@@ -9,7 +9,7 @@ const formidable = require('formidable')
 
 const { modifyUserAccount, getFileID, setFileID, imagesArr } = require('./model')
 
-const getProfileData = async (userData) => {
+const getProfileData = async (userData) => { // robic to po ID usera, a nie cookie
   return new Promise((resolve, reject) => {
     try {
       const returnedObj = {

@@ -11,15 +11,16 @@ const utils = require('./app/utils')
 require('dotenv').config()
 
 // TODO: komunikaty przetłumaczyć na angielski
+// TODO: może zrobić tak, żeby było tylko jedno zdjęcie profilowe w folderze z id
 
 http
   .createServer(async (req, res) => {
     const origin = req.headers.origin ? req.headers.origin : '*'
 
-    res.setHeader('Access-Control-Allow-Origin', origin) // origin || '*', bez origin wywala CORS nie wiem czemu
+    res.setHeader('Access-Control-Allow-Origin', origin) // origin || '*', z gwiazdką wywala CORS nie wiem czemu
     res.setHeader('Access-Control-Request-Method', '*')
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PATCH, PUT, DELETE')
-    res.setHeader('Access-Control-Allow-Headers', '*') // X-Requested-With,content-type
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type') // 'X-Requested-With,content-type' || '*' , z gwiazdką wywala CORS nie wiem czemu
     res.setHeader('Access-Control-Allow-Credentials', true)
 
     // logger.log(req.headers)

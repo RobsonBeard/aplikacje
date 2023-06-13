@@ -5,7 +5,7 @@ import HomePage from './HomePage'
 import PostImage from './actions/PostImage'
 import AccountPage from './user/AccountPage'
 
-const MainPage = ({ logout }) => {
+const MainPage = ({ logout, setToken }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [imagesArr, setImagesArr] = useState([])
@@ -48,7 +48,7 @@ const MainPage = ({ logout }) => {
           <Route
             path='/account' element={
               <Flex justify='center' margin='10px'>
-                <AccountPage />
+                <AccountPage logout={logout} setToken={setToken} />
               </Flex>
             }
           />

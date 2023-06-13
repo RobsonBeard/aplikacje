@@ -17,7 +17,7 @@ function App () {
   }
   return (
     <>
-      {cookies.token ? <MainPage logout={logout} /> : <UserValidation setToken={setToken} />}
+      {cookies.token ? <MainPage logout={logout} setToken={setToken} /> : <UserValidation setToken={setToken} />}
     </>
   )
 }
