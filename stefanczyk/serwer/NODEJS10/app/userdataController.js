@@ -14,7 +14,7 @@ const getOneUser = (selectedID) => {
       if (selectedUser === undefined) {
         resolve({ success: false, message: 'nie ma usera o podanym id' })
       }
-      resolve({ success: true, message: 'operacja powiodła się', result: selectedUser })
+      resolve({ success: true, message: 'pomyślnie pobrano dane usera', result: selectedUser })
     } catch (error) {
       reject(error)
     }

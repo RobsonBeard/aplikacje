@@ -1,7 +1,10 @@
-import { Flex, Box, Avatar, Text, Button, Input } from '@chakra-ui/react'
+import { Flex, Box, Avatar, Text, Button, Input, useDisclosure } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
+import PostProfilePicture from '../actions/PostProfilePicture'
 
-const AccountPage = ({ logout, setToken }) => {
+const AccountPage = ({ boolean, setBoolean }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const [editing, ifEditing] = useState(false)
 
   const [newName, setNewName] = useState('')
@@ -15,7 +18,8 @@ const AccountPage = ({ logout, setToken }) => {
     e.preventDefault()
     // console.log(newName, newLastName)
     const body = JSON.stringify({
-      newName, newLastName
+      name: newName,
+      lastName: newLastName
     })
     try {
       const headers = { 'Content-Type': 'application/json' }
@@ -25,7 +29,6 @@ const AccountPage = ({ logout, setToken }) => {
     } catch (error) {
       console.log(error)
     }
-    // setToken('costam', 600000)
     // ! normalnie jestem w stanie wykonać funckję patcha zmiany danych na serwerze, jednak ona nic nie robi, bo w tokenie (ciasteczku) nadal są te stare dane, które trzeba zmienić
     // w tokenie mają być rzeczy, które się nie zmieniają, czyli nie powinno być tam name i lastname, tylko sam email (i hasło??), zmienic sposob na serwerze
     getUserData()
@@ -36,7 +39,7 @@ const AccountPage = ({ logout, setToken }) => {
     try {
       const response = await fetch('http://localhost:3000/api/profile', { method: 'GET', credentials: 'include' }) // tu ma być nasze IP z cmd
       const result = await response.json()
-      console.log(result)
+      // console.log(result)
       setPreviousName(result.result.name)
       setPreviousLastName(result.result.lastName)
       setPreviousEmail(result.result.email)
@@ -52,7 +55,8 @@ const AccountPage = ({ logout, setToken }) => {
   return (
     <Box border='2px' padding='10px' width='xl' height='md' borderRadius='md'>
       <Flex gap='10px'>
-        <Avatar width='150px' h='150px' objectFit='cover' />
+        <Avatar src={`http://localhost:3000/api/profile/getmypfp?${Math.floor(Math.random() * 1000000)}`} width='150px' h='150px' objectFit='cover' />
+        {/*  math random jest potrzebny, zeby przegladarka pobierala nowo ustawione zdjecie, tak samo regex na serwerze */}
         <Flex direction='column' textAlign='right' gap='10px' h='150px' justify='space-evenly' fontSize='xl'>
           <Text>Name: </Text>
           <Text>Last Name: </Text>
@@ -79,9 +83,10 @@ const AccountPage = ({ logout, setToken }) => {
         : (
           <Flex gap='10px'>
             <Button onClick={() => ifEditing(!editing)}>Quit editing</Button>
+            <Button onClick={onOpen}>Change profile picture</Button>
             <Button form='editing-profile-data-form' type='submit'>Update your profile</Button>
           </Flex>)}
-
+      <PostProfilePicture isOpenModal={isOpen} closeModal={onClose} boolean={boolean} setBoolean={setBoolean} />
     </Box>
   )
 }

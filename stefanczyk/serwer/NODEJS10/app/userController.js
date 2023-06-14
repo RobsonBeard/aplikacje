@@ -87,7 +87,12 @@ const login = (loginData) => {
       const expireTime = '10m'
       // logger.log(typeof ms(expireTime)) // number
 
-      const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: expireTime }) // ? tutaj logindata w tokenie?
+      const userObj = {
+        id: user.id,
+        email: user.email
+      } // przesyłam te dane, których nie będziemy potem zmieniać, dodać hasło(?)
+
+      const token = jwt.sign(userObj, process.env.SECRET_KEY, { expiresIn: expireTime })
       resolve({ success: true, message: 'User logged in', result: token, expireTimeInMiliseconds: ms(expireTime) })
     } catch (error) {
       reject(error)

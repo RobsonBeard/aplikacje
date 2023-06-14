@@ -1,4 +1,4 @@
-### post image i nazwy albumu
+### post image
 POST http://localhost:3000/api/photos HTTP/1.1
 Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkR3B4UDJxOVBVU2VIS3VrSy5SaG91ZXNLREUyRVY0eTIucG81QjEwZnpwa1VpbE5VUFZxb1ciLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjU4NTU4MSwiZXhwIjoxNjg2NTg2MTgxfQ.lX4uI1XCurPr3q5xS0mi0n2fMGfMKQZAsALKV4U5xXU
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
@@ -13,7 +13,7 @@ Content-Type: image/png
 
 ### get jsona wszystkich zdjęć
 GET http://localhost:3000/api/photos HTTP/1.1
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkOHk3dGFpYlRzMUkyemZMNnQ0RVBidS9lcndlT3V6eWVkbno1UHRSU2dBMUQ0d1lwSDQuQ1MiLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjEzNjgxNiwiZXhwIjoxNjg2MTM3MTE2fQ.bHVYK6KE0obzhaLxsm1esVDy7YbUe0OhPq79i9RNy7s
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiIyQDIiLCJpYXQiOjE2ODY3MzgyNTIsImV4cCI6MTY4NjczODg1Mn0.YsrWd8PIy3-J13P14EtHT9t8zMV0ArCB7b-NR_bgo90
 
 ### get jsona jednego zdjęcia
 GET http://localhost:3000/api/photos/2 HTTP/1.1

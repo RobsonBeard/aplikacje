@@ -1,11 +1,11 @@
 ### pobranie danych usera do wyświetlenia w profilu
 GET http://localhost:3000/api/profile HTTP/1.1
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkUXFIR0I4OHhSL1d6UVNXdEhrUlFlZVlSZ254ZW5QUnBLVVJ5d1c3bThNVC9HMVRPN09CQ0siLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjU5Nzk1MywiZXhwIjoxNjg2NTk4NTUzfQ.rECfXJAoeKs6LwrzCRNhj8rbegevjAXkhUKgqCRH5Xw
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiIyQDIiLCJpYXQiOjE2ODY3MjMzMzAsImV4cCI6MTY4NjcyMzkzMH0.VBm_1jBENMO7UBEI7ZJm1QFFIKoNUctVDAD8a3JYjYM
 
 
 ### aktualizacja danych usera w jego profilu
 PATCH http://localhost:3000/api/profile HTTP/1.1
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwibmFtZSI6IjEyMyIsImxhc3ROYW1lIjoiMTIzIiwiZW1haWwiOiIxMjNAMTIzIiwicGFzc3dvcmQiOiIkMmEkMTAkUXFIR0I4OHhSL1d6UVNXdEhrUlFlZVlSZ254ZW5QUnBLVVJ5d1c3bThNVC9HMVRPN09CQ0siLCJjb25maXJtZWQiOnRydWUsImlhdCI6MTY4NjU5Nzk1MywiZXhwIjoxNjg2NTk4NTUzfQ.rECfXJAoeKs6LwrzCRNhj8rbegevjAXkhUKgqCRH5Xw
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiIyQDIiLCJpYXQiOjE2ODY3MjMzMzAsImV4cCI6MTY4NjcyMzkzMH0.VBm_1jBENMO7UBEI7ZJm1QFFIKoNUctVDAD8a3JYjYM
 
 { 
   "name": "name60",
@@ -27,4 +27,11 @@ Content-Type: image/png
 ------FormBoundary1234
 
 
-### pobranie zdjęcia profilowego
+### wyświetlenie swojego zdjęcia profilowego
+GET http://localhost:3000/api/profile/getmypfp
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiIyQDIiLCJpYXQiOjE2ODY3Mzk4OTAsImV4cCI6MTY4Njc0MDQ5MH0.zLZBrqYEXUcoccz6wAQMGJdbBWkAIeImsr19FH6_2x0
+
+
+### wyświetlenie zdjęcia profilowego innego usera
+GET http://localhost:3000/api/profile/getuserspfp/1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiIyQDIiLCJpYXQiOjE2ODY3Mzk4OTAsImV4cCI6MTY4Njc0MDQ5MH0.zLZBrqYEXUcoccz6wAQMGJdbBWkAIeImsr19FH6_2x0

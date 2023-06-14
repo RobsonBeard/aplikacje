@@ -38,7 +38,7 @@ const addImg = (req, userData) => {
           })
         } else {
           renameFile()
-        }
+        } // to jest po to, żeby był dobry katalog w upload
 
         const fileData = {
           id: getFileID(),
@@ -46,6 +46,7 @@ const addImg = (req, userData) => {
           originalname: files.file.name,
           url: path.join(pathname, `/${filename}`),
           lastChange: 'original',
+          isProfilePicture: false,
           history: [
             {
               status: 'original',

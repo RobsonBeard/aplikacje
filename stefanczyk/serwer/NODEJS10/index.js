@@ -11,7 +11,8 @@ const utils = require('./app/utils')
 require('dotenv').config()
 
 // TODO: komunikaty przetłumaczyć na angielski
-// TODO: może zrobić tak, żeby było tylko jedno zdjęcie profilowe w folderze z id
+// TODO: pobieranie profilowego innych userow, postem po emailu?
+// TODO: ^ api/profiles/getuserspfp/[iduzytkownika] przesyłane na Publication
 
 http
   .createServer(async (req, res) => {
@@ -48,6 +49,7 @@ http
       }
     } else {
       const decodedToken = await utils.verifyToken(token)
+      // logger.log(decodedToken)
 
       if (!decodedToken.success) {
         const statusCode = 401
