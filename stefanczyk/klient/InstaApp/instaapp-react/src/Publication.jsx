@@ -23,7 +23,7 @@ const Publication = ({ imgSrc, userId }) => {
     <Card border='2px' width='md'>
       <CardHeader borderBottom='1px'>
         <Flex align='center' gap='3'>
-          <Avatar name='' src='' />
+          <Avatar src={`http://localhost:3000/api/profile/getuserspfp/${userId}`} />
           <Heading size='sm'>{userEmail}</Heading>
         </Flex>
       </CardHeader>

@@ -1,4 +1,4 @@
-import { Flex, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useDisclosure, Avatar } from '@chakra-ui/react'
+import { Flex, Breadcrumb, BreadcrumbItem, BreadcrumbLink, useDisclosure, Avatar, Link } from '@chakra-ui/react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 import HomePage from './HomePage'
@@ -9,6 +9,9 @@ const MainPage = ({ logout, setToken }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [imagesArr, setImagesArr] = useState([])
+
+  const [boolean, setBoolean] = useState(false)
+  // to jest do tego żeby się zmienił state i wtedy zaktualizowało awatar w rogu
 
   const getImages = async () => {
     try {
@@ -38,7 +41,11 @@ const MainPage = ({ logout, setToken }) => {
             <BreadcrumbLink onClick={logout}>Logout</BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>
-        <Avatar name='' src='' position='absolute' right='0' width='5vh' height='5vh' objectFit='cover' />
+        <Link href='/account' padding='0' margin='0' position='absolute' right='0' width='5vh' height='5vh'>
+          <Avatar src={`http://localhost:3000/api/profile/getmypfp?${Math.floor(Math.random() * 1000000)}`} objectFit='cover' />
+        </Link>
+
+        {/* math random jest potrzebny, zeby przegladarka pobierala nowo ustawione zdjecie, tak samo regex na serwerze */}
       </Flex>
       {/* <Button onClick={logout}>Logout</Button> */}
       {/* moze dorobic potem ten logout tez na serwerze? nie wiem, jest problem troche np. z wysylem zdjec gdy sie restartuje serwer, bo cookie nadal jest wazne */}
@@ -48,7 +55,7 @@ const MainPage = ({ logout, setToken }) => {
           <Route
             path='/account' element={
               <Flex justify='center' margin='10px'>
-                <AccountPage logout={logout} setToken={setToken} />
+                <AccountPage boolean={boolean} setBoolean={setBoolean} />
               </Flex>
             }
           />

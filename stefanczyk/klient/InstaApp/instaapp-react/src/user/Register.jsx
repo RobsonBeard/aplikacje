@@ -25,7 +25,7 @@ const Register = () => {
       const headers = { 'Content-Type': 'application/json' }
       const response = await fetch('http://localhost:3000/api/user/register', { method: 'POST', headers, body }) // tu ma być nasze IP z cmd
       const result = await response.json()
-      console.log(result)
+      // console.log(result)
       if (result.status.toString()[0] === '4') { // jeśli status zaczyna się na 4, to wyświetl błąd
         setSuccess('')
         setError(result.message)

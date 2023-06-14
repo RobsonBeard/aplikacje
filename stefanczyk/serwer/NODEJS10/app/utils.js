@@ -1,7 +1,7 @@
 //* funkcje pomocnicze
 const logger = require('tracer').colorConsole()
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs-extra')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const { convertedTagsArr, rawTagsArr, tokenBlacklist, getTagID, setTagID } = require('./model')
@@ -28,31 +28,45 @@ const getRequestData = async (req) => {
 
 // funkcja usuwająca pliki i katalogi przy starcie serwera
 const removeAllFiles = () => {
-  const filepath = path.join(__dirname, 'upload')
-  fs.readdir(filepath, (error, files) => {
+  // const filepath = path.join(__dirname, 'upload')
+  // fs.readdir(filepath, (error, files) => {
+  //   if (error) throw error
+
+  //   files.forEach((file) => {
+  //     fs.lstat(path.join(filepath, file), (error, stats) => {
+  //       if (error) throw error
+  //       if (stats.isDirectory()) {
+  //         fs.readdir(path.join(filepath, file), (error, files2) => {
+  //           if (error) throw error
+
+  //           for (let i = 0; i < files2.length; i++) {
+  //             fs.unlinkSync(path.join(filepath, file, files2[i]))
+  //           }
+  //           fs.rmdirSync(path.join(filepath, file)) //* moga byc z tym problemy
+  //         })
+  //       } else {
+  //         fs.unlink(path.join(filepath, file), (error) => {
+  //           if (error) throw error
+  //         })
+  //       }
+  //     })
+  //   })
+  //   logger.info('usunięto pliki i katalogi')
+  // }) // spróbujemy użyć fs-extra
+
+  const uploadDir = path.join(__dirname, 'upload')
+  const profilePicDir = path.join(__dirname, 'profilepictures')
+  logger.log(profilePicDir)
+
+  fs.emptyDir(uploadDir, error => {
     if (error) throw error
-
-    files.forEach((file) => {
-      fs.lstat(path.join(filepath, file), (error, stats) => {
-        if (error) throw error
-        if (stats.isDirectory()) {
-          fs.readdir(path.join(filepath, file), (error, files2) => {
-            if (error) throw error
-
-            for (let i = 0; i < files2.length; i++) {
-              fs.unlinkSync(path.join(filepath, file, files2[i]))
-            }
-            fs.rmdirSync(path.join(filepath, file)) //* moga byc z tym problemy
-          })
-        } else {
-          fs.unlink(path.join(filepath, file), (error) => {
-            if (error) throw error
-          })
-        }
-      })
-    })
-    logger.info('usunięto pliki i katalogi')
+    logger.info('usunięto zawartość katalogu upload')
   })
+  fs.emptyDir(profilePicDir, error => {
+    if (error) throw error
+    logger.info('usunięto zawartość katalogu profilepictures')
+  })
+
 }
 
 const getRndInteger = (min, max) => {

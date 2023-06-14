@@ -14,7 +14,7 @@ const getImageByID = async (selectedID) => {
         resolve(gotImageJSON) // wtedy nie znalazł zdjęcia
       }
       const selectedImage = gotImageJSON.result
-      logger.log(selectedImage)
+      // logger.log(selectedImage)
 
       resolve({ success: true, message: 'operacja powiodła się', result: selectedImage.url })
     } catch (error) {

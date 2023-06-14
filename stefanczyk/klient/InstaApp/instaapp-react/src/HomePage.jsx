@@ -7,12 +7,17 @@ const HomePage = ({ imagesArr, getImages }) => {
     getImages()
   }, [])
 
+  let imagesWithoutPfp = [] // mocno sie to wszystko psuje
   // console.log(imagesArr)
+  if (imagesArr) {
+    imagesWithoutPfp = imagesArr.filter((elem) => !elem.isProfilePicture)
+  }
+  // console.log(imagesWithoutPfp)
 
   return (
     <Stack direction='column' gap='15px'>
-      {imagesArr
-        ? imagesArr.map((elem, i) => {
+      {imagesWithoutPfp.length !== 0
+        ? imagesWithoutPfp.map((elem, i) => {
           return <Publication imgSrc={`http://localhost:3000/api/getfile/${elem.id}`} userId={elem.album} key={i} />
         })
 
