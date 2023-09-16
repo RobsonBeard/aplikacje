@@ -39,6 +39,7 @@ public class Pitagoras {
             }
 
         } catch (NumberFormatException e) {
+//            System.out.println(e);
             System.out.println("Nie wczytano liczby lub błędny format. Koniec programu.");
         }
     }

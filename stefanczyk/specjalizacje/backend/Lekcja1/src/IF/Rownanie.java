@@ -4,42 +4,32 @@ import java.util.Scanner;
 
 public class Rownanie {
     public static void main(String[] args) {
-        System.out.println("Program sprawdza, czy podane długości boków wyrażone w liczbach NATURALNYCH DODATNICH tworzą trójkąt pitagorejski ");
-        System.out.println("Podaj bok a.");
+        System.out.println("Program oblicza x w równaniu o postaci ax+b = c, gdzie a,b,c to liczby rzeczywiste a x to niewiadoma.");
+        System.out.println("Podaj liczbę a.");
         Scanner sc = new Scanner(System.in);
         try {
-            int a = Integer.parseInt(sc.nextLine());
-            System.out.println("Podaj bok b.");
-            int b = Integer.parseInt(sc.nextLine());
-            System.out.println("Podaj bok c.");
-            int c = Integer.parseInt(sc.nextLine());
+            double a = Double.parseDouble(sc.nextLine());
+            System.out.println("Podaj liczbę b.");
+            double b = Double.parseDouble(sc.nextLine());
+            System.out.println("Podaj liczbę c.");
+            double c = Double.parseDouble(sc.nextLine());
 
-            System.out.println("Boki: \na = " + a + "\nb = " + b + "\nc = " + c);
+            System.out.println("Liczby: \na = " + a + "\nb = " + b + "\nc = " + c);
 
-            if (a == b || b == c || a == c) {
-                System.out.println("Podane długości nie tworzą trójkąta pitagorejskiego");
-            } else if (a > b && a > c) {
-                if (Math.pow(a, 2) == (Math.pow(b, 2) + Math.pow(c, 2))) {
-                    System.out.println("Podane długości tworzą trójkąt pitagorejski");
-                } else {
-                    System.out.println("Podane długości nie tworzą trójkąta pitagorejskiego");
-                }
-            } else if (b > a && b > c) {
-                if (Math.pow(b, 2) == (Math.pow(a, 2) + Math.pow(c, 2))) {
-                    System.out.println("Podane długości tworzą trójkąt pitagorejski");
-                } else {
-                    System.out.println("Podane długości nie tworzą trójkąta pitagorejskiego");
-                }
+            if (a != 0) {
+                double wynik = (c - b) / a;
+//                System.out.println("Wynikiem równania jest " + wynik);
+                System.out.printf("Wynikiem równania jest %2.2f", wynik);
+            } else if (b == c) {
+                System.out.println("Równanie ma nieskończenie wiele rozwiązań");
             } else {
-                if (Math.pow(c, 2) == (Math.pow(b, 2) + Math.pow(a, 2))) {
-                    System.out.println("Podane długości tworzą trójkąt pitagorejski");
-                } else {
-                    System.out.println("Podane długości nie tworzą trójkąta pitagorejskiego");
-                }
+                System.out.println("Równanie nie ma rozwiązań");
             }
 
-        } catch (NumberFormatException e) {
-            System.out.println("Nie wczytano liczby lub błędny format. Koniec programu.");
+
+        } catch (Exception e) {
+            System.out.println(e);
+//            System.out.println("Nie wczytano liczby lub błędny format. Koniec programu.");
         }
     }
 }
