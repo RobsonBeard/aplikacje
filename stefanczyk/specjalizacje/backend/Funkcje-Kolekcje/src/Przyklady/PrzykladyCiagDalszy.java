@@ -78,7 +78,7 @@ public class PrzykladyCiagDalszy {
 //            System.out.println(value);
         }
         for (Map.Entry<String, Integer> entry : map1.entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue());
+//            System.out.println(entry.getKey() + ":" + entry.getValue());
         }
 
 
@@ -93,6 +93,19 @@ public class PrzykladyCiagDalszy {
         for (String s : set2) {
 //            System.out.println(s);
         }
+
+        ArrayList<ArrayList> test = new ArrayList<>(
+                Arrays.asList(
+                        new ArrayList<Integer>() {{
+                            add(1);
+                            add(1);
+                            add(1);
+                        }},
+                        new ArrayList<Integer>(),
+                        new ArrayList<Integer>())
+        );
+
+        System.out.println(test);
 
     }
 }
