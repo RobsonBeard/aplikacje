@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Pole {
     private double a;
     private double b;
+    private double poleProstokata;
 
 //    public Pole() {
 //    } // chyba nawet nie trzeba
@@ -19,5 +20,14 @@ public class Pole {
         System.out.println("Podaj drugi bok:");
         double b = sc.nextDouble();
         this.b=b;
+    }
+    public void calculate(){
+        this.poleProstokata = this.a*this.b;
+    }
+
+    public void display() {
+        System.out.printf("Pole prostokąta o boku a = %.2f",this.a);
+        System.out.printf(" i boku b = %.2f",this.b);
+        System.out.printf(" wynosi %.2f", this.poleProstokata);
     }
 }
