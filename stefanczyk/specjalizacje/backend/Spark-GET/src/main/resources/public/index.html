@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<h1> 01: cars manager</h1>
+<div class="main-containter">
+    <form action="/add" method="get">
+        <div>
+            <input id="model" name="model" placeholder="car model" required type="text">
+        </div>
+        <div>
+            <select id="doors" name="doors">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div>
+            <input id="damaged" name="damaged" type="checkbox">
+            <label for="damaged">uszkodzony?</label>
+        </div>
+        <div>
+            <div>
+                <input id="polski" name="country" required type="radio" value="PL">
+                <label for="polski">polski</label>
+            </div>
+            <div>
+                <input id="angielski" name="country" required type="radio" value="ENG">
+                <label for="angielski">angielski</label>
+            </div>
+        </div>
+        <button type="submit">Wyslij</button>
+    </form>
+</div>
+
+<p>Linki do danych:</p>
+<a href="/text">text</a>
+<a href="/json">json</a>
+<a href="/html">html</a>
+
+</body>
+</html>
