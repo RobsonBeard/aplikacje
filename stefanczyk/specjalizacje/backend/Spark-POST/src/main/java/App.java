@@ -5,19 +5,16 @@ import java.util.UUID;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import spark.Request;
-import spark.Response;
 
 import java.lang.reflect.Type;
-import java.sql.Array;
 import java.util.ArrayList;
 
 import static spark.Spark.*;
 
 public class App {
 
-static ArrayList<Car> carsList = new ArrayList<>();
-static int carID = 0;
+    static ArrayList<Car> carsList = new ArrayList<>();
+    static int carID = 0;
 
     public static void main(String[] args) {
         staticFiles.location("/public");
@@ -28,25 +25,55 @@ static int carID = 0;
         port(4000);
 
 
-        UUID uuid = Generators.randomBasedGenerator().generate();
-
         post("/add", (req, res) -> {
 
-        res.type("application/json");
-        Gson gson = new Gson();
-        System.out.println(req.body());
+            res.type("application/json");
+            Gson gson = new Gson();
+
+            Car car = gson.fromJson(req.body(), Car.class);
+            car.setId(carID);
+            carID++;
+            UUID uuid = Generators.randomBasedGenerator().generate();
+            car.setUuid(uuid);
+
+            carsList.add(car);
 
 //        MyClass myClass = gson.fromJson(req.body(), MyClass.class); // konwersja danych json na obiekt dowolnej klasy, przykład
 //        String model = gson.fromJson(req.body(), MyClass.class).getModel(); // pobranie jednej wartości z body, przy założeniu, że w klasie MyClass jest przykładowy getter getModel()
 
-//        return gson.toJson(dane);
-            return gson.toJson("");
+            return gson.toJson(car);
         });
 
-//        post("/add", ...)
-//        get("/json", ...)
+        get("/json", (req, res) -> {
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create();
+
+            Type listType = new TypeToken<ArrayList<Car>>() {
+            }.getType();
+
+            res.type("application/json");
+            return gson.toJson(carsList, listType);
+        });
+
+
+        post("/delete", (req, res) -> {
+//            Gson gson = new Gson();
+//            res.type("application/json");
+            System.out.println(req.body());
+
+            for (int i = 0; i < carsList.size(); i++) {
+                if (carsList.get(i).id == Integer.parseInt(req.body())) {
+                    carsList.remove(i);
+                }
+            }
+
+            res.type("text/plain");
+            return "succesfully deleted";
+        });
+
+
 //        post("/update", ...)
-//        post("/delete", ...)
 
 
     }

@@ -22,7 +22,7 @@ const fetchPostAsync = async () => {
             }
         ],
         color: document.getElementById("color").value
-    },null,5)
+    }, null, 5)
 
     // console.log(data)
 
@@ -40,15 +40,8 @@ const fetchPostAsync = async () => {
 
 }
 
-document.getElementById("addbutton").addEventListener("click",async () => {
+document.getElementById("addbutton").addEventListener("click", async () => {
     const json = await fetchPostAsync()
-    console.log(json)
+    // console.log(json)
+    alert(JSON.stringify(json, null, 5))
 })
-
-
-
-// document.getElementById("addbutton").onclick = async () => {
-// let json = await fetchPostAsync()
-// console.log(json)
-// console.log("aloooooo")
-// }
