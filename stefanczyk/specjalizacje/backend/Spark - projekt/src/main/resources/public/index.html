@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="indexScript.js" defer></script>
+</head>
+<body>
+<h2 class="header">Index page - post - projekt cz. 1a</h2>
+<div class="navigation">
+    <a class="currentsite">index</a>
+    <a href="/cars.html">edit/update cars</a>
+</div>
+<hr>
+<div class="main-content">
+    <div class="leftbar">
+        <div class="button" id="addbutton">dodaj na serwer</div>
+    </div>
+    <div class="parameters">
+        <div>
+            <input type="text" value="car model" name="model" id="model" maxlength="15">
+            <label for="model">model</label>
+        </div>
+        <div>
+            <select name="year" id="year">
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>
+                <option value="2004">2004</option>
+                <option value="2005">2005</option>
+            </select>
+            <label for="year">rok</label>
+        </div>
+        <div>
+            <p>poduszki powietrzne:</p>
+            <input type="checkbox" name="driver" id="driver">
+            <label for="driver">kierowca</label>
+            <input type="checkbox" name="passenger" id="passenger">
+            <label for="passenger">pasażer</label>
+            <input type="checkbox" name="back" id="back">
+            <label for="back">tylna kanapa</label>
+            <input type="checkbox" name="side" id="side">
+            <label for="side">boczne z tyłu</label>
+        </div>
+        <div>
+            <input type="color" name="color" id="color">
+            <label for="color">kolor</label>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
