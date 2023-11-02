@@ -18,6 +18,26 @@ public class Car {
         this.color = color;
     }
 
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

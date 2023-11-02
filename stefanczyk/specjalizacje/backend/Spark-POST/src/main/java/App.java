@@ -27,7 +27,6 @@ public class App {
 
         post("/add", (req, res) -> {
 
-            res.type("application/json");
             Gson gson = new Gson();
 
             Car car = gson.fromJson(req.body(), Car.class);
@@ -41,6 +40,7 @@ public class App {
 //        MyClass myClass = gson.fromJson(req.body(), MyClass.class); // konwersja danych json na obiekt dowolnej klasy, przykład
 //        String model = gson.fromJson(req.body(), MyClass.class).getModel(); // pobranie jednej wartości z body, przy założeniu, że w klasie MyClass jest przykładowy getter getModel()
 
+            res.type("application/json");
             return gson.toJson(car);
         });
 
@@ -58,23 +58,35 @@ public class App {
 
 
         post("/delete", (req, res) -> {
-//            Gson gson = new Gson();
-//            res.type("application/json");
-            System.out.println(req.body());
 
             for (int i = 0; i < carsList.size(); i++) {
                 if (carsList.get(i).id == Integer.parseInt(req.body())) {
                     carsList.remove(i);
                 }
-            }
+            } // moze przerobic to na metode find()? jesli jest w javie
 
             res.type("text/plain");
             return "succesfully deleted";
         });
 
 
-//        post("/update", ...)
+        post("/update", (req, res) -> {
+            Gson gson = new Gson();
 
+            String model = gson.fromJson(req.body(), Car.class).getModel();
+            int year = gson.fromJson(req.body(), Car.class).getYear();
+            int id = gson.fromJson(req.body(), Car.class).getId();
+            System.out.println(model + " " + year + " " + id);
+
+            for (int i = 0; i < carsList.size(); i++) {
+                if (carsList.get(i).id == id) {
+                    carsList.get(i).setYear(year);
+                    carsList.get(i).setModel(model);
+                }
+            } // moze przerobic to na metode find()? jesli jest w javie
+
+            return "succesfully updated";
+        });
 
     }
 }
