@@ -42,6 +42,21 @@ hr {
     font-size: large;
 }
 
+.button2{
+    color: red;
+    background-color: rgb(220, 220, 220);
+    border: 2px solid red;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    font-weight: bold;
+    font-size: large;
+}
+
 .currentsite {
     text-decoration: underline;
 }

@@ -8,6 +8,8 @@ public class Car {
     int year;
     ArrayList<Airbag> airbags;
     String color;
+    boolean invoiceGenerated;
+//    zdjecie??
 
     public Car(int id, UUID uuid, String model, int year, ArrayList<Airbag> airbags, String color) {
         this.id = id;
@@ -16,14 +18,11 @@ public class Car {
         this.year = year;
         this.airbags = airbags;
         this.color = color;
+        this.invoiceGenerated = false;
     }
 
     public String getModel() {
         return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public int getId() {
@@ -32,6 +31,10 @@ public class Car {
 
     public int getYear() {
         return year;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public void setYear(int year) {
@@ -55,6 +58,7 @@ public class Car {
                 "\", year=" + this.year +
                 ", airbags=" + this.airbags +
                 ", color=\"" + this.color +
+                ", invoiceGenerated=" + this.invoiceGenerated +
                 "\"}";
     }
 }

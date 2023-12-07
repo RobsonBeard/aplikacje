@@ -1,3 +1,6 @@
+// TODO: przerobić to tak, żeby update'owało tylko ten element, o który chodzi, zamiast na nowo wczytywać wszystko
+
+
 const fetchGetAsync = async () => {
     const options = {
         method: "GET"
@@ -157,3 +160,5 @@ const makeTable = async () => {
 }
 
 makeTable()
+    .catch(console.error)
+
