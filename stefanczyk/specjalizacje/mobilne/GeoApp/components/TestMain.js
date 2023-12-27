@@ -41,7 +41,7 @@ const TestMain = ({ navigation }) => {
     }
 
     useEffect(() => {
-        async function getLocation() {
+        async function getLocation () {
             await Location.requestForegroundPermissionsAsync();
         }
         getLocation()

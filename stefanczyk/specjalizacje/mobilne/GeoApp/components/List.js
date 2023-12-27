@@ -30,16 +30,16 @@ const List = ({ navigation }) => {
 
     const [positionsData, setPositionsData] = useState([])
     // const [switched, setSwitched] = useState(false)
+    const [switchedUuids, setswitchedUuids] = useState([])
     const [switchedData, setSwitchedData] = useState([])
 
-
     useEffect(() => {
-        async function getLocation() {
+        async function getLocation () {
             await Location.requestForegroundPermissionsAsync();
         }
         getLocation()
 
-        async function getStorageData() {
+        async function getStorageData () {
             let keys = await AsyncStorage.getAllKeys();
             let stores = await AsyncStorage.multiGet(keys);
 
@@ -104,16 +104,16 @@ const List = ({ navigation }) => {
 
 
     const addMarker = (uuid) => {
-        setSwitchedData([...switchedData, uuid])
+        setswitchedUuids([...switchedUuids, uuid])
     }
 
     const removeMarker = (uuid) => {
-        setSwitchedData(switchedData.filter((elem) => elem != uuid))
+        setswitchedUuids(switchedUuids.filter((elem) => elem != uuid))
     }
 
     useEffect(() => {
-        console.log(switchedData);
-    }, [switchedData]);
+        console.log(switchedUuids);
+    }, [switchedUuids]);
 
     return (
         <View style={{ flex: 1 }}>
@@ -123,7 +123,30 @@ const List = ({ navigation }) => {
                     <MyButton color={colors.primary} text="USUŃ WSZYSTKIE DANE" width={170} height={80} fontSize={15} action={() => { deleteAllPositions() }} />
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "center", gap: 20 }}>
-                    <MyButton color={colors.primary} text="PRZEJDŹ DO MAPY" width={190} height="auto" fontSize={15} action={() => { navigation.navigate("map", { markersData: positionsData.map((elem) => elem[1].coords) }) }} />
+                    <MyButton color={colors.primary} text="PRZEJDŹ DO MAPY" width={190} height="auto" fontSize={15} action={async () => {
+                        // console.log(positionsData);
+                        // let switchedData =
+                        //     switchedUuids.map(async (elem) => {
+                        //         // console.log(elem);
+                        //         let val = await AsyncStorage.getItem(elem)
+                        //         console.log(val);
+                        //     })
+                        // console.log(switchedData);
+                        //-----
+
+                        // setSwitchedData([])
+                        // for (let i = 0; i < switchedUuids.length; i++) {
+                        //     let val = await AsyncStorage.getItem(switchedUuids[i])
+                        //     // console.log(val);
+                        //     // switchedData.push(JSON.parse(val))
+                        //     setSwitchedData([...switchedData, val])
+                        // }
+                        // console.log(switchedData);
+
+                        // navigation.navigate("map", { markersData: switchedData.map((elem) => elem.coords) })
+
+                        navigation.navigate("map", { markersData: positionsData.map((elem) => elem[1].coords) })
+                    }} />
                     <Switch
                         trackColor={{ false: colors.lightPrimary, true: colors.darkPrimary }}
                         thumbColor={isEnabled ? colors.accent : colors.accent}

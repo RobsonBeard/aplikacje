@@ -13,7 +13,7 @@ import TestMain from './components/TestMain';
 
 const Stack = createNativeStackNavigator();
 
-function App() {
+function App () {
   return (
     <NavigationContainer>
       <StatusBar />
