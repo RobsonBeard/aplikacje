@@ -7,6 +7,14 @@ public class Airbag {
         this.value = value;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return "{" +

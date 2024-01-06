@@ -1,6 +1,3 @@
-// TODO: przerobić to tak, żeby update'owało tylko ten element, o który chodzi, zamiast na nowo wczytywać wszystko
-
-
 const fetchGetAsync = async () => {
     const options = {
         method: "GET"
@@ -22,12 +19,10 @@ const fetchDelete = async (id) => {
 
     const response = await fetch("/delete", options)
 
-    // console.log(response)
     if (!response.ok)
         console.log(response.status)
     else {
-        document.getElementById("data-list").innerHTML = ""
-        await makeTable()
+        document.getElementById(`row${id}`).remove()
     }
 }
 
@@ -39,12 +34,11 @@ const fetchUpdate = async (id, model, year) => {
 
     const response = await fetch("/update", options)
 
-    // console.log(response)
     if (!response.ok)
         console.log(response.status)
     else {
-        document.getElementById("data-list").innerHTML = ""
-        await makeTable()
+        document.getElementById(`model${id}`).innerText = model
+        document.getElementById(`year${id}`).innerText = year
     }
 }
 
@@ -69,6 +63,7 @@ const makeTable = async () => {
     for (let i = 0; i < carsData.length; i++) {
         const row = document.createElement("div")
         row.classList.add("row")
+        row.id = `row${carsData[i].id}` // to jest do usuwania
 
         const index = document.createElement("div")
         index.innerText = carsData[i].id
@@ -78,9 +73,11 @@ const makeTable = async () => {
 
         const model = document.createElement("div")
         model.innerText = carsData[i].model
+        model.id = `model${carsData[i].id}` // to jest do update'u
 
         const year = document.createElement("div")
         year.innerText = carsData[i].year
+        year.id = `year${carsData[i].id}` // to jest do update'u
 
         const airbags = document.createElement("div")
         for (let j = 0; j < carsData[i].airbags.length; j++) {

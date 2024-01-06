@@ -24,8 +24,6 @@ const fetchPostAsync = async () => {
         color: document.getElementById("color").value
     }, null, 5)
 
-    // console.log(data)
-
     const options = {
         method: "POST",
         body: data,
@@ -36,12 +34,11 @@ const fetchPostAsync = async () => {
     if (!response.ok)
         return response.status
     else
-        return await response.json() // response.json
+        return await response.json()
 
 }
 
 document.getElementById("addbutton").addEventListener("click", async () => {
     const json = await fetchPostAsync()
-    // console.log(json)
     alert(JSON.stringify(json, null, 5))
 })

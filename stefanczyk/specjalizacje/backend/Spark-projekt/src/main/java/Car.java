@@ -8,6 +8,11 @@ public class Car {
     int year;
     ArrayList<Airbag> airbags;
     String color;
+
+    public void setInvoiceGenerated(boolean invoiceGenerated) {
+        this.invoiceGenerated = invoiceGenerated;
+    }
+
     boolean invoiceGenerated;
 //    zdjecie??
 
@@ -33,6 +38,18 @@ public class Car {
         return year;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public ArrayList<Airbag> getAirbags() {
+        return airbags;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
     public void setModel(String model) {
         this.model = model;
     }
@@ -43,6 +60,10 @@ public class Car {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void setUuid(UUID uuid) {
@@ -57,8 +78,8 @@ public class Car {
                 ", model=\"" + this.model +
                 "\", year=" + this.year +
                 ", airbags=" + this.airbags +
-                ", color=\"" + this.color +
+                "\", color=\"" + this.color +
                 ", invoiceGenerated=" + this.invoiceGenerated +
-                "\"}";
+                "}";
     }
 }

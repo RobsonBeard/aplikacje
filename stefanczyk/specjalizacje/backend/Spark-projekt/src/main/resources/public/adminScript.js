@@ -7,8 +7,9 @@ const fetchGetAsync = async () => {
 
     if (!response.ok)
         return response.status
-    else
+    else {
         return await response.json()
+    }
 }
 
 const fetchGenerateCarsAsync = async () => {
@@ -21,8 +22,8 @@ const fetchGenerateCarsAsync = async () => {
     if (!response.ok)
         return response.status
     else {
-        document.getElementById("data-list").innerHTML = ""
-        await makeTable()
+        await response
+        await makeTable(true) // chce przekazac cokolwiek, zeby zrobic taki warunek w funkcji
     }
 }
 
@@ -37,33 +38,21 @@ const fetchGenerateInvoiceAsync = async (id) => {
     if (!response.ok)
         return response.status
     else {
-        console.log("poszlo")
+        await response
     }
 }
-
-const fetchDownloadInvoiceAsync = async () => {
-    const options = {
-        method: "GET"
-    }
-
-    const response = await fetch("/invoices", options)
-
-    if (!response.ok)
-        return response.status
-    else {
-        // return await response.json()
-        console.log("pobrano")
-    }
-}
-
 
 document.getElementById("generate-button").addEventListener("click", fetchGenerateCarsAsync)
 
 
-const makeTable = async () => {
+const makeTable = async (isRandomGenerated) => {
     const carsData = await fetchGetAsync()
-
-    for (let i = 0; i < carsData.length; i++) {
+    console.log(carsData)
+    let addCount = 0
+    if (isRandomGenerated === true) {
+        addCount = carsData.length - 10 // nie wiem czy to sie nie psuje
+    }
+    for (let i = addCount; i < carsData.length; i++) {
         const row = document.createElement("div")
         row.classList.add("row")
 
@@ -107,9 +96,7 @@ const makeTable = async () => {
                 await fetchGenerateInvoiceAsync(carsData[i].id)
                 const downloadLink = document.createElement("a")
                 downloadLink.innerText = "pobierz"
-                downloadLink.setAttribute("href", "#")
-
-                // downloadLink.addEventListener("click", fetchDownloadInvoiceAsync)
+                downloadLink.setAttribute("href", `/invoices?id=${carsData[i].id}`)
 
                 const downloadLinkContainer = document.createElement("div")
                 downloadLinkContainer.appendChild(downloadLink)
@@ -117,7 +104,6 @@ const makeTable = async () => {
                 this.clicked = true
             }
         })
-
 
         row.appendChild(index)
         row.appendChild(uuid)
